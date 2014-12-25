@@ -1,9 +1,0 @@
-127.0.0.1 - - [25/Dec/2014:11:15:37 +0800] "GET /power HTTP/1.1" 302 - http-bio-7090-exec-1 95
-127.0.0.1 - - [25/Dec/2014:11:15:37 +0800] "GET /login HTTP/1.1" 200 2127 http-bio-7090-exec-2 562
-127.0.0.1 - - [25/Dec/2014:11:15:37 +0800] "GET /static/css/base.css HTTP/1.1" 304 - http-bio-7090-exec-3 57
-127.0.0.1 - - [25/Dec/2014:11:15:45 +0800] "POST /login/action HTTP/1.1" 302 - http-bio-7090-exec-4 48
-127.0.0.1 - - [25/Dec/2014:11:15:45 +0800] "GET /power HTTP/1.1" 404 3002 http-bio-7090-exec-5 21
-127.0.0.1 - - [25/Dec/2014:11:15:45 +0800] "GET /static/css/site.css HTTP/1.1" 404 3002 http-bio-7090-exec-6 13
-127.0.0.1 - - [25/Dec/2014:11:15:53 +0800] "GET /power/login HTTP/1.1" 404 3002 http-bio-7090-exec-7 33
-127.0.0.1 - - [25/Dec/2014:11:15:53 +0800] "GET /static/css/site.css HTTP/1.1" 404 3002 http-bio-7090-exec-8 22
-127.0.0.1 - - [25/Dec/2014:11:15:53 +0800] "GET /power/favicon.ico HTTP/1.1" 404 3002 http-bio-7090-exec-9 15
