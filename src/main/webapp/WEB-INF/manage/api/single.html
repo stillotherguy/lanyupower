@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<div class="container wrapper">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<th>URI</th>
+					<th>描述</th>
+					<th>实现类</th>
+					<th>定时属性</th>
+					<th>应用</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 文本内联 -->
+				<tr th:if="${api} != null"  th:inline="text">
+					<td>[[${api.url}?:'']]</td>
+					<td>[[${api.description}?:'']]</td>
+					<td>[[${api.clazz}?:'']]</td>
+					<td><a th:href="@{/job/single/__${api.job.id}__}">[[${api.job.name}?:'']]</a></td>
+					<td><a th:href="@{/app/single/__${api.app.id}__}">[[${api.app.name}?:'']]</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<script>
+$(function(){
+	$('.header .nav li:eq(2) a').addClass('active');
+});
+</script>
+</body>
+</html>

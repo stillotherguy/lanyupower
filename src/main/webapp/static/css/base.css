@@ -1,0 +1,173 @@
+/*reset*/
+h1,h2,h3{
+	font-weight:bold;
+}
+body{
+	-webkit-text-size-adjust:none;
+	-ms-text-size-adjust:none;
+	-webkit-text-size-adjust:100%;
+	font-size:12px;
+	color:#161e21;
+	font-family:Microsoft YaHei,"微软雅黑",simsun,"宋体",Arial;
+}
+/*bootstrap fix*/
+.btn,.form-control{border-radius:2px;}
+.form-horizontal .control-label{padding-top:7px;margin-bottom:0;text-align: right;}
+.nav>li>a{border-radius:0;}
+.container{min-width:970px;}
+textarea.form-control{resize:vertical}
+.table>thead>tr>th{font-size:14px;}
+input[type="radio"], input[type="checkbox"]{margin-top:3px;}
+
+/*toolkit*/
+.mL10{
+	margin-left:10px;
+}
+
+/*LOGIN*/
+.login-wrap {
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	background:#f5f5f5;
+}
+.login-pane {
+	background:#fff;
+	padding:0 0 15px 0;
+	width:500px;
+	border:1px solid #ddd;
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:-200px;
+	margin-left:-250px;
+}
+.login-pane .form-group{
+	padding-right:30px;
+}
+
+/*导航*/
+.header {
+	height:40px;
+	width:100%;
+	background:#235FBA;
+	position:fixed;
+	z-index:500;
+}
+.header .nav {
+	font-size:14px;
+}
+.logo a{
+	float:left;
+	height:24px;
+	width:105px;
+	margin:7px 10px 0 0;
+}
+.logo h1{
+	margin:12px 40px 0 0;
+	float:left;
+	padding:0;
+	color:#fff;
+	font-size:16px;
+}
+.hd-nav > li > a{
+	padding:0 8px;
+	line-height:40px;
+	height:40px;
+	color:#cce0f5;
+}
+.hd-nav > li > a:hover{
+	background:none;
+}
+.hd-nav > li > a:hover,
+.hd-nav > li > a.active{
+	color:#fff;
+}
+.hd-nav > li > a.active{
+	background-color:#3a74cc;
+}
+.header .logout{
+	line-height:18px;
+	margin-top:7px;
+}
+.wrapper{
+	padding-top:80px;
+	padding-bottom:80px;
+}
+/*版权*/
+.footer{
+	background:#f5f5f5;
+	color:#666;
+	position:fixed;
+	width:100%;
+	bottom:0;
+	padding:10px 0;
+	border-top:1px solid #eee;
+}
+/*页标题*/
+.guide{
+	border-bottom:1px solid #4C91D6;
+	padding:10px 0;
+	margin-bottom:20px;
+}
+.guide h2{
+	margin:0;
+	font-size:14px;
+	padding-left:15px;
+	border-left:2px solid #4C91D6;
+}
+/*表单*/
+.form-pane .form-control{
+	width:300px;
+}
+.form-pane .control-label{
+	font-size:14px;
+	padding-top:6px;
+}
+/*左侧菜单*/
+.sidebar {
+}
+.sidemenu-title{
+	padding:0 10px 10px;
+	font-size:16px;
+	color:#666;
+	font-weight:bold;
+	margin-bottom:10px;
+	border-bottom:1px solid #4C91D6;
+}
+.sidemenu > li > a{
+	padding:5px 0 5px 15px;
+	border-left:2px solid #eee;
+	margin-bottom:5px;
+	color:#666;
+	font-size:14px;
+}
+.sidemenu > li.active > a{
+	color:#4C91D6;
+	border-left-color:#4C91D6;
+}
+.sidemenu > li.active:hover > a,
+.sidemenu > li > a:hover{
+	background-color:#f7f7f7 !important;
+	color:#333;
+	border-left-color:#ddd;
+}
+.sidemenu > li.active > a{
+	font-weight:bold;
+	background-color:#EEF7FF !important;
+}
+#stat{
+	float:right;
+	margin:0 !important;
+}
+
+
+
+
+
+
+
+
+

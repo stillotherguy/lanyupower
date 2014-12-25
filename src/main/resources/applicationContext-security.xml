@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+		
+	<http security="none" pattern="/favicon.ico" />
+	<http security="none" pattern="/login/401" />
+ 	<http security="none" pattern="/login/403" />
+ 	<http security="none" pattern="/login**" />
+ 	<http security="none" pattern="/css/**" />
+ 	<http security="none" pattern="/js/**" />
+ 	<http security="none" pattern="/static/css/**" />
+ 	<http security="none" pattern="/static/js/**" />
+ 	<http security="none" pattern="/static/img/**" />
+ 	<http security="none" pattern="/**.html" />
+ 	<http security="none" pattern="/" />
+ 	<http auto-config="true" use-expressions="false">
+ 		<form-login login-processing-url="/login/action" login-page="/login" 
+ 			authentication-failure-url="/login/401" default-target-url="/job" always-use-default-target="false" username-parameter="user" password-parameter="pass"/>
+ 		<intercept-url pattern="/signup" access="ROLE_ADMIN,ROLE_LEADER" />
+ 		<intercept-url pattern="/**" access="ROLE_UESR,ROLE_EMP,ROLE_ADMIN,ROLE_LEADER" />
+ 		<access-denied-handler error-page="/login/403" />
+ 		<!-- <remember-me key="" token-validity-seconds="3600" data-source-ref="dataSource"/> -->
+		<logout invalidate-session="true" logout-success-url="/login" logout-url="/logout"/>
+
+		<session-management>
+			<concurrency-control expired-url="/login?error=concurrency" max-sessions="1"/>
+		</session-management>
+		
+		<remember-me services-ref="rememberMeServices"/>
+ 	</http>
+ 	
+ 	<beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+	    <beans:property name="userDetailsService" ref="userService"/>
+	    <beans:property name="key" value="hfdahfkjasdhfsdah"/>
+	    <beans:property name="cookieName" value="jfldsajfkslfjlss" />
+	    <beans:property name="parameter" value="rememberme"/>
+	</beans:bean>
+    
+	<authentication-manager>  
+    	<authentication-provider ref="daoAuthenticationProvider">
+    	</authentication-provider>  
+	</authentication-manager> 
+	
+	<beans:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="userDetailsService" />
+		<beans:property name="passwordEncoder" ref="passwordEncoder" />
+	</beans:bean>
+	
+	<!-- <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+	
+	<bean id="passwordEncoder" class="org.jasypt.springsecurity3.authentication.encoding.PasswordEncoder">
+	  <property name="passwordEncryptor">
+	    <ref bean="jasyptPasswordEncryptor" />
+	  </property>
+	</bean> -->
+	
+	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+	
+	<beans:bean id="userDetailsService" class="cn.lanyu.user.UserService" />
+	
+	<user-service id="userService">
+		<user name="ethan" password="123456" authorities="ROLE_ADMIN" />
+	</user-service>
+</beans:beans>

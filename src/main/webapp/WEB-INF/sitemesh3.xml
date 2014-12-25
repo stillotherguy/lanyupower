@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemesh>
+  <!-- <mapping path="/index.html" decorator="/front.html"/> -->
+  <!-- <decorator name="manage" page="/manage.html">  
+  		<pattern>/job</pattern>
+        <pattern>/job/*</pattern>
+        <pattern>/stat/*</pattern>  
+        <pattern>/host/*</pattern>  
+        <pattern>/api/*</pattern>  
+        <pattern>/server/*</pattern>  
+        <pattern>/app/*</pattern>  
+        <pattern>/status/*</pattern>  
+  </decorator> -->
+  <mapping path="/job" decorator="/manage.html"/>
+  <mapping path="/stat" decorator="/manage.html"/>
+  <mapping path="/host" decorator="/manage.html"/>
+  <mapping path="/api" decorator="/manage.html"/>
+  <mapping path="/server" decorator="/manage.html"/>
+  <mapping path="/app" decorator="/manage.html"/>
+  <mapping path="/status" decorator="/manage.html"/>
+  <mapping path="/job/*" decorator="/manage.html"/>
+  <mapping path="/stat/*" decorator="/manage.html"/>
+  <mapping path="/host/*" decorator="/manage.html"/>
+  <mapping path="/api/*" decorator="/manage.html"/>
+  <mapping path="/server/*" decorator="/manage.html"/>
+  <mapping path="/app/*" decorator="/manage.html"/>
+  <mapping path="/status/*" decorator="/manage.html"/>
+  <!-- <mapping path="/login" decorator="/manage.html" exclude="true"/> -->
+<!--   <excludes>  
+ 	<pattern>/index.html</pattern>  
+  </excludes>   -->
+
+<!--   <content-processor>
+    <tag-rule-bundle class="com.something.CssCompressingBundle" />
+    <tag-rule-bundle class="com.something.LinkRewritingBundle"/>
+  </content-processor> -->
+</sitemesh>

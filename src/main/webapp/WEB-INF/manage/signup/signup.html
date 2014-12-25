@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>监控系统</title>
+<meta name="renderer" content="webkit" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/css/base.css}" />
+</head>
+<body>
+	<div th:include="fragements/header"></div>
+	<div class="login-wrap">
+		<div class="login-pane">
+			<form class="form-horizontal" role="form" th:action="@{/signup}" th:object="${command}" method="post">
+				<h3 class="text-center">用户注册</h3>
+				<!-- <hr> -->
+				<div class="form-group">
+					<label class="col-xs-2 control-label">账号(请尽量使用邮箱或手机)</label>
+					<div class="col-xs-10">
+						<input id="username" th:field="*{username}" type="text" class="form-control" placeholder="请输入账号"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label">密码</label>
+					<div class="col-xs-10">
+						<input id="password" th:field="password" type="password" class="form-control" placeholder="请输入密码"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-offset-2 col-xs-10">
+						<div class="checkbox">
+							<label>
+								<input name="conform_pwd" type="password" class="form-control" placeholder="请再次输入密码"/> 
+							</label>
+							<!-- <a href="" class="pull-right">忘记密码？</a> -->
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-offset-2 col-xs-10">
+						<div class="checkbox">
+							<label>权限
+								<select name="">
+									<option value=""></option>
+								</select> 
+							</label>
+							<!-- <a href="" class="pull-right">忘记密码？</a> -->
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label">任务</label>
+					<div class="col-xs-10">
+						<select th:field="*{authority}">
+						  <option value="ROLE_ADMIN">管理员</option>
+						  <option value="ROLE_LEADER">领导</option>
+						  <option value="ROLE_EMP">员工</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-xs-offset-2 col-xs-10">
+						<button type="submit" class="btn btn-primary">登录</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div th:include="fragements/footer"></div>
+<script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+<script>
+$(function(){
+	$('#form').validate({
+		rules: {
+			"username": {
+				required:true
+			},
+			"password": {
+				required:true
+			},
+			"authority": {
+				required:true
+			},
+			"conform_pwd": {
+				required:true,
+				equalTo:"#password" 
+			}
+		},
+		messages: {
+			"username": {
+				required:"请输入用户名"
+			},
+			"password": {
+				required:"请输入密码"
+			},
+			"authority": {
+				required:"请选择权限"
+			},
+			"conform_pwd": {
+				required:"请再次输入密码",
+				equalTo:"两次输入密码不一致" 
+			}
+		}
+	});
+});
+</script>
+</body>
+</html>

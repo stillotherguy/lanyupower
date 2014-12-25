@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+	
+	<import resource="classpath:applicationContext-security.xml"/>
+	
+	<bean id="springContext" class="cn.lanyu.base.SpringContext" lazy-init="false"/>
+	
+	<context:component-scan base-package="cn.lanyu">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	
+	<context:property-placeholder properties-ref="applicationProperties" />  
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="false" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxIdle" value="${dbcp.maxIdle}" />
+		<property name="maxActive" value="${dbcp.maxActive}" />
+		<property name="defaultAutoCommit" value="false" />
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="3600000" />
+	</bean>
+	
+	<!--TODO: <bean id="dataSource1" class="org.apache.commons.dbcp.BasicDataSource" lazy-init="false" destroy-method="close">
+		<property name="driverClassName" value="${jdbc1.driver}" />
+		<property name="url" value="${jdbc1.url}" />
+		<property name="username" value="${jdbc1.username}" />
+		<property name="password" value="${jdbc1.password}" />
+		<property name="maxIdle" value="${dbcp.maxIdle}" />
+		<property name="maxActive" value="${dbcp.maxActive}" />
+		<property name="defaultAutoCommit" value="false" />
+		<property name="timeBetweenEvictionRunsMillis" value="3600000" />
+		<property name="minEvictableIdleTimeMillis" value="3600000" />
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource1"/>
+	</bean> -->
+	
+	<util:properties id="hibernateProperties" location="classpath:hibernate.properties" />
+	
+	<!-- hibernate Entity Manager 配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource"/> 
+        <property name="hibernateProperties" ref="hibernateProperties" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"/>
+	</bean>
+
+	<!-- Hibernate 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" />
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    	
+	<!-- 使用annotation定义事务 -->
+	<tx:annotation-driven />
+	
+	<task:annotation-driven executor="monitorExecutor" scheduler="monitorScheduler"/>
+	
+	<task:executor id="monitorExecutor" pool-size="10"/>
+	
+	<task:scheduler id="monitorScheduler" pool-size="10"/>
+	
+	<beans profile="develop">  
+		<util:properties id="applicationProperties" location="classpath:application-develop.properties" />
+    </beans>  
+    <beans profile="production">  
+		<util:properties id="applicationProperties" location="classpath:application-production.properties" />
+    </beans>  
+</beans>
