@@ -18,10 +18,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.common.collect.Lists;
 // TODO
 @Entity
 @Table(name = "client")
+@JsonInclude(Include.NON_NULL)
 public class Client implements UserDetails{
 	private static final long serialVersionUID = 1L;
 	

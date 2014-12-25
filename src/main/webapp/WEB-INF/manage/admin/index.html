@@ -40,8 +40,8 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
 				客户档案检索：<span sec:authentication="name"></span><br/>
-				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户地址：<input type="text" id="address"/><br/>
-				用户姓名：<input type="text" id="card"/>用户手机：<input type="text" id="address"/><br/>
+				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
+				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/><br/>
 				<table>
 					<tr>
 						<td>序号</td>
@@ -51,8 +51,8 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 						<td>固定电话</td>
 						<td>地址</td>
 					</tr>
-					<tr>
-						<td></td>
+					<tr id="result">
+						<td>1</td>
 						<td>用户卡号</td>
 						<td>姓名</td>
 						<td>手机号码</td>
@@ -71,44 +71,31 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
 <script>
 $(function(){
-	$('.header .nav li:eq(2) a').addClass('active');
-	
-	$('#form').validate({
-		rules: {
-			"url": {
-				required:true
-			},
-			"host": {
-				required:true
-			},
-			"clazz": {
-				required:true
-			},
-			"app": {
-				required:true
-			},
-			"job": {
-				required:true
-			}
-		},
-		messages: {
-			"url": {
-				required:"请输入URI"
-			},
-			"host": {
-				required:"请选择host或先插入host"
-			},
-			"clazz": {
-				required:"请输入全限定类名"
-			},
-			"app": {
-				required:"请选择关联应用"
-			},
-			"job": {
-				required:"请选择关联计时"
-			}
+	$('#card').click(function(){
+		var no = $(this).val();
+		if(!no){
+			alert('请输入卡号');
+			return;
 		}
-	});
+		$.ajax({
+			url:'/admin/card/' + no,
+			dataType:'json',
+			type:'get',
+			contentType:'application/json; charset=UTF-8',
+			success:function(data){
+				if(data){
+					//$('#result td:eq(0)').text(data.no);
+					$('#result td:eq(1)').text(data.no);
+					$('#result td:eq(2)').text(data.name);
+					$('#result td:eq(3)').text(data.phone);
+					$('#result td:eq(4)').text(data.no);
+					$('#result td:eq(5)').text(data.address);
+				}
+			}
+		});
+		
+		
+	})
 });
 </script>
 </body>
