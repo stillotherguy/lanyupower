@@ -27,6 +27,8 @@ public class Insurance {
 	private String contact;
 	private String phone;
 	private String comment;
+	private boolean done;
+	private boolean feedback;
 	
 	public long getId() {
 		return id;
@@ -83,6 +85,24 @@ public class Insurance {
 	public void setClient(Client client) {
 		this.client = client;
 	}
+	
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
+
+	public boolean isFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(boolean feedback) {
+		this.feedback = feedback;
+	}
+
+
 
 	private static enum Type {
 		LEAK("漏水"),HEATMETER("热表故障"),COLD("无法升温"),OTHER("其他");

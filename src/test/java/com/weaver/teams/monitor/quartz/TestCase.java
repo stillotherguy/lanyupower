@@ -3,10 +3,8 @@ package com.weaver.teams.monitor.quartz;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
-import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.SchedulerFactory;
@@ -15,9 +13,6 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.TriggerKey;
 import org.quartz.impl.StdSchedulerFactory;
-import org.springframework.util.Assert;
-
-import cn.lanyu.process.passport.RestLoginTest;
 
 public class TestCase {
 	
@@ -44,7 +39,7 @@ public class TestCase {
 		TimeUnit.DAYS.sleep(1);
 	}
 	
-	//模拟失败重试任务
+	//妯℃嫙澶辫触閲嶈瘯浠诲姟
 	@Test
 	public void testContext() throws SchedulerException, InterruptedException {
 		SchedulerFactory sf = new StdSchedulerFactory();
@@ -79,8 +74,8 @@ public class TestCase {
 	}
 	
 	/**
-	 * 模拟是否失败后重试使用的是同一个job实例
-	 * 是的
+	 * 妯℃嫙鏄惁澶辫触鍚庨噸璇曚娇鐢ㄧ殑鏄悓涓�涓猨ob瀹炰緥
+	 * 鏄殑
 	 * @throws Exception
 	 */
 	@Test
@@ -100,8 +95,8 @@ public class TestCase {
 	}
 	
 	/**
-	 * 测试reschedule方法(注意初始delay)
-	 * 如果reschedule方法调用之后，旧的trigger将销毁，为null（如果没有其他job引用）
+	 * 娴嬭瘯reschedule鏂规硶(娉ㄦ剰鍒濆delay)
+	 * 濡傛灉reschedule鏂规硶璋冪敤涔嬪悗锛屾棫鐨則rigger灏嗛攢姣侊紝涓簄ull锛堝鏋滄病鏈夊叾浠杍ob寮曠敤锛�
 	 * 
 	 * @throws Exception
 	 */

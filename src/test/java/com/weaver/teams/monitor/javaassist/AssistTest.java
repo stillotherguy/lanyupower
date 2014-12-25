@@ -18,10 +18,10 @@ import org.junit.Test;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.util.Assert;
 
-import cn.lanyu.JobStarter;
+//import cn.lanyu.JobStarter;
 
 import com.google.common.collect.Lists;
-import com.weaver.teams.monitor.domain.statistic.Statistic;
+//import com.weaver.teams.monitor.domain.statistic.Statistic;
 
 public class AssistTest {
 	//@Test
@@ -83,7 +83,7 @@ public class AssistTest {
 		
 		try {
 			pool.insertClassPath(new ClassClassPath(AbstractBean.class));
-			pool.insertClassPath(new ClassClassPath(Statistic.class));
+			//pool.insertClassPath(new ClassClassPath(Statistic.class));
 			pool.importPackage("java.util");
 			pool.importPackage("com.google.common.collect");
 			pool.importPackage("com.fasterxml.jackson.databind");

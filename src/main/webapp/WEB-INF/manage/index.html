@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>蓝煜热力客户信息服务管理系统</title>
 <meta charset="UTF-8">
@@ -10,35 +10,57 @@
 <link rel="shortcut icon" th:href="/favicon.ico" />
 <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="/css/base.css" />
-<sitemesh:write property='head'/>
+<!-- <sitemesh:write property='head'/> -->
 </head>
 <body>
-	<div class="header">
-		<div class="container">
-			<div class="logo pull-left">
-				<a title="蓝煜热力客户信息服务管理系统"></a><h1>蓝煜热力客户信息服务管理系统</h1>
-			</div>
-			<ul class="nav nav-pills pull-left hd-nav">
-				<li><a class="active" href="">菜单</a></li>
-				<li><a href="">菜单</a></li>
-				<li><a href="">菜单</a></li>
-				<li><a href="">菜单</a></li>
-				<li><a href="">菜单</a></li>
-			</ul>
-			<a class="logout pull-right label label-primary">退出</a>
-		</div>
-	</div>
+	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
 		<div class="sidebar col-xs-2">
 			<div class="sidemenu-title">左侧标题</div>
 			<ul class="nav nav-pills nav-stacked sidemenu">
-				<li class="active"><a href="">菜单</a></li>
-				<li><a href="">菜单</a></li>
-				<li><a href="">菜单</a></li>
+				<li class="active"><a href="">未处理报修(2)</a></li>
+				<li><a href="">已经处理未回访(2)</a></li>
+				<li><a href="">已经处理报修(2)</a></li>
 			</ul>
 		</div>
+		<!-- 
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+  This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_USER')">
+  This content is only shown to users.
+</div>
+The attribute sec:authentication is used to print logged user name and roles:
+
+?
+Logged user: <span sec:authentication="name">Bob</span>
+Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+		
+		 -->
 		<div class="main col-xs-10">
-			<div class="chart-pane"><sitemesh:write property='body'/></div>
+			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
+				客户档案检索：姓名<br/>
+				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户地址：<input type="text" id="address"/><br/>
+				用户姓名：<input type="text" id="card"/>用户手机：<input type="text" id="address"/><br/>
+				<table>
+					<tr>
+						<td>序号</td>
+						<td>用户卡号</td>
+						<td>姓名</td>
+						<td>手机号码</td>
+						<td>固定电话</td>
+						<td>地址</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>用户卡号</td>
+						<td>姓名</td>
+						<td>手机号码</td>
+						<td>固定电话</td>
+						<td>地址</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 	<div class="footer">
