@@ -16,7 +16,6 @@ public class IndexController {
 			Authority authority = Authority.valueOf(auth.getAuthority());
 			switch(authority) {
 			case ROLE_ADMIN:
-				
 				return "admin/index";
 			case ROLE_EMP:
 				return "emp/index";
