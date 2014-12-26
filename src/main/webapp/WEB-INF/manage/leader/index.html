@@ -16,11 +16,18 @@
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
 		<div class="sidebar col-xs-2">
-			<div class="sidemenu-title">左侧标题</div>
+			<div class="sidemenu-title">统计报表</div>
 			<ul class="nav nav-pills nav-stacked sidemenu">
-				<li class="active"><a href="">未处理报修(2)</a></li>
-				<li><a href="">已经处理未回访(2)</a></li>
-				<li><a href="">已经处理报修(2)</a></li>
+				<!-- 按人员姓名统计（含客服人员及维修人员） -->
+				<li class="active"><a href="">满意度统计</a></li>
+				<li><a href="">维修时长统计</a></li>
+				<li><a href="">投诉统计</a></li>
+				<!-- 
+				统计1、满意度的数量，2、各种满意度的人员排名，图表形式体现
+				统计1、时间的数量，2、各种时长的人员排名，图表形式体现
+				统计1、投诉的数量，2、各种投诉的人员排名，图表形式体现
+				统计各类人员处理工单数量
+				 -->
 			</ul>
 		</div>
 		<!-- 
@@ -39,29 +46,10 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 		 -->
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
-				客户档案检索：<span sec:authentication="name"></span><br/>
-				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/><br/>
-				<table>
-					<tr>
-						<td>序号</td>
-						<td>用户卡号</td>
-						<td>姓名</td>
-						<td>手机号码</td>
-						<td>固定电话</td>
-						<td>地址</td>
-						<td>操作</td>
-					</tr>
-					<tr id="result">
-						<td>1</td>
-						<td>用户卡号</td>
-						<td>姓名</td>
-						<td>手机号码</td>
-						<td>固定电话</td>
-						<td>地址</td>
-						<td><a href="">详细信息</a><a href="">报修</a></td>
-					</tr>
-				</table>
+				欢迎领导：<span sec:authentication="name"></span><br/>
+				
+				
+				。。。
 			</div>
 		</div>
 	</div>

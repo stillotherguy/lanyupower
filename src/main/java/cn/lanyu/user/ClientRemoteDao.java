@@ -19,7 +19,7 @@ public class ClientRemoteDao {
 	
 	
 	@Transactional
-	public Client getClient(String id) {
+	public Client getClientByUsername(String username) {
 		final String sql = "select "
 							+ "t2.F111_01,t2.F111_41,t2.F111_33,t2.F111_05,t2.F111_08,t2.F111_34,t2.F111_03,"
 						 	+ "t2.F111_07,t2.F111_10,t2.F111_35,t2.F111_36,t2.F111_32,t2.F111_37,"
@@ -37,15 +37,43 @@ public class ClientRemoteDao {
 						 			+ "from f111 "
 						 			+ "left outer join F12F201411 on F111.F111_01=F12F201411.F12_03) as t1 "
 						 			+ "left outer join f101 on t1.F111_01=F101.F101_01) as t2 "
-						 			+ "left outer join F12f201412 on t2.F111_01=F12F201412.f12_03";
-		return jdbcTemplate.query(sql, new ResultSetExtractor<Client>() {
+						 			+ "left outer join F12f201412 on t2.F111_01=F12F201412.f12_03 and t2.f111_01=";
+		return jdbcTemplate.query(sql, getResultExtractor());
+	}
+
+
+	private ResultSetExtractor<Client> getResultExtractor() {
+		return new ResultSetExtractor<Client>() {
 
 			@Override
 			public Client extractData(ResultSet rs) throws SQLException, DataAccessException {
-				// TODO 
 				return new Client();
 			}
 			
-		});
+		};
+	}
+
+
+	public Client getClientByCard(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Client getClientByAddress(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Client getClientByName(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public Client getClientByMobile(String param) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

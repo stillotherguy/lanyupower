@@ -27,4 +27,28 @@ public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 		return queryForObject("from Client c where c.phone=?", new Object[]{phoneno});
 	}
 
+	@Override
+	public Client getByCard(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Client getByAddress(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Client getByName(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Client getByMobile(String param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

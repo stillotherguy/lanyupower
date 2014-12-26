@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
 		Client client = clientDao.getByUserName(username);
 		if(client == null) {
 			//从远程取
-			client = remoteDao.getClient(username);
+			client = remoteDao.getClientByUsername(username);
 			if(client != null) {
 				clientDao.insert(client);
 				return client;
@@ -52,6 +52,62 @@ public class UserService implements UserDetailsService {
 	public void signup(User user) {
 		user.setPassword(encoder.encode(user.getPassword()));
 		userDao.insert(user);
+	}
+
+	public Client getByCard(String param) {
+		//先从本地取
+		Client client = clientDao.getByCard(param);
+		if(client == null) {
+			//从远程取
+			client = remoteDao.getClientByCard(param);
+			if(client != null) {
+				clientDao.insert(client);
+				return client;
+			}
+		}
+		return null;
+	}
+
+	public Client getByAddress(String param) {
+		//先从本地取
+		Client client = clientDao.getByAddress(param);
+		if(client == null) {
+			//从远程取
+			client = remoteDao.getClientByAddress(param);
+			if(client != null) {
+				clientDao.insert(client);
+				return client;
+			}
+		}
+		return null;
+	}
+
+	public Client getByName(String param) {
+		//先从本地取
+		Client client = clientDao.getByName(param);
+		if(client == null) {
+			//从远程取
+			client = remoteDao.getClientByName(param);
+			if(client != null) {
+				clientDao.insert(client);
+				return client;
+			}
+		}
+		return null;
+	}
+
+	public Client getByMobile(String param) {
+		//先从本地取
+		Client client = clientDao.getByMobile(param);
+		if(client == null) {
+			//从远程取
+			client = remoteDao.getClientByMobile(param);
+			if(client != null) {
+				clientDao.insert(client);
+				return client;
+			}
+		}
+		return null;
 	}
 
 }
