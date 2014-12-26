@@ -17,6 +17,7 @@ public class Insurance {
 	@Id
 	@GeneratedValue
 	private long id;
+	private String name;
 	private Type itype;
 	@ManyToOne(targetEntity = User.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "USER_ID",foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
@@ -100,6 +101,14 @@ public class Insurance {
 
 	public void setFeedback(boolean feedback) {
 		this.feedback = feedback;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	private static enum Type {

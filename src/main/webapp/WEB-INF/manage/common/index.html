@@ -12,16 +12,18 @@
 <link type="text/css" rel="stylesheet" href="/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
-<body th:inline="text">
+<body>
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
 		<div class="sidebar col-xs-2">
-			<div class="sidemenu-title">左侧标题</div>
-			<ul class="nav nav-pills nav-stacked sidemenu">
-				<li class="active"><a href="">未处理报修(2)</a></li>
+			<div class="sidemenu-title">用户报修</div>
+			<div sec:authorize="hasRole('ROLE_USER')">
+			  <ul class="nav nav-pills nav-stacked sidemenu">
+				<li class="active"><a href="/report/unfinish">未处理报修(2)</a></li>
 				<li><a href="">已经处理未回访(2)</a></li>
 				<li><a href="">已经处理报修(2)</a></li>
-			</ul>
+			  </ul>
+			</div>
 		</div>
 		<!-- 
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -44,22 +46,24 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/><br/>
 				<table>
 					<tr>
-						<td>序号</td>
-						<td>用户卡号</td>
-						<td>姓名</td>
-						<td>手机号码</td>
-						<td>固定电话</td>
-						<td>地址</td>
-						<td>操作</td>
+						<td>保修单名称</td>
+						<td>保修单类型</td>
+						<td>客户</td>
+						<td>负责人</td>
+						<td>紧急联系人</td>
+						<td>紧急联系人电话</td>
+						<td>是否完成</td>
+						<td>是否已回访</td>
 					</tr>
-					<tr id="result">
-						<td>1</td>
-						<td>用户卡号</td>
-						<td>姓名</td>
-						<td>手机号码</td>
-						<td>固定电话</td>
-						<td>地址</td>
-						<td><a href="">详细信息</a><a href="">报修</a></td>
+					<tr th:each="item,stat : ${insuranceList}" th:if="${not #lists.isEmpty(insuranceList)}" id="${item.id}">
+						<td>[[${item.name}]]</td>
+						<td>[[${item.itype.desc}]]</td>
+						<td>[[${item.client.name}]]</td>
+						<td>[[${item.user.username}]]</td>
+						<td>[[${item.contact}]]</td>
+						<td>[[${item.phone}]]</td>
+						<td>[[${item.finished}?'已完成':'未完成']]</td>
+						<td>[[${item.feedback}?'已回访':'未回访']]</td>
 					</tr>
 				</table>
 			</div>

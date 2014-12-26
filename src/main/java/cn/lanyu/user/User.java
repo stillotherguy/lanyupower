@@ -34,6 +34,7 @@ public class User implements UserDetails, CredentialsContainer {
 	@Id
 	@GeneratedValue
 	private long id;
+	private String name;
     private String password;
     private String username;
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "user", fetch = FetchType.LAZY)
@@ -173,7 +174,15 @@ public class User implements UserDetails, CredentialsContainer {
         return username.hashCode();
     }
 
-    @Override
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
         				.add("username", username)
