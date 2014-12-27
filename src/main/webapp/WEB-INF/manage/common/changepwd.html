@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>蓝煜热力客户信息服务管理系统</title>
+<meta charset="UTF-8">
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<link rel="shortcut icon" th:href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/css/base.css" />
+<!-- <sitemesh:write property='head'/> -->
+</head>
+<body th:inline="text">
+	<div th:include="fragements/header"></div>
+	<div id="content">
+		<form id="form">
+			<span id="msg"></span>秒后跳转<br/>
+			用户名：<span th:if="${logined}" sec:authentication="name"></span><br/>
+			<input th:if="${!logined}" type="text" name="username" />
+			密       码：<input type="password" name="pwd" id="pwd"/><br/>
+			确认密码：<input type="password" name="pwdconfirm" id="pwdconfirm"/>
+			<input type="submit" name="提交" />
+		</form>
+	</div>
+	<div class="footer">
+		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
+	</div>
+<script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+<script>
+function ticker(count){
+	window.setTimeout(function(){
+		count--;
+		if(count > 0){
+			$('#msg').text(count);
+			ticker(count);
+		}else{
+			window.location.href="/index"
+		}
+	},1000);
+}
+$(function(){
+	$('#form').validate({
+		rules: {
+			"pwd": {
+				required:true,
+				minlenth:6
+			},
+			"pwdconfirm": {
+				required:true,
+				minlenth:6,
+				equalTo:"#pwd" 
+			}
+		},
+		messages: {
+			"pwd": {
+				required:"请输入用户名",
+				minlenth:"密码至少6位"
+			},
+			"pwdconfirm": {
+				required:"请输入密码",
+				minlenth:"密码至少6位",
+				equalTo:"两次输入密码不一致" 
+			}
+		}
+	}).submit(function(){
+		$.ajax({
+			url:"/pwd/change",
+			dataType:'json',
+			type:'post',
+			contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+			success:function(data){
+				if(data){
+					if(data){
+						$('#content').html('密码修改成功');
+					}else{
+						$('#msg').text('密码修改失败，请重试');
+					}
+					
+				}
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>
