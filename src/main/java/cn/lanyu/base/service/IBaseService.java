@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import cn.lanyu.base.page.Page;
 
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 public interface IBaseService <T>{
 	List<T> queryAll();
 	

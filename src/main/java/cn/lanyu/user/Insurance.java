@@ -111,7 +111,7 @@ public class Insurance {
 		this.name = name;
 	}
 
-	private static enum Type {
+	public static enum Type {
 		LEAK("漏水"),HEATMETER("热表故障"),COLD("无法升温"),OTHER("其他");
 		
 		private String desc;

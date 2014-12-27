@@ -1,11 +1,13 @@
 package cn.lanyu.user;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.lanyu.base.dao.GenericDao;
 
 
 @Repository
+@Transactional
 public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 
 	public ClientDaoImpl() {
@@ -28,27 +30,18 @@ public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 	}
 
 	@Override
-	public Client getByCard(String param) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client getByAddress(String address) {
+		return queryForObject("from Client c where c.address=?", new Object[]{address});
 	}
 
 	@Override
-	public Client getByAddress(String param) {
-		// TODO Auto-generated method stub
-		return null;
+	public Client getByMobile(String mobile) {
+		return queryForObject("from Client c where c.phone=?", new Object[]{mobile});
 	}
 
 	@Override
-	public Client getByName(String param) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Client getByMobile(String param) {
-		// TODO Auto-generated method stub
-		return null;
+	public void changePwd(String username, String pwd) {
+		updateBySql("update client set password=? where no=?", new Object[]{pwd, username});
 	}
 
 }

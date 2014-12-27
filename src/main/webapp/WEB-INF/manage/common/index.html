@@ -12,18 +12,21 @@
 <link type="text/css" rel="stylesheet" href="/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
-<body>
+<body th:inline="text">
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
 		<div class="sidebar col-xs-2">
-			<div class="sidemenu-title">用户报修</div>
-			<div sec:authorize="hasRole('ROLE_USER')">
-			  <ul class="nav nav-pills nav-stacked sidemenu">
-				<li class="active"><a href="/report/unfinish">未处理报修(2)</a></li>
-				<li><a href="">已经处理未回访(2)</a></li>
-				<li><a href="">已经处理报修(2)</a></li>
-			  </ul>
-			</div>
+			<div class="sidemenu-title">用户报修受理</div>
+			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="!hasRole('ROLE_LEADER')">
+				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
+				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
+				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
+			</ul>
+			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_LEADER')">
+				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
+				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
+				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
+			</ul>
 		</div>
 		<!-- 
 		<div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -41,31 +44,62 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 		 -->
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
-				客户档案检索：<span sec:authentication="name"></span><br/>
+				欢迎：<span sec:authentication="name"></span><br/>
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+				客户档案检索：
 				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/><br/>
+				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
 				<table>
 					<tr>
-						<td>保修单名称</td>
-						<td>保修单类型</td>
-						<td>客户</td>
-						<td>负责人</td>
-						<td>紧急联系人</td>
-						<td>紧急联系人电话</td>
-						<td>是否完成</td>
-						<td>是否已回访</td>
+						<td>序号</td>
+						<td>用户卡号</td>
+						<td>姓名</td>
+						<td>手机号码</td>
+						<td>固定电话</td>
+						<td>地址</td>
+						<td>操作</td>
 					</tr>
-					<tr th:each="item,stat : ${insuranceList}" th:if="${not #lists.isEmpty(insuranceList)}" id="${item.id}">
-						<td>[[${item.name}]]</td>
-						<td>[[${item.itype.desc}]]</td>
-						<td>[[${item.client.name}]]</td>
-						<td>[[${item.user.username}]]</td>
-						<td>[[${item.contact}]]</td>
-						<td>[[${item.phone}]]</td>
-						<td>[[${item.finished}?'已完成':'未完成']]</td>
-						<td>[[${item.feedback}?'已回访':'未回访']]</td>
+					<tr id="result">
+						<td>1</td>
+						<td>用户卡号</td>
+						<td>姓名</td>
+						<td>手机号码</td>
+						<td>固定电话</td>
+						<td>地址</td>
+						<td><a href="">详细信息</a><a href="">报修</a></td>
 					</tr>
 				</table>
+				</div>
+				<div sec:authorize="hasRole('ROLE_EMP')">
+				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
+				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
+				</div>
+				<div sec:authorize="hasRole('ROLE_USER')">[[client]][[allEmp]]
+				<table>
+					<tr>
+						<td>序号</td>
+						<td>用户卡号</td>
+						<td>姓名</td>
+						<td>手机号码</td>
+						<td>固定电话</td>
+						<td>地址</td>
+						<td>操作</td>
+					</tr>
+					<tr id="result">
+						<td>1</td>
+						<td>用户卡号</td>
+						<td>姓名</td>
+						<td>手机号码</td>
+						<td>固定电话</td>
+						<td>地址</td>
+						<td><a href="">详细信息</a><a href="">报修</a></td>
+					</tr>
+				</table>
+				</div>
+				<div sec:authorize="hasRole('ROLE_LEADER')">
+				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
+				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
+				</div>
 			</div>
 		</div>
 	</div>

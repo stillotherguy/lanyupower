@@ -31,44 +31,36 @@ public class Client implements UserDetails{
 	@Id
 	@GeneratedValue
 	private long id;
-	@Column(name = "F111_01")
 	private String no;
-	@Column(name = "F111_33")
 	private String name;
 	/**
 	 * 是否开户
 	 */
-	@Column(name = "F111_05")
-	private int state;
+	private String state;
 	/**
 	 * 发卡次数
 	 */
-	@Column(name = "F111_08")
 	private int cardtotal;
-	@Column(name = "F111_34")
 	private String address;
 	/**
 	 * 计费类型
 	 */
-	@Column(name = "F111_03")
 	private String chargetype;
 	/**
 	 * 上年度缴费
 	 */
-	private String lastyear;
+	private String lastyearcharge;
 	/**
 	 * 本年度缴费
 	 */
-	private String thisyear;
+	private String thisyearcharge;
 	/**
 	 * 结算户类型
 	 */
-	@Column(name = "F111_07")
 	private String usertype;
 	/**
 	 * 用户总数
 	 */
-	@Column(name = "F111_10")
 	private int totaluser;
 	/**
 	 * 关联数量
@@ -77,27 +69,22 @@ public class Client implements UserDetails{
 	/**
 	 * 身份证号
 	 */
-	@Column(name = "F111_35")
 	private String identity;
 	/**
 	 * 单位
 	 */
-	@Column(name = "F111_36")
 	private String organization;
 	/**
 	 * 联系人
 	 */
-	@Column(name = "F111_32")
 	private String contact;
 	/**
 	 * 联系电话
 	 */
-	@Column(name = "F111_37")
 	private String phone;
 	/**
 	 * 签约银行
 	 */
-	@Column(name = "F111_62")
 	private String bank;
 	/**
 	 * 上月热表数
@@ -113,7 +100,7 @@ public class Client implements UserDetails{
 	private String heatarea;
 	private String password;
 	@Enumerated(EnumType.STRING)
-	private Authority authority;
+	private Authority authority = Authority.ROLE_USER;
 	/**
 	 * 基本热价
 	 */
@@ -145,11 +132,11 @@ public class Client implements UserDetails{
 		this.name = name;
 	}
 	
-	public int getState() {
+	public String getState() {
 		return state;
 	}
 	
-	public void setState(int state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 	
@@ -177,22 +164,22 @@ public class Client implements UserDetails{
 		this.chargetype = chargetype;
 	}
 	
-	public String getLastyear() {
-		return lastyear;
+	public String getLastyearcharge() {
+		return lastyearcharge;
 	}
-	
-	public void setLastyear(String lastyear) {
-		this.lastyear = lastyear;
+
+	public void setLastyearcharge(String lastyearcharge) {
+		this.lastyearcharge = lastyearcharge;
 	}
-	
-	public String getThisyear() {
-		return thisyear;
+
+	public String getThisyearcharge() {
+		return thisyearcharge;
 	}
-	
-	public void setThisyear(String thisyear) {
-		this.thisyear = thisyear;
+
+	public void setThisyearcharge(String thisyearcharge) {
+		this.thisyearcharge = thisyearcharge;
 	}
-	
+
 	public String getUsertype() {
 		return usertype;
 	}

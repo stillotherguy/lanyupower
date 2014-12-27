@@ -1,5 +1,7 @@
 package cn.lanyu.user;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +30,10 @@ public class UserService implements UserDetailsService {
 			return new User("admin", encoder.encode("admin@123"), Authority.ROLE_ADMIN);
 		}
 		//先从本地取
-		Client client = clientDao.getByUserName(username);
+		Client client = clientDao.getByCardno(username);
 		if(client == null) {
 			//从远程取
-			client = remoteDao.getClientByUsername(username);
+			client = remoteDao.getClientByNo(username);
 			if(client != null) {
 				clientDao.insert(client);
 				return client;
@@ -54,12 +56,12 @@ public class UserService implements UserDetailsService {
 		userDao.insert(user);
 	}
 
-	public Client getByCard(String param) {
+	public Client getByNo(String param) {
 		//先从本地取
-		Client client = clientDao.getByCard(param);
+		Client client = clientDao.getByCardno(param);
 		if(client == null) {
 			//从远程取
-			client = remoteDao.getClientByCard(param);
+			client = remoteDao.getClientByNo(param);
 			if(client != null) {
 				clientDao.insert(client);
 				return client;
@@ -84,10 +86,10 @@ public class UserService implements UserDetailsService {
 
 	public Client getByName(String param) {
 		//先从本地取
-		Client client = clientDao.getByName(param);
+		Client client = clientDao.getByUserName(param);
 		if(client == null) {
 			//从远程取
-			client = remoteDao.getClientByName(param);
+			client = remoteDao.getClientByUsername(param);
 			if(client != null) {
 				clientDao.insert(client);
 				return client;
@@ -108,6 +110,14 @@ public class UserService implements UserDetailsService {
 			}
 		}
 		return null;
+	}
+	
+	public void changePwd(String username, String pwd){
+		clientDao.changePwd(username, pwd);
+	}
+	
+	public List<User> getAllEmp() {
+		return userDao.getAllEmp();
 	}
 
 }

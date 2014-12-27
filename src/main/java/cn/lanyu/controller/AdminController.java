@@ -22,11 +22,11 @@ public class AdminController {
 	public Client index(@PathVariable String searchType, @PathVariable String param){
 		switch(searchType){
 		case "card":
-			return userService.getByCard(param);
+			return userService.getByNo(param);
 		case "address":
 			return userService.getByAddress(param);
 		case "phone":
-			return userService.getByCard(param);
+			return userService.getByMobile(param);
 		case "name":
 			return userService.getByName(param);
 		case "mobile":

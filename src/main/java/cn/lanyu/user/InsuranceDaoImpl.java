@@ -75,4 +75,37 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.username=?", new Object[]{true, true, username}, page);
 	}
 
+	@Override
+	public int countUnfinishedByClientno(String clientno) {
+		return queryForInt("select count(*) from Insurance i where i.finished=? and i.client.no=?", new Object[]{false, clientno});
+	}
+
+	@Override
+	public int countFinishedWithoutFeedbackByClientno(String clientno) {
+		return queryForInt("select count(*) from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, false, clientno});
+
+	}
+
+	@Override
+	public int countFinishedWithFeedbackByClientno(String clientno) {
+		return queryForInt("select count(*) from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, true, clientno});
+
+	}
+
+	@Override
+	public List<Insurance> pageUnfinishedByClientno(String clientno, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.client.no=?", new Object[]{false, clientno}, page);
+	}
+
+	@Override
+	public List<Insurance> pageFinishedWithoutFeedbackByClientno(String clientno, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, false, clientno}, page);
+	}
+
+	@Override
+	public List<Insurance> pageFinishedWithFeedbackByClientno(String clientno, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, true, clientno}, page);
+
+	}
+
 }
