@@ -17,6 +17,7 @@ public class IndexController {
 	@Autowired
 	private UserService userService;
 	
+	@RequestMapping
 	public String index(Model model) {
 		final GrantedAuthority auth = UserContext.getAuthority();
 		if(auth.getAuthority().equals("ROLE_USER")){

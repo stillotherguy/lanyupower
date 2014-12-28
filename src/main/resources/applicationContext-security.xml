@@ -19,7 +19,7 @@
  	<http security="none" pattern="/" />
  	<http auto-config="true" use-expressions="false">
  		<form-login login-processing-url="/login/action" login-page="/login" 
- 			authentication-failure-url="/login/401" default-target-url="/job" always-use-default-target="false" username-parameter="user" password-parameter="pass"/>
+ 			authentication-failure-url="/login/401" default-target-url="/" always-use-default-target="false" username-parameter="user" password-parameter="pass"/>
  		<intercept-url pattern="/signup" access="ROLE_ADMIN,ROLE_LEADER" />
  		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
  		<intercept-url pattern="/**" access="ROLE_UESR,ROLE_EMP,ROLE_ADMIN,ROLE_LEADER" />
@@ -35,7 +35,7 @@
  	</http>
  	
  	<beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
-	    <beans:property name="userDetailsService" ref="userService"/>
+	    <beans:property name="userDetailsService" ref="userDetailsService"/>
 	    <beans:property name="key" value="hfdahfkjasdhfsdah"/>
 	    <beans:property name="cookieName" value="jfldsajfkslfjlss" />
 	    <beans:property name="parameter" value="rememberme"/>
@@ -61,9 +61,12 @@
 	
 	<beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
 	
-	<beans:bean id="userDetailsService" class="cn.lanyu.user.UserService" />
+	<beans:bean id="userDetailsService" class="cn.lanyu.user.CustomUserDetailsService" />
 	
-	<user-service id="userService">
+	<beans:bean id="defaultWebSecurityExpressionHandler" class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+	
+<!-- 	<user-service id="userService">
 		<user name="ethan" password="123456" authorities="ROLE_ADMIN" />
 	</user-service>
-</beans:beans>
+ -->
+ </beans:beans>

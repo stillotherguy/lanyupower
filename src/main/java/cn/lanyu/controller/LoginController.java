@@ -8,27 +8,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cn.lanyu.user.UserContext;
+
 @Controller
 @RequestMapping({"/login","/index.xhtml"})
 public class LoginController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String index() {
-		if(checkAuthentication()) {
+		if(UserContext.isAuthenticated()) {
 			return "redirect:/index";
 		}
 		return "login/login";
 	}
-
-	private boolean checkAuthentication() {
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		return authentication != null && authentication.isAuthenticated();
-	}
 	
 	@RequestMapping(value = "/{message}", method = RequestMethod.GET)
 	public String error(RedirectAttributes model, @PathVariable String message) {
-		if(checkAuthentication()) {
+		if(UserContext.isAuthenticated()) {
 			return "redirect:/index";
 		}
 		switch(message) {

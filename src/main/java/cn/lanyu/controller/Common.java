@@ -1,9 +1,12 @@
 package cn.lanyu.controller;
 
-import org.apache.commons.lang3.StringUtils;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.google.common.collect.Lists;
 
 import cn.lanyu.user.Authority;
 import cn.lanyu.user.InsuranceDao;
@@ -15,7 +18,7 @@ public class Common {
 	private InsuranceDao insuranceDao;
 	
 	@ModelAttribute("allcount")
-    public int[] count() {
+    public List<Integer> count() {
 		if(!UserContext.isAuthenticated()){
 			return null;
 		}
@@ -23,15 +26,15 @@ public class Common {
 		final String username = UserContext.getUsername();
 		switch(authority){
 		case ROLE_ADMIN:
-			return new int[]{insuranceDao.countUnfinished(), insuranceDao.countFinishedWithoutFeedback(), insuranceDao.countFinishedWithFeedback()};
+			return Lists.newArrayList(insuranceDao.countUnfinished(), insuranceDao.countFinishedWithoutFeedback(), insuranceDao.countFinishedWithFeedback());
 		case ROLE_EMP:
-			return new int[]{insuranceDao.countUnfinishedByUsername(username), insuranceDao.countFinishedWithoutFeedbackByUsername(username), insuranceDao.countFinishedWithFeedbackByUsername(username)};
+			return Lists.newArrayList(insuranceDao.countUnfinishedByUsername(username), insuranceDao.countFinishedWithoutFeedbackByUsername(username), insuranceDao.countFinishedWithFeedbackByUsername(username));
 		case ROLE_LEADER:
 			break;
 		case ROLE_USER:
-			return new int[]{insuranceDao.countUnfinishedByClientno(username), insuranceDao.countFinishedWithoutFeedbackByClientno(username), insuranceDao.countFinishedWithFeedbackByClientno(username)};
-			default:
-			break;
+			return Lists.newArrayList(insuranceDao.countUnfinishedByClientno(username), insuranceDao.countFinishedWithoutFeedbackByClientno(username), insuranceDao.countFinishedWithFeedbackByClientno(username));
+		default:
+		break;
 		}
 		return null;  
 		//应用到所有@RequestMapping注解方法，在其执行之前把返回值放入Model

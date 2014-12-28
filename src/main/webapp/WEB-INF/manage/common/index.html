@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>蓝煜热力客户信息服务管理系统</title>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <meta name="renderer" content="webkit"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link rel="shortcut icon" th:href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="/css/base.css" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
@@ -43,8 +43,8 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 		
 		 -->
 		<div class="main col-xs-10">
-			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
-				欢迎：<span sec:authentication="name"></span><br/>
+			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
+				欢迎：<span sec:authentication="name" ></span><br/>
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
 				客户档案检索：
 				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
@@ -61,20 +61,20 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 					</tr>
 					<tr id="result">
 						<td>1</td>
-						<td>用户卡号</td>
-						<td>姓名</td>
-						<td>手机号码</td>
+						<td>ad1001</td>
+						<td>郭舞宇</td>
+						<td>13753657266</td>
 						<td>固定电话</td>
-						<td>地址</td>
+						<td>美韵小区1号楼1单元1703</td>
 						<td><a href="">详细信息</a><a href="">报修</a></td>
 					</tr>
 				</table>
 				</div>
-				<div sec:authorize="hasRole('ROLE_EMP')">
+				<div th:if="${#authorization.expression('hasRole(''ROLE_EMP'')')}">
 				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
 				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
 				</div>
-				<div sec:authorize="hasRole('ROLE_USER')">[[client]][[allEmp]]
+				<div th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 				<table>
 					<tr>
 						<td>序号</td>
@@ -96,7 +96,7 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 					</tr>
 				</table>
 				</div>
-				<div sec:authorize="hasRole('ROLE_LEADER')">
+				<div th:if="${#authorization.expression('hasRole(''ROLE_LEADER'')')}">
 				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
 				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
 				</div>
@@ -110,7 +110,7 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
 <script>
-function remote(var url){
+function remote(url){
 	$.ajax({
 		url:url,
 		dataType:'json',

@@ -114,7 +114,7 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
 <script>
-function remote(var url){
+function remote(url){
 	$.ajax({
 		url:url,
 		dataType:'json',

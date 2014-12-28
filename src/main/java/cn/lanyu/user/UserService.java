@@ -2,17 +2,13 @@ package cn.lanyu.user;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -22,33 +18,6 @@ public class UserService implements UserDetailsService {
 	//SPRING_SECURITY_CONTEXT存在session里
 	@Autowired
 	private PasswordEncoder encoder;
-	
-	
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		if(username.equals("admin")) {
-			return new User("admin", encoder.encode("admin@123"), Authority.ROLE_ADMIN);
-		}
-		//先从本地取
-		Client client = clientDao.getByCardno(username);
-		if(client == null) {
-			//从远程取
-			client = remoteDao.getClientByNo(username);
-			if(client != null) {
-				clientDao.insert(client);
-				return client;
-			}
-			User user = null;
-			if(client == null) {
-				user = userDao.getByUsername(username);
-			}
-			if(user == null) {
-				throw new UsernameNotFoundException(username + " not exist");
-			}
-			return user;
-		}
-		return client;
-	}
 	
 	@Transactional
 	public void signup(User user) {
