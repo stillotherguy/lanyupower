@@ -27,7 +27,7 @@ public class Common {
 		switch(authority){
 		case ROLE_ADMIN:
 			return Lists.newArrayList(insuranceDao.countUnfinished(), insuranceDao.countFinishedWithoutFeedback(), insuranceDao.countFinishedWithFeedback());
-		case ROLE_EMP:
+		case ROLE_REPAIR:
 			return Lists.newArrayList(insuranceDao.countUnfinishedByUsername(username), insuranceDao.countFinishedWithoutFeedbackByUsername(username), insuranceDao.countFinishedWithFeedbackByUsername(username));
 		case ROLE_LEADER:
 			break;

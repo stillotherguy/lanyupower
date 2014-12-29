@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link type="text/css" rel="stylesheet" th:href="@{/css/base.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}" />
+<link type="text/css" rel="stylesheet" th:href="@{/static/css/base.css}" />
 </head>
 <body>
 	<div th:include="fragements/header"></div>
@@ -25,7 +25,7 @@
 				<div class="form-group">
 					<label class="col-xs-2 control-label">密码</label>
 					<div class="col-xs-10">
-						<input id="password" th:field="password" type="password" class="form-control" placeholder="请输入密码"/>
+						<input id="password" th:field="*{password}" type="password" class="form-control" placeholder="请输入密码"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -33,18 +33,6 @@
 						<div class="checkbox">
 							<label>
 								<input name="conform_pwd" type="password" class="form-control" placeholder="请再次输入密码"/> 
-							</label>
-							<!-- <a href="" class="pull-right">忘记密码？</a> -->
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-offset-2 col-xs-10">
-						<div class="checkbox">
-							<label>权限
-								<select name="">
-									<option value=""></option>
-								</select> 
 							</label>
 							<!-- <a href="" class="pull-right">忘记密码？</a> -->
 						</div>
@@ -62,15 +50,15 @@
 				</div>
 				<div class="form-group">
 					<div class="col-xs-offset-2 col-xs-10">
-						<button type="submit" class="btn btn-primary">登录</button>
+						<button type="submit" class="btn btn-primary">提交</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 	<div th:include="fragements/footer"></div>
-<script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
 <script>
 $(function(){
 	$('#form').validate({

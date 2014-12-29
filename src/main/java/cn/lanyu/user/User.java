@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -171,6 +172,9 @@ public class User implements UserDetails, CredentialsContainer {
 
     @Override
     public int hashCode() {
+    	if(StringUtils.isEmpty(username)){
+    		return super.hashCode();
+    	}
         return username.hashCode();
     }
 

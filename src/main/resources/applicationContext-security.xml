@@ -22,7 +22,7 @@
  			authentication-failure-url="/login/401" default-target-url="/" always-use-default-target="false" username-parameter="user" password-parameter="pass"/>
  		<intercept-url pattern="/signup" access="ROLE_ADMIN,ROLE_LEADER" />
  		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
- 		<intercept-url pattern="/**" access="ROLE_UESR,ROLE_EMP,ROLE_ADMIN,ROLE_LEADER" />
+ 		<intercept-url pattern="/**" access="ROLE_UESR,ROLE_REPAIR,ROLE_ADMIN,ROLE_LEADER,ROLE_SERVICE" />
  		<access-denied-handler error-page="/login/403" />
  		<!-- <remember-me key="" token-validity-seconds="3600" data-source-ref="dataSource"/> -->
 		<logout invalidate-session="true" logout-success-url="/login" logout-url="/logout"/>
