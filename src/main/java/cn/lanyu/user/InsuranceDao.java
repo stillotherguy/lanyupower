@@ -2,9 +2,12 @@ package cn.lanyu.user;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cn.lanyu.base.dao.IGenericDao;
 import cn.lanyu.base.page.Page;
 
+@Transactional
 public interface InsuranceDao extends IGenericDao<Insurance> {
 	int countUnfinished();
 	int countUnfinishedByClientno(String clientno);
