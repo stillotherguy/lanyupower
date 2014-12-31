@@ -32,7 +32,7 @@ public class IndexController {
 			switch(authority) {
 			case ROLE_ADMIN:
 				break;
-			case ROLE_EMP:
+			case ROLE_REPAIR:
 				return "emp/index";
 			case ROLE_LEADER:
 				return "leader/index";

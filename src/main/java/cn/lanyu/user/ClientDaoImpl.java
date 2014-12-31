@@ -1,5 +1,7 @@
 package cn.lanyu.user;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +17,8 @@ public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 	}
 
 	@Override
-	public Client getByUserName(String username) {
-		return queryForObject("from Client c where c.username=?", new Object[]{username});
+	public List<Client> getByUserName(String username) {
+		return queryForList("from Client c where c.name=?", new Object[]{username});
 	}
 
 	@Override
@@ -25,18 +27,18 @@ public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 	}
 
 	@Override
-	public Client getByPhone(String phoneno) {
-		return queryForObject("from Client c where c.phone=?", new Object[]{phoneno});
+	public List<Client> getByPhone(String phoneno) {
+		return queryForList("from Client c where c.phone=?", new Object[]{phoneno});
 	}
 
 	@Override
-	public Client getByAddress(String address) {
-		return queryForObject("from Client c where c.address=?", new Object[]{address});
+	public List<Client> getByAddress(String address) {
+		return queryForList("from Client c where c.address=?", new Object[]{address});
 	}
 
 	@Override
-	public Client getByMobile(String mobile) {
-		return queryForObject("from Client c where c.phone=?", new Object[]{mobile});
+	public List<Client> getByMobile(String mobile) {
+		return queryForList("from Client c where c.phone=?", new Object[]{mobile});
 	}
 
 	@Override

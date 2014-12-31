@@ -107,6 +107,7 @@ public class Client implements UserDetails{
 	private double price;
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Insurance> insurances;
+	private boolean firstlogin;
 	
 	public long getId() {
 		return id;
@@ -330,6 +331,14 @@ public class Client implements UserDetails{
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public boolean isFirstlogin() {
+		return firstlogin;
+	}
+
+	public void setFirstlogin(boolean firstlogin) {
+		this.firstlogin = firstlogin;
 	}
 	
 }

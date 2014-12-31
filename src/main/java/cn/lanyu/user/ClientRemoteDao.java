@@ -2,6 +2,7 @@ package cn.lanyu.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.collect.Lists;
 
 //TODO @Repository
 public class ClientRemoteDao {
@@ -38,7 +41,7 @@ public class ClientRemoteDao {
 		 			+ "left outer join F12f201412 on t2.F111_01=F12F201412.f12_03";
 	
 	
-	public Client getClientByUsername(String username) {
+	public List<Client> getClientByUsername(String username) {
 		//33用户名 05状态（已经开户） 08？发卡次数34地址  03??? 07结算户类型 10用户数 35身份证号  36单位 37联系电话 62签约银行F12F201411.F12_15合计量
 		//F12F201412.f12_15合计量 F101.F101_75供热面积 F101.F101_21基本热价
 		final String sql = COMMONSQL + " where t2.F111_33=?";
@@ -47,59 +50,83 @@ public class ClientRemoteDao {
 
 	public Client getClientByNo(String param) {
 		final String sql = COMMONSQL + " where t2.F111_01=?";
-		return jdbcTemplate.query(sql, new String[]{param}, getResultExtractor());
+		return jdbcTemplate.query(sql, new String[]{param}, getSingleResultExtractor());
 	}
 
-	public Client getClientByAddress(String param) {
+	public List<Client> getClientByAddress(String param) {
 		final String sql = COMMONSQL + " where t2.f111_34=?";
 		return jdbcTemplate.query(sql, new String[]{param}, getResultExtractor());
 	}
 
-	public Client getClientByMobile(String param) {
-		final String sql = COMMONSQL + " where t2.f111_=?";
+	public List<Client> getClientByMobile(String param) {
+		final String sql = COMMONSQL + " where t2.f111_62=?";
 		return jdbcTemplate.query(sql, new String[]{param}, getResultExtractor());
 	}
 	
-	private ResultSetExtractor<Client> getResultExtractor() {
+	private ResultSetExtractor<Client> getSingleResultExtractor() {
 		return new ResultSetExtractor<Client>() {
 
 			@Override
 			public Client extractData(ResultSet rs) throws SQLException, DataAccessException {
-				Client client = new Client();
-				//client.setAuthority(authority);
-				client.setBank(rs.getString("F111_62"));
-				
-				String cardtotal = rs.getString("F111_08");
-				if(!StringUtils.isEmpty(cardtotal)){
-					client.setCardtotal(Integer.parseInt(cardtotal));
+				if(rs.next()){
+					Client client = getClient(rs);
+					return client;
 				}
-				client.setChargetype(rs.getString("F111_03"));
-				client.setContact(rs.getString("F111_32"));
-				client.setHeatarea(rs.getString("F101_75"));
-				client.setIdentity(rs.getString("F111_35"));
-				client.setLastmonthkj(rs.getString("lastmonth"));
-				//client.setLastyearcharge(rs.getString("F111_32"));
-				client.setName(rs.getString("F111_33"));
-				client.setNo(rs.getString("F111_01"));
-				client.setOrganization(rs.getString("F111_36"));
-				client.setPhone(rs.getString("F111_37"));
-				String price = rs.getString("F101_21");
-				if(!StringUtils.isEmpty(price)){
-					client.setPrice(Integer.parseInt(price));
-				}
-				//client.setRevnum(rs.getString("F111_01"));
-				client.setState(rs.getString("F111_05"));
-				client.setThismonthkj(rs.getString("thismonth"));
-				//client.setThisyearcharge(thisyearcharge);
-				String totaluser = rs.getString("F111_10");
-				if(!StringUtils.isEmpty(totaluser)){
-					client.setTotaluser(Integer.parseInt(totaluser));
-				}
-				client.setUsertype(rs.getString("F111_07"));
-				client.setAddress(rs.getString("F111_34"));
-				return client;
+				return null;
 			}
-			
+
 		};
+	}
+	
+	private ResultSetExtractor<List<Client>> getResultExtractor() {
+		return new ResultSetExtractor<List<Client>>() {
+
+			@Override
+			public List<Client> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<Client> clients = Lists.newArrayList();
+				while(rs.next()){
+					Client client = getClient(rs);
+					clients.add(client);
+				}
+				return clients;
+			}
+
+		};
+	}
+	
+	private Client getClient(ResultSet rs) throws SQLException {
+		Client client = new Client();
+		//client.setAuthority(authority);
+		client.setBank(rs.getString("F111_62"));
+		
+		String cardtotal = rs.getString("F111_08");
+		if(!StringUtils.isEmpty(cardtotal)){
+			client.setCardtotal(Integer.parseInt(cardtotal));
+		}
+		client.setChargetype(rs.getString("F111_03"));
+		client.setContact(rs.getString("F111_32"));
+		client.setHeatarea(rs.getString("F101_75"));
+		client.setIdentity(rs.getString("F111_35"));
+		client.setLastmonthkj(rs.getString("lastmonth"));
+		//client.setLastyearcharge(rs.getString("F111_32"));
+		client.setName(rs.getString("F111_33"));
+		client.setNo(rs.getString("F111_01"));
+		client.setOrganization(rs.getString("F111_36"));
+		client.setPhone(rs.getString("F111_37"));
+		String price = rs.getString("F101_21");
+		if(!StringUtils.isEmpty(price)){
+			client.setPrice(Integer.parseInt(price));
+		}
+		//client.setRevnum(rs.getString("F111_01"));
+		client.setState(rs.getString("F111_05"));
+		client.setThismonthkj(rs.getString("thismonth"));
+		//client.setThisyearcharge(thisyearcharge);
+		String totaluser = rs.getString("F111_10");
+		if(!StringUtils.isEmpty(totaluser)){
+			client.setTotaluser(Integer.parseInt(totaluser));
+		}
+		client.setUsertype(rs.getString("F111_07"));
+		client.setAddress(rs.getString("F111_34"));
+		return client;
 	}
 }

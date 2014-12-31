@@ -16,6 +16,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	//SPRING_SECURITY_CONTEXT存在session里
 	@Autowired
 	private PasswordEncoder encoder;
+
+	private static final String DEFAULT_PWD = "123456";
 	
 	
 	@Override
@@ -29,6 +31,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			//从远程取
 			client = remoteDao.getClientByNo(username);
 			if(client != null) {
+				client.setPassword(encoder.encode(DEFAULT_PWD));
 				clientDao.insert(client);
 				return client;
 			}

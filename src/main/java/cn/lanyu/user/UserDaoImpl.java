@@ -21,7 +21,7 @@ public class UserDaoImpl extends GenericDao<User> implements UserDao {
 
 	@Override
 	public List<User> getAllEmp() {
-		return queryForList("from User u where u.authority=?", new Object[]{Authority.ROLE_EMP});
+		return queryForList("from User u where u.authority in (?,?)", new Object[]{Authority.ROLE_REPAIR, Authority.ROLE_SERVICE});
 	}
 
 }

@@ -32,53 +32,63 @@ public class UserService {
 			//从远程取
 			client = remoteDao.getClientByNo(param);
 			if(client != null) {
+				//client.setPassword(encoder.encode(DEFAULT_PWD));
 				clientDao.insert(client);
 				return client;
 			}
 		}
-		return null;
+		return client;
 	}
 
-	public Client getByAddress(String param) {
+	public List<Client> getByAddress(String param) {
 		//先从本地取
-		Client client = clientDao.getByAddress(param);
-		if(client == null) {
+		List<Client> clients = clientDao.getByAddress(param);
+		if(clients == null || clients.isEmpty()) {
 			//从远程取
-			client = remoteDao.getClientByAddress(param);
-			if(client != null) {
-				clientDao.insert(client);
-				return client;
+			clients = remoteDao.getClientByAddress(param);
+			if(clients != null && !clients.isEmpty()) {
+				for(Client c:clients){
+					//c.setPassword(encoder.encode(DEFAULT_PWD));
+					clientDao.insert(c);
+				}
+				return clients;
 			}
 		}
-		return null;
+		return clients;
 	}
 
-	public Client getByName(String param) {
+	public List<Client> getByName(String param) {
 		//先从本地取
-		Client client = clientDao.getByUserName(param);
-		if(client == null) {
+		List<Client> clients = clientDao.getByUserName(param);
+		if(clients == null || clients.isEmpty()) {
 			//从远程取
-			client = remoteDao.getClientByUsername(param);
-			if(client != null) {
-				clientDao.insert(client);
-				return client;
+			clients = remoteDao.getClientByUsername(param);
+			if(clients != null && !clients.isEmpty()) {
+				for(Client c:clients){
+					//c.setPassword(encoder.encode(DEFAULT_PWD));
+					clientDao.insert(c);
+				}
+				return clients;
 			}
 		}
-		return null;
+		return clients;
 	}
 
-	public Client getByMobile(String param) {
+	public List<Client> getByMobile(String param) {
 		//先从本地取
-		Client client = clientDao.getByMobile(param);
-		if(client == null) {
+		List<Client> clients = clientDao.getByMobile(param);
+		if(clients == null || clients.isEmpty()) {
 			//从远程取
-			client = remoteDao.getClientByMobile(param);
-			if(client != null) {
-				clientDao.insert(client);
-				return client;
+			clients = remoteDao.getClientByMobile(param);
+			if(clients != null && !clients.isEmpty()) {
+				for(Client c:clients){
+					//c.setPassword(encoder.encode(DEFAULT_PWD));
+					clientDao.insert(c);
+				}
+				return clients;
 			}
 		}
-		return null;
+		return clients;
 	}
 	
 	public void changePwd(String username, String pwd){

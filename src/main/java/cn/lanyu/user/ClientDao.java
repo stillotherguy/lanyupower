@@ -1,5 +1,7 @@
 package cn.lanyu.user;
 
+import java.util.List;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import cn.lanyu.base.dao.IGenericDao;
@@ -7,10 +9,10 @@ import cn.lanyu.base.dao.IGenericDao;
 @Transactional
 public interface ClientDao extends IGenericDao<Client> {
 
-	Client getByUserName(String username);
+	List<Client> getByUserName(String username);
 	Client getByCardno(String cardno);
-	Client getByPhone(String phoneno);
-	Client getByAddress(String param);
-	Client getByMobile(String param);
+	List<Client> getByPhone(String phoneno);
+	List<Client> getByAddress(String param);
+	List<Client> getByMobile(String param);
 	void changePwd(String username, String pwd);
 }
