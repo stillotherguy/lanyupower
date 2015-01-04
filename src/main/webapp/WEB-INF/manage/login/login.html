@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>监控系统</title>
+<title>蓝煜热力客户信息服务管理系统</title>
 <meta name="renderer" content="webkit" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,6 +14,9 @@
 		<div class="container">
 			<div class="logo pull-left">
 					<a title="蓝煜热力客户信息服务管理系统"></a><h1>蓝煜热力客户信息服务管理系统</h1>
+			</div>
+			<div sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_LEADER')">
+					<a href="/signup">注册</a>
 			</div>
 		</div>
 	</div>

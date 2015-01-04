@@ -28,8 +28,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		//先从本地取
 		Client client = clientDao.getByCardno(username);
 		if(client == null) {
-			//从远程取
-			client = remoteDao.getClientByNo(username);
+			//TODO:从远程取
+			//client = remoteDao.getClientByNo(username);
 			if(client != null) {
 				client.setPassword(encoder.encode(DEFAULT_PWD));
 				clientDao.insert(client);

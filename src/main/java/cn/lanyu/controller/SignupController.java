@@ -1,5 +1,6 @@
 package cn.lanyu.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import cn.lanyu.user.UserService;
 @Controller
 @RequestMapping("/signup")
 public class SignupController {
-	//TODO @Autowired
+	@Autowired
 	private UserService userSerivce;
 	
 	@RequestMapping(method = RequestMethod.GET)

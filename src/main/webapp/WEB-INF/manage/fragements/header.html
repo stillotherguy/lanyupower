@@ -5,9 +5,7 @@
 		</div>
 		<ul class="nav nav-pills pull-left hd-nav">
 			<li><a th:href="@{/index}">首页</a></li>
-			<li><a th:href="@{/app}">菜单</a></li>
-			<li><a th:href="@{/server}">菜单</a></li>
-			<li><a th:href="@{/status}">菜单</a></li>
+			<li sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_LEADER')"><a th:href="@{/signup}">注册</a></li>
 		</ul>
 		<a class="logout pull-right label label-primary" href="/logout">退出</a>
 	</div>

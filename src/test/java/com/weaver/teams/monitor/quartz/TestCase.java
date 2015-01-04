@@ -127,4 +127,9 @@ public class TestCase {
 		System.out.println("------------trigger3" + sc.getTrigger(TriggerKey.triggerKey("trigger3")));
 		TimeUnit.DAYS.sleep(1);
 	}
+	
+	@Test
+	public void testPWD(){
+		
+	}
 }
