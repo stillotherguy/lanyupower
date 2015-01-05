@@ -19,29 +19,38 @@
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
 				欢迎：<span id="username" sec:authentication="name" ></span><br/>
+				<span>[[${message} == null?'':${message}]]</span>
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
 					客户档案检索：
 					用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
 					用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
 					<table id="admintable">
-						<tr>
-							<td>序号</td>
-							<td>用户卡号</td>
-							<td>姓名</td>
-							<td>手机号码</td>
-							<td>固定电话</td>
-							<td>地址</td>
-							<td>操作</td>
-						</tr>
-						<tr id="result">
-							<!-- <td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td><a href="javascript:void(0)">详细信息</a><a href="javascript:void(0)">报修</a></td> -->
-						</tr>
+						<thead>
+							<tr>
+								<td>结算户代码</td>
+								<!-- <td>档案号</td> -->
+								<td>用户名</td>
+								<td>状态</td>
+								<td>地址</td>
+								<td>计费类型</td>
+								<td>上年度缴费</td>
+								<td>本年度缴费</td>
+								<td>结算户类型</td>
+								<td>用户数</td>
+								<td>关联数量</td>
+								<td>身份证号</td>
+								<td>单位</td>
+								<td>联系人</td>
+								<td>签约银行</td>
+								<td>上月热表数(KJ)</td>
+								<td>本月热表数(KJ)</td>
+								<td>电话</td>
+								<td>操作</td>
+							</tr>
+						</thead>
+						<tbody>
+						
+						</tbody>
 					</table>
 				</div>
 				
@@ -49,7 +58,7 @@
 					<table id="clienttable">
 						<tr>
 							<td>结算户代码</td>
-							<td>档案号</td>
+							<!-- <td>档案号</td> -->
 							<td>用户名</td>
 							<td>状态</td>
 							<td>地址</td>
@@ -65,50 +74,55 @@
 							<td>签约银行</td>
 							<td>上月热表数(KJ)</td>
 							<td>本月热表数(KJ)</td>
-							<td>供热表号</td>
+							<td>电话</td>
 						</tr>
 						<tr id="result">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>[[${client.no}]]</td>
+							<!-- <td></td> -->
+							<td>[[${client.name}]]</td>
+							<td>[[${client.state}]]</td>
+							<td>[[${client.address}]]</td>
+							<td>[[${client.chargetype}]]</td>
+							<td>[[${client.lastyearcharge}]]</td>
+							<td>[[${client.thisyearcharge}]]</td>
+							<td>[[${client.usertype}]]</td>
+							<td>[[${client.totaluser}]]</td>
+							<td>[[${client.revnum}]]</td>
+							<td>[[${client.identity}]]</td>
+							<td>[[${client.organization}]]</td>
+							<td>[[${client.contact}]]</td>
+							<td>[[${client.bank}]]</td>
+							<td>[[${client.lastmonthkj}]]</td>
+							<td>[[${client.thismonthkj}]]</td>
+							<td>[[${client.phone}]]</td>
 						</tr>
 					</table>
-					报修类型：
-					<select name='itype'>
-						<option value="OTHER">其他</option>
-						<option value="LEAK">漏水</option>
-						<option value="HEATMETER">热表故障</option>
-						<option value="COLD">无法升温</option>
-					</select><br/>
-					片区负责：
-					<select name='user.id'>
-						<option value="${item.id}" th:if="${#lists.notEmpty(emps)}" th:each="item,index :${emps}">[[${item.name}]]</option>
-					</select>
-					紧急联系人：<input type="text" id="contact" /><br/>
-					联系人电话：<input type="text" id="phone" /><br/>
-					报修时间：[[${#dates.createNow()}]]<br/>
-					备注：
-					<textarea id="comment">
-					</textarea>
+					<form id="form" action="/client/repair"  method="post">
+						报修单名：
+						<input type="text" id="name" name="name"/>
+						<input type="hidden" id="clientid" name="clientid" th:value="${client.id}"/>
+						报修类型：
+						<select name="itype">
+							<option value="OTHER">其他</option>
+							<option value="LEAK">漏水</option>
+							<option value="HEATMETER">热表故障</option>
+							<option value="COLD">无法升温</option>
+						</select><br/>
+						片区负责：
+						<select name='user.id'>
+							<option value="${item.id}" th:if="${#lists.notEmpty(emps)}" th:each="item,index :${emps}">[[${item.name}]]</option>
+						</select>
+						紧急联系人：<input type="text" id="contact" /><br/>
+						联系人电话：<input type="text" id="phone" /><br/>
+						备注：
+						<textarea id="comment">
+						</textarea>
+						<input type="submit" name="提交" id="submit"/>
+					</form>
 				</div>
 				
 				<div sec:authorize="hasRole('ROLE_EMP')" id="empcontent">
-					<table>
+					<!-- <table>
 						<tr>
 							<td>序号</td>
 							<td>用户卡号</td>
@@ -127,13 +141,13 @@
 							<td>地址</td>
 							<td><a href="">详细信息</a><a href="">报修</a></td>
 						</tr>
-					</table>
+					</table> -->
 				</div>
 				
-				<div sec:authorize="hasRole('ROLE_LEADER')">
+				<!-- <div sec:authorize="hasRole('ROLE_LEADER')">
 				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
 				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -143,97 +157,7 @@
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
-<script>
-function remote(url, callback){
-	$.ajax({
-		url:url,
-		dataType:'json',
-		type:'get',
-		contentType:'application/json; charset=UTF-8',
-		success:function(data){
-			if(callback){
-				callback(data);
-			}
-		}
-	});
-}
-
-function commonCallback(data){
-	/*<![CDATA[*/
-	if(data&&data.length != 0){
-		/*]]>*/
-		$.each(data, function(index,value){
-			$('#result').append('<td>' + value.no + '</td>');
-			$('#result').append('<td>' + value.name + '</td>');
-			$('#result').append('<td>' + value.phone + '</td>');
-			$('#result').append('<td>' + value.no + '</td>');
-			$('#result').append('<td>' + value.address + '</td>');
-			<!--TODO维修是啥意思 -->
-			$('#result').append('<td data-entity=' + value.id + '>' + '<a href="javascript:void(0)">详细信息</a><a href="javascript:void(0)">报修</a>' + '</td>');
-		});
-		//$('#result td:eq(0)').text(data.no);
-		/*<![CDATA[*/
-	}
-	/*]]>*/
-}
-
-$(function(){
-	var username = $('#username').text().trim();
-	
-	$('#card').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/card/' + no, commonCallback);
-	})
-	$('#address').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/address/' + no, commonCallback);
-	})
-	$('#phone').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/phone/' + no, commonCallback);
-	})
-	$('#name').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/name/' + no, commonCallback);
-	})
-	$('#mobile').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/mobile/' + no, commonCallback);
-	})
-	
-	//操作点击事件
-	$('#result td:last').on('click', 'a:first', function(){
-		var id = $(this).attr('data-entity');
-		if(id){
-			$('admintable').empty();
-		}
-	});
-	
-	$('#result td:last').on('click', 'a:last', function(){
-		var id = $(this).attr('data-entity');
-		if(id){
-			$('admintable').empty();
-		}
-	});
-	
-	//客户页面
-	
-});
-</script>
+<script type="text/javascript" th:src="@{/static/js/lanyu/adminindex.js}" sec:authorize="hasRole('ROLE_ADMIN')"></script>
+<script type="text/javascript" th:src="@{/static/js/lanyu/clientindex.js}" sec:authorize="hasRole('ROLE_USER')"></script>
 </body>
 </html>

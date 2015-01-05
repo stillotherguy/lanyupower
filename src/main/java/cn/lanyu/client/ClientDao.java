@@ -15,4 +15,5 @@ public interface ClientDao extends IGenericDao<Client> {
 	List<Client> getByAddress(String param);
 	List<Client> getByMobile(String param);
 	void changePwd(String username, String pwd);
+	Client getById(long param);
 }

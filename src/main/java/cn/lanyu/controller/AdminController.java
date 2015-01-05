@@ -1,5 +1,6 @@
 package cn.lanyu.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Lists;
 
 import cn.lanyu.base.page.Page;
 import cn.lanyu.client.Client;
+import cn.lanyu.insurance.Insurance;
 import cn.lanyu.insurance.InsuranceDao;
+import cn.lanyu.insurance.Insurance.Type;
 import cn.lanyu.user.UserContext;
 import cn.lanyu.user.UserService;
 
@@ -48,6 +52,22 @@ public class AdminController {
 	@RequestMapping(value = "/insurance/unhandle", method = RequestMethod.GET)
 	public String index(){
 		return "common/unhandle";
+	}
+	
+	@RequestMapping(value = "/repair/{clientid}", method = RequestMethod.GET)
+	public String repair(Model model, @PathVariable long clientid){
+		model.addAttribute("emps", userService.getAllEmp());
+		model.addAttribute("client", userService.getById(clientid));
+		model.addAttribute("type", Type.values());
+		return "admin/repair";
+	}
+	
+	@RequestMapping(value = "/repair", method = RequestMethod.POST)
+	public String repair(RedirectAttributes attr, Insurance insurance){
+		attr.addFlashAttribute("message", "提交报修单成功");
+		insurance.setStartDate(new Date());
+		insuranceDao.insert(insurance);
+		return "redirect:/index";
 	}
 	
 	@RequestMapping("/unhandle")

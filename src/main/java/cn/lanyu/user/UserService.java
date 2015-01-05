@@ -43,6 +43,12 @@ public class UserService {
 		}
 		return client;
 	}
+	
+	public Client getById(long param) {
+		//先从本地取
+		Client client = clientDao.getById(param);
+		return client;
+	}
 
 	public List<Client> getByAddress(String param) {
 		//先从本地取

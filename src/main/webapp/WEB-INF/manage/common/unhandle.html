@@ -29,20 +29,16 @@
 							<td>地址</td>
 							<td>电话</td>
 							<td>备注</td>
-							<td>是否完成</td>
-							<td>是否回访</td>
-							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" >是否回访</td>
+							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" >处理保修单</td>
 						</tr>
-						<tr id="result"> <!-- th:each="item,stat : ${}" th:if="${#lists.notEmpty()}" --> 
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+						<tr id="${item.id}" th:each="item,stat : ${insurances}" th:if="not ${#lists.isEmpty(insurances)}">
+							<td>[[${item.name}]]</td>
+							<td>[[${item.itype}]]</td>
+							<td>[[${item.client.name}]]</td>
+							<td>[[${item.user} == null?'':${item.user}]]</td>
+							<td>[[${item.contact}]]</td>
+							<td>[[${item.phone}]]</td>
+							<td>[[${item.comment}]]</td>
 							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" ></td>
 						</tr>
 					</table>

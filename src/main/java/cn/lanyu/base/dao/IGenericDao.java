@@ -3,8 +3,11 @@ package cn.lanyu.base.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cn.lanyu.base.page.Page;
 
+@Transactional
 public interface IGenericDao<T> {
 
 	void insert(T t);

@@ -23,8 +23,8 @@ import com.google.common.collect.Lists;
 
 @Service
 public class FileServiceImpl implements FileService {
-	@Autowired
-	private StorageService storageService;
+	//@Autowired
+	//private StorageService storageService;
 
 	private static final String UPLOAD_DIR_NAME = "temp";
 

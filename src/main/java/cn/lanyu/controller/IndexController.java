@@ -31,13 +31,15 @@ public class IndexController {
 			final Authority authority = Authority.valueOf(auth.getAuthority());
 			switch(authority) {
 			case ROLE_ADMIN:
+				model.addAttribute("emps", userService.getAllEmp());
+				model.addAttribute("type", Type.values());
 				break;
 			case ROLE_REPAIR:
 				return "emp/index";
 			case ROLE_LEADER:
 				return "leader/index";
 			case ROLE_USER:
-				model.addAttribute("allEmp", userService.getAllEmp());
+				model.addAttribute("emps", userService.getAllEmp());
 				model.addAttribute("client", userService.getByNo(no));
 				model.addAttribute("type", Type.values());
 				break;

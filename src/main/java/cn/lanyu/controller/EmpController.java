@@ -115,7 +115,7 @@ public class EmpController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/upload/{uploadType}", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/upload/{uploadType}", method = RequestMethod.POST)
 	@ResponseBody
 	public Map upload(@RequestParam(value = "upfile") MultipartFile mf, HttpServletRequest request,
 			@PathVariable String uploadType)
@@ -159,5 +159,5 @@ public class EmpController {
 			map.put("state", "未知错误");
 		}
 		return map;
-	}
+	}*/
 }

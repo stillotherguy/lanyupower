@@ -127,4 +127,5 @@ public class ClientRemoteDao {
 		client.setAddress(rs.getString("F111_34"));
 		return client;
 	}
+	
 }

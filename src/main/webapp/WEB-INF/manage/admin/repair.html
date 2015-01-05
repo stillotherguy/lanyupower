@@ -2,50 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>蓝煜热力客户信息服务管理系统</title>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <meta name="renderer" content="webkit"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link rel="shortcut icon" th:href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="/css/base.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
-<body>
-	<div th:include="fragements/header"></div>
-	<div class="container wrapper">
-		<div class="sidebar col-xs-2">
-			<div class="sidemenu-title">左侧标题</div>
-			<ul class="nav nav-pills nav-stacked sidemenu">
-				<li class="active"><a href="">未处理报修(2)</a></li>
-				<li><a href="">已经处理未回访(2)</a></li>
-				<li><a href="">已经处理报修(2)</a></li>
-			</ul>
-		</div>
-		<!-- 
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
-  This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-  This content is only shown to users.
-</div>
-The attribute sec:authentication is used to print logged user name and roles:
-
-?
-Logged user: <span sec:authentication="name">Bob</span>
-Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-		
-		 -->
+<body th:inline="text">
+	<!-- <div th:include="fragements/header"></div> -->
 		<div class="main col-xs-10">
-			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
-				客户档案检索：<span sec:authentication="name"></span><br/>
-				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/><br/>
-				<table>
+			<div id="clientcontent">
+				<table id="clienttable">
 					<tr>
 						<td>结算户代码</td>
-						<td>档案号</td>
+						<!-- <td>档案号</td> -->
 						<td>用户名</td>
 						<td>状态</td>
 						<td>地址</td>
@@ -61,98 +34,96 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 						<td>签约银行</td>
 						<td>上月热表数(KJ)</td>
 						<td>本月热表数(KJ)</td>
-						<td>供热表号</td>
+						<td>电话</td>
 					</tr>
 					<tr id="result">
-						<td>结算户代码</td>
-						<td>档案号</td>
-						<td>用户名</td>
-						<td>状态</td>
-						<td>地址</td>
-						<td>计费类型</td>
-						<td>上年度缴费</td>
-						<td>本年度缴费</td>
-						<td>结算户类型</td>
-						<td>用户数</td>
-						<td>关联数量</td>
-						<td>身份证号</td>
-						<td>单位</td>
-						<td>联系人</td>
-						<td>签约银行</td>
-						<td>上月热表数(KJ)</td>
-						<td>本月热表数（KJ）</td>
-						<td>供热表号</td>
+						<td>[[${client.no}]]</td>
+						<!-- <td></td> -->
+						<td>[[${client.name}]]</td>
+						<td>[[${client.state}]]</td>
+						<td>[[${client.address}]]</td>
+						<td>[[${client.chargetype}]]</td>
+						<td>[[${client.lastyearcharge}]]</td>
+						<td>[[${client.thisyearcharge}]]</td>
+						<td>[[${client.usertype}]]</td>
+						<td>[[${client.totaluser}]]</td>
+						<td>[[${client.revnum}]]</td>
+						<td>[[${client.identity}]]</td>
+						<td>[[${client.organization}]]</td>
+						<td>[[${client.contact}]]</td>
+						<td>[[${client.bank}]]</td>
+						<td>[[${client.lastmonthkj}]]</td>
+						<td>[[${client.thismonthkj}]]</td>
+						<td>[[${client.phone}]]</td>
 					</tr>
 				</table>
+				<form id="form" action="/admin/repair" method="post">
+					报修单名：
+					<input type="text" id="name" name="name"/>
+					<input type="hidden" id="clientid" name="client.id" th:value="${client.id}"/>
+					报修类型：
+					<select name="itype">
+						<option value="OTHER">其他</option>
+						<option value="LEAK">漏水</option>
+						<option value="HEATMETER">热表故障</option>
+						<option value="COLD">无法升温</option>
+					</select><br/>
+					片区负责：
+					<select name='user.id'>
+						<option value="${item.id}" th:if="${#lists.notEmpty(emps)}" th:each="item,index :${emps}">[[${item.name}]]</option>
+					</select>
+					紧急联系人：<input type="text" name="contact" /><br/>
+					联系人电话：<input type="text" name="phone" /><br/>
+					备注：
+					<textarea name="comment">
+					</textarea>
+					<input type="submit" name="提交" id="submit"/>
+				</form>
 			</div>
-		</div>
 	</div>
 	<div class="footer">
 		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
 	</div>
-<script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
 <script>
-function remote(url){
-	$.ajax({
-		url:url,
-		dataType:'json',
-		type:'get',
-		contentType:'application/json; charset=UTF-8',
-		success:function(data){
-			if(data){
-				//$('#result td:eq(0)').text(data.no);
-				$('#result td:eq(1)').text(data.no);
-				$('#result td:eq(2)').text(data.name);
-				$('#result td:eq(3)').text(data.phone);
-				$('#result td:eq(4)').text(data.no);
-				$('#result td:eq(5)').text(data.address);
+$(function(){
+	$('#form').validate({
+		rules: {
+			"name": {
+				required:true/* ,
+				remote: {
+	                type: "post",
+	                url: "/insurance/exist",
+	                data: {
+	                    name: function() {
+	                        return $("#username").val();
+	                    }
+	                },
+	                dataType: "json"
+	            } */
+			},
+			"contact": {
+				required:true
+			},
+			"phone": {
+				required:true
+			}
+		},
+		messages: {
+			"name": {
+				required:"请输入报修单",
+				remote:"名称已存在"
+			},
+			"contact": {
+				required:"请输入紧急联系人"
+			},
+			"phone": {
+				required:"请输入联系人电话"
 			}
 		}
 	});
-}
-$(function(){
-	$('#card').click(function(){
-		var no = $(this).val();
-		if(!no){
-			alert('请输入卡号');
-			return;
-		}
-		remote('/admin/card/' + no);
-	})
-	$('#address').click(function(){
-		var no = $(this).val();
-		if(!no){
-			alert('请输入地址');
-			return;
-		}
-		remote('/admin/address/' + no);
-	})
-	$('#phone').click(function(){
-		var no = $(this).val();
-		if(!no){
-			alert('请输入电话');
-			return;
-		}
-		remote('/admin/phone/' + no);
-	})
-	$('#name').click(function(){
-		var no = $(this).val();
-		if(!no){
-			alert('请输入名称');
-			return;
-		}
-		remote('/admin/name/' + no);
-	})
-	$('#mobile').click(function(){
-		var no = $(this).val();
-		if(!no){
-			alert('请输入mobile');
-			return;
-		}
-		remote('/admin/mobile/' + no);
-	})
 });
 </script>
 </body>

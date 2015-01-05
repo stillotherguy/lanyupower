@@ -3,6 +3,7 @@ package cn.lanyu.insurance;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.lanyu.base.dao.GenericDao;
 import cn.lanyu.base.page.Page;
@@ -47,32 +48,32 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 
 	@Override
 	public List<Insurance> pageUnfinished(Page page) {
-		return queryForList("select * from Insurance i where i.finished=?", new Object[]{false}, page);
+		return queryForList("from Insurance i where i.finished=?", new Object[]{false}, page);
 	}
 
 	@Override
 	public List<Insurance> pageUnfinishedByUsername(String username, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.user.username=?", new Object[]{false, username}, page);
+		return queryForList("from Insurance i where i.finished=? and i.user.username=?", new Object[]{false, username}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithoutFeedback(Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and feedback=?", new Object[]{true,false}, page);
+		return queryForList("from Insurance i where i.finished=? and feedback=?", new Object[]{true,false}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithoutFeedbackByUsername(String username, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.username=?", new Object[]{true, false, username}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.user.username=?", new Object[]{true, false, username}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithFeedback(Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and feedback=?", new Object[]{true,true}, page);
+		return queryForList("from Insurance i where i.finished=? and feedback=?", new Object[]{true,true}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithFeedbackByUsername(String username, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.username=?", new Object[]{true, true, username}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.user.username=?", new Object[]{true, true, username}, page);
 	}
 
 	@Override
@@ -93,48 +94,48 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 
 	@Override
 	public List<Insurance> pageUnfinishedByClientno(String clientno, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.client.no=?", new Object[]{false, clientno}, page);
+		return queryForList("from Insurance i where i.finished=? and i.client.no=?", new Object[]{false, clientno}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithoutFeedbackByClientno(String clientno, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, false, clientno}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, false, clientno}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithFeedbackByClientno(String clientno, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, true, clientno}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, true, clientno}, page);
 
 	}
 
 	@Override
 	public List<Insurance> pageUnfinishedByUserId(long id, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.user.id=?", new Object[]{false, id}, page);
+		return queryForList("from Insurance i where i.finished=? and i.user.id=?", new Object[]{false, id}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithoutFeedbackByUserId(long id, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.id=?", new Object[]{true, false, id}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.user.id=?", new Object[]{true, false, id}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithFeedbackByUserId(long id, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.id=?", new Object[]{true, true, id}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.user.id=?", new Object[]{true, true, id}, page);
 	}
 
 	@Override
 	public List<Insurance> pageUnfinishedByClientId(long id, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.client.id=?", new Object[]{false, id}, page);
+		return queryForList("from Insurance i where i.finished=? and i.client.id=?", new Object[]{false, id}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithoutFeedbackByClientId(long id, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.id=?", new Object[]{true, false, id}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.client.id=?", new Object[]{true, false, id}, page);
 	}
 
 	@Override
 	public List<Insurance> pageFinishedWithFeedbackByClientId(long id, Page page) {
-		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.id=?", new Object[]{true, true, id}, page);
+		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.client.id=?", new Object[]{true, true, id}, page);
 	}
 
 }

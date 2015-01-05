@@ -46,4 +46,9 @@ public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 		updateBySql("update client set password=? where no=?", new Object[]{pwd, username});
 	}
 
+	@Override
+	public Client getById(long id) {
+		return queryForObject("from Client c where c.id=?", new Object[]{id});
+	}
+
 }

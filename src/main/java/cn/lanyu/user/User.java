@@ -191,10 +191,6 @@ public class User implements UserDetails, CredentialsContainer {
 
 	@Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-        				.add("username", username)
-        				.add("password", "[PROTECTED]")
-        				.add("authority", authority)
-        				.toString();
+        return name;
     }
 }
