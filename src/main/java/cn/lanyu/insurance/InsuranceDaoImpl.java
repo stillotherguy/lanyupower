@@ -1,4 +1,4 @@
-package cn.lanyu.user;
+package cn.lanyu.insurance;
 
 import java.util.List;
 
@@ -105,6 +105,36 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 	public List<Insurance> pageFinishedWithFeedbackByClientno(String clientno, Page page) {
 		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.no=?", new Object[]{true, true, clientno}, page);
 
+	}
+
+	@Override
+	public List<Insurance> pageUnfinishedByUserId(long id, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.user.id=?", new Object[]{false, id}, page);
+	}
+
+	@Override
+	public List<Insurance> pageFinishedWithoutFeedbackByUserId(long id, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.id=?", new Object[]{true, false, id}, page);
+	}
+
+	@Override
+	public List<Insurance> pageFinishedWithFeedbackByUserId(long id, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.user.id=?", new Object[]{true, true, id}, page);
+	}
+
+	@Override
+	public List<Insurance> pageUnfinishedByClientId(long id, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.client.id=?", new Object[]{false, id}, page);
+	}
+
+	@Override
+	public List<Insurance> pageFinishedWithoutFeedbackByClientId(long id, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.id=?", new Object[]{true, false, id}, page);
+	}
+
+	@Override
+	public List<Insurance> pageFinishedWithFeedbackByClientId(long id, Page page) {
+		return queryForList("select * from Insurance i where i.finished=? and i.feedback=? and i.client.id=?", new Object[]{true, true, id}, page);
 	}
 
 }

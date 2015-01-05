@@ -25,6 +25,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
+import cn.lanyu.auth.Authority;
+import cn.lanyu.insurance.Insurance;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 

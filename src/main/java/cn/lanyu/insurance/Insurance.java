@@ -1,4 +1,6 @@
-package cn.lanyu.user;
+package cn.lanyu.insurance;
+
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ConstraintMode;
@@ -10,6 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import cn.lanyu.client.Client;
+import cn.lanyu.user.User;
 
 @Entity
 @Table(name = "insurance")
@@ -30,6 +35,10 @@ public class Insurance {
 	private String comment;
 	private boolean finished;
 	private boolean feedback;
+	private Date startDate;
+	private Date endDate;
+	private String reason;
+	private String images;
 	
 	public long getId() {
 		return id;
@@ -109,6 +118,38 @@ public class Insurance {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getImages() {
+		return images;
+	}
+
+	public void setImages(String images) {
+		this.images = images;
 	}
 
 	public static enum Type {

@@ -7,6 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import cn.lanyu.client.Client;
+import cn.lanyu.client.ClientDao;
+import cn.lanyu.client.ClientRemoteDao;
+
 @Service
 public class UserService {
 	@Autowired
@@ -97,6 +101,10 @@ public class UserService {
 	
 	public List<User> getAllEmp() {
 		return userDao.getAllEmp();
+	}
+
+	public boolean isExist(String username) {
+		return userDao.isExist(username);
 	}
 
 }

@@ -2,7 +2,7 @@ package cn.lanyu.converter;
 
 import org.springframework.core.convert.converter.Converter;
 
-import cn.lanyu.user.Authority;
+import cn.lanyu.auth.Authority;
 
 public class StringAuthority implements Converter<String,Authority> {
 

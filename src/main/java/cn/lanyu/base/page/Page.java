@@ -2,7 +2,7 @@ package cn.lanyu.base.page;
 
 public class Page {
 
-	private static final int DEFAULT_PAGE_SIZE = 50;
+	private static final int DEFAULT_PAGE_SIZE = 20;
 
 	private static final int DEFAULT_CURRENT_PAGE = 1;
 

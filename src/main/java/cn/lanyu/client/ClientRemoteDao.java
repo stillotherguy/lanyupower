@@ -1,4 +1,4 @@
-package cn.lanyu.user;
+package cn.lanyu.client;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

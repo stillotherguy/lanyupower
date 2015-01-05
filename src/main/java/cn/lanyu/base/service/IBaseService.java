@@ -2,8 +2,6 @@ package cn.lanyu.base.service;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import cn.lanyu.base.page.Page;
 
 //@Transactional(readOnly = true)

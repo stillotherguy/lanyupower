@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.lanyu.user.Authority;
-import cn.lanyu.user.Insurance.Type;
+import cn.lanyu.auth.Authority;
+import cn.lanyu.insurance.Insurance.Type;
 import cn.lanyu.user.UserContext;
 import cn.lanyu.user.UserService;
 
@@ -40,6 +40,7 @@ public class IndexController {
 				model.addAttribute("allEmp", userService.getAllEmp());
 				model.addAttribute("client", userService.getByNo(no));
 				model.addAttribute("type", Type.values());
+				break;
 			default:
 				break;
 			}

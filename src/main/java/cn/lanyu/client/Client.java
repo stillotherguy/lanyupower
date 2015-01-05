@@ -1,4 +1,4 @@
-package cn.lanyu.user;
+package cn.lanyu.client;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +16,9 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import cn.lanyu.auth.Authority;
+import cn.lanyu.insurance.Insurance;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

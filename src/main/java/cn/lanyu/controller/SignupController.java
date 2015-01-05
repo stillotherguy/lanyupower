@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.lanyu.user.User;
 import cn.lanyu.user.UserService;
@@ -19,6 +20,12 @@ public class SignupController {
 	public String signup(Model model) {
 		model.addAttribute("command", new User());
 		return "signup/signup";
+	}
+	
+	@RequestMapping(value = "/exist", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean signup(String username) {
+		return !userSerivce.isExist(username);
 	}
 	
 	/**

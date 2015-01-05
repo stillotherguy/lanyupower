@@ -62,6 +62,7 @@ public class LongIdGenerator implements IdentifierGenerator {
 		return result;
 	}
 
+	@Override
 	public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
 		return generate();
 	}

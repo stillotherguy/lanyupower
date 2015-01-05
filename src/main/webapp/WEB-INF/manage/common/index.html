@@ -15,48 +15,7 @@
 <body th:inline="text">
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
-		<div class="sidebar col-xs-2">
-			<div class="sidemenu-title">用户报修受理</div>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_ADMIN')">
-				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
-				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
-				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
-				<li><a href="">客服人员管理</a></li>
-				<li><a href="">维修人员管理</a></li>
-				<li><a href="">满意度统计</a></li>
-				<li><a href="">维修时长统计</a></li>
-				<li><a href="">投诉统计</a></li>
-			</ul>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_LEADER')">
-				<li><a href="">满意度统计</a></li>
-				<li><a href="">维修时长统计</a></li>
-				<li><a href="">投诉统计</a></li>
-			</ul>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_USER')">
-				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
-				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
-				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
-			</ul>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_REPAIR')">
-				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
-				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
-				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
-			</ul>
-		</div>
-		<!-- 
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
-  This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-  This content is only shown to users.
-</div>
-The attribute sec:authentication is used to print logged user name and roles:
-
-?
-Logged user: <span sec:authentication="name">Bob</span>
-Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-		
-		 -->
+		<div th:include="fragements/left" class="sidebar col-xs-2"></div>
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
 				欢迎：<span id="username" sec:authentication="name" ></span><br/>

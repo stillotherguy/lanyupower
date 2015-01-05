@@ -1,0 +1,26 @@
+<div class="sidemenu-title">用户报修受理</div>
+<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_ADMIN')">
+	<li><a href="/admin/unhandle">未处理报修([[${allcount[0]}]])</a></li>
+	<li><a href="/admin/nofeed">已经处理未回访([[${allcount[1]}]])</a></li>
+	<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
+	<li><a href="">客服人员管理</a></li>
+	<li><a href="">维修人员管理</a></li>
+	<li><a href="">满意度统计</a></li>
+	<li><a href="">维修时长统计</a></li>
+	<li><a href="">投诉统计</a></li>
+</ul>
+<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_LEADER')">
+	<li><a href="">满意度统计</a></li>
+	<li><a href="">维修时长统计</a></li>
+	<li><a href="">投诉统计</a></li>
+</ul>
+<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_USER')">
+	<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
+	<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
+	<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
+</ul>
+<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_REPAIR')">
+	<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
+	<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
+	<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
+</ul>

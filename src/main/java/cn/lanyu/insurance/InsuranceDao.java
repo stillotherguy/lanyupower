@@ -1,4 +1,4 @@
-package cn.lanyu.user;
+package cn.lanyu.insurance;
 
 import java.util.List;
 
@@ -20,11 +20,17 @@ public interface InsuranceDao extends IGenericDao<Insurance> {
 	int countFinishedWithFeedbackByUsername(String username);
 	List<Insurance> pageUnfinished(Page page);
 	List<Insurance> pageUnfinishedByUsername(String username, Page page);
+	List<Insurance> pageUnfinishedByUserId(long id, Page page);
 	List<Insurance> pageUnfinishedByClientno(String clientno, Page page);
+	List<Insurance> pageUnfinishedByClientId(long id, Page page);
 	List<Insurance> pageFinishedWithoutFeedback(Page page);
 	List<Insurance> pageFinishedWithoutFeedbackByUsername(String username, Page page);
+	List<Insurance> pageFinishedWithoutFeedbackByUserId(long id, Page page);
 	List<Insurance> pageFinishedWithoutFeedbackByClientno(String clientno, Page page);
+	List<Insurance> pageFinishedWithoutFeedbackByClientId(long id, Page page);
 	List<Insurance> pageFinishedWithFeedback(Page page);
 	List<Insurance> pageFinishedWithFeedbackByUsername(String username, Page page);
+	List<Insurance> pageFinishedWithFeedbackByUserId(long id, Page page);
 	List<Insurance> pageFinishedWithFeedbackByClientno(String clientno, Page page);
+	List<Insurance> pageFinishedWithFeedbackByClientId(long id, Page page);
 }

@@ -71,7 +71,17 @@ $(function(){
 	$('#form').validate({
 		rules: {
 			"username": {
-				required:true
+				required:true,
+				remote: {
+	                type: "post",
+	                url: "/signup/exist",
+	                data: {
+	                    name: function() {
+	                        return $("#username").val();
+	                    }
+	                },
+	                dataType: "json"
+	            }
 			},
 			"name": {
 				required:true
@@ -89,7 +99,8 @@ $(function(){
 		},
 		messages: {
 			"username": {
-				required:"请输入用户名"
+				required:"请输入用户名",
+				remote:"账号已存在"
 			},
 			"name": {
 				required:"请输入名字"

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.google.common.collect.Lists;
 
-import cn.lanyu.user.Authority;
-import cn.lanyu.user.InsuranceDao;
+import cn.lanyu.auth.Authority;
+import cn.lanyu.insurance.InsuranceDao;
 import cn.lanyu.user.UserContext;
 
 @ControllerAdvice

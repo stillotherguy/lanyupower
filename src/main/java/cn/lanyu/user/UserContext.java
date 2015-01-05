@@ -40,6 +40,15 @@ public class UserContext {
 		return null;
 	}
 	
+	public static long getUserId() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
+			UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken)authentication;
+			return ((User)token.getPrincipal()).getId();
+		}
+		return -1;
+	}
+	
 	public static boolean isAuthenticated() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication == null){

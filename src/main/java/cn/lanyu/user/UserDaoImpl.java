@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import cn.lanyu.auth.Authority;
 import cn.lanyu.base.dao.GenericDao;
 
 
@@ -22,6 +23,11 @@ public class UserDaoImpl extends GenericDao<User> implements UserDao {
 	@Override
 	public List<User> getAllEmp() {
 		return queryForList("from User u where u.authority in (?,?)", new Object[]{Authority.ROLE_REPAIR, Authority.ROLE_SERVICE});
+	}
+
+	@Override
+	public boolean isExist(String username) {
+		return queryForInt("from User u a where a.username = ?", new Object[] {username}) > 0;
 	}
 
 }

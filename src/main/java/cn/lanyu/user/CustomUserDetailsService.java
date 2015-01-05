@@ -6,6 +6,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import cn.lanyu.auth.Authority;
+import cn.lanyu.client.Client;
+import cn.lanyu.client.ClientDao;
+import cn.lanyu.client.ClientRemoteDao;
+
 public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;

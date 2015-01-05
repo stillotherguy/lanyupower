@@ -15,165 +15,37 @@
 <body th:inline="text">
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
-		<div class="sidebar col-xs-2">
-			<div class="sidemenu-title">用户报修受理</div>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_ADMIN')">
-				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
-				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
-				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
-				<li><a href="">客服人员管理</a></li>
-				<li><a href="">维修人员管理</a></li>
-				<li><a href="">满意度统计</a></li>
-				<li><a href="">维修时长统计</a></li>
-				<li><a href="">投诉统计</a></li>
-			</ul>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_LEADER')">
-				<li><a href="">满意度统计</a></li>
-				<li><a href="">维修时长统计</a></li>
-				<li><a href="">投诉统计</a></li>
-			</ul>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_USER')">
-				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
-				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
-				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
-			</ul>
-			<ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_REPAIR')">
-				<li class="active"><a href="">未处理报修([[${allcount[0]}]])</a></li>
-				<li><a href="">已经处理未回访([[${allcount[1]}]])</a></li>
-				<li><a href="">已经处理报修([[${allcount[2]}]])</a></li>
-			</ul>
-		</div>
-		<!-- 
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
-  This content is only shown to administrators.
-</div>
-<div sec:authorize="hasRole('ROLE_USER')">
-  This content is only shown to users.
-</div>
-The attribute sec:authentication is used to print logged user name and roles:
-
-?
-Logged user: <span sec:authentication="name">Bob</span>
-Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
-		
-		 -->
+		<!-- 左侧菜单 -->
+		<div th:include="fragements/left" class="sidebar col-xs-2"></div>
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
-				欢迎：<span id="username" sec:authentication="name" ></span><br/>
-				<div sec:authorize="hasRole('ROLE_ADMIN')">
-					客户档案检索：
-					用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-					用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
-					<table id="admintable">
+				<div>
+					<table id="table">
 						<tr>
-							<td>序号</td>
-							<td>用户卡号</td>
-							<td>姓名</td>
-							<td>手机号码</td>
-							<td>固定电话</td>
+							<td>名称</td>
+							<td>报修类型</td>
+							<td>保修用户</td>
+							<td>服务人员</td>
 							<td>地址</td>
-							<td>操作</td>
+							<td>电话</td>
+							<td>备注</td>
+							<td>是否完成</td>
+							<td>是否回访</td>
+							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" >是否回访</td>
 						</tr>
-						<tr id="result">
-							<!-- <td></td>
+						<tr id="result"> <!-- th:each="item,stat : ${}" th:if="${#lists.notEmpty()}" --> 
 							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td><a href="javascript:void(0)">详细信息</a><a href="javascript:void(0)">报修</a></td> -->
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" ></td>
 						</tr>
 					</table>
-				</div>
-				
-				<div sec:authorize="hasRole('ROLE_USER')" id="clientcontent">
-					<table id="clienttable">
-						<tr>
-							<td>结算户代码</td>
-							<td>档案号</td>
-							<td>用户名</td>
-							<td>状态</td>
-							<td>地址</td>
-							<td>计费类型</td>
-							<td>上年度缴费</td>
-							<td>本年度缴费</td>
-							<td>结算户类型</td>
-							<td>用户数</td>
-							<td>关联数量</td>
-							<td>身份证号</td>
-							<td>单位</td>
-							<td>联系人</td>
-							<td>签约银行</td>
-							<td>上月热表数(KJ)</td>
-							<td>本月热表数(KJ)</td>
-							<td>供热表号</td>
-						</tr>
-						<tr id="result">
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-					报修类型：
-					<select name='itype'>
-						<option value="OTHER">其他</option>
-						<option value="LEAK">漏水</option>
-						<option value="HEATMETER">热表故障</option>
-						<option value="COLD">无法升温</option>
-					</select><br/>
-					片区负责：
-					<select name='user.id'>
-						<option value="${item.id}" th:if="${#lists.notEmpty(emps)}" th:each="item,index :${emps}">[[${item.name}]]</option>
-					</select>
-					紧急联系人：<input type="text" id="contact" /><br/>
-					联系人电话：<input type="text" id="phone" /><br/>
-					报修时间：[[${#dates.createNow()}]]<br/>
-					备注：
-					<textarea id="comment">
-					</textarea>
-				</div>
-				
-				<div sec:authorize="hasRole('ROLE_EMP')" id="empcontent">
-					<table>
-						<tr>
-							<td>序号</td>
-							<td>用户卡号</td>
-							<td>姓名</td>
-							<td>手机号码</td>
-							<td>固定电话</td>
-							<td>地址</td>
-							<td>操作</td>
-						</tr>
-						<tr id="result">
-							<td>1</td>
-							<td>用户卡号</td>
-							<td>姓名</td>
-							<td>手机号码</td>
-							<td>固定电话</td>
-							<td>地址</td>
-							<td><a href="">详细信息</a><a href="">报修</a></td>
-						</tr>
-					</table>
-				</div>
-				
-				<div sec:authorize="hasRole('ROLE_LEADER')">
-				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
 				</div>
 			</div>
 		</div>
@@ -182,98 +54,36 @@ Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]<
 		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
 	</div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
-<script>
-function remote(url, callback){
-	$.ajax({
-		url:url,
-		dataType:'json',
-		type:'get',
-		contentType:'application/json; charset=UTF-8',
-		success:function(data){
-			if(callback){
-				callback(data);
-			}
-		}
-	});
-}
-
-function commonCallback(data){
-	/*<![CDATA[*/
-	if(data&&data.length != 0){
-		/*]]>*/
-		$.each(data, function(index,value){
-			$('#result').append('<td>' + value.no + '</td>');
-			$('#result').append('<td>' + value.name + '</td>');
-			$('#result').append('<td>' + value.phone + '</td>');
-			$('#result').append('<td>' + value.no + '</td>');
-			$('#result').append('<td>' + value.address + '</td>');
-			<!--TODO维修是啥意思 -->
-			$('#result').append('<td data-entity=' + value.id + '>' + '<a href="javascript:void(0)">详细信息</a><a href="javascript:void(0)">报修</a>' + '</td>');
-		});
-		//$('#result td:eq(0)').text(data.no);
-		/*<![CDATA[*/
-	}
-	/*]]>*/
-}
-
+<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
+<script th:src="@{/static/js/bootstrap-paginator.min.js}"></script>
+<script type='text/javascript' th:inline="javascript">
 $(function(){
-	var username = $('#username').text().trim();
-	
-	$('#card').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/card/' + no, commonCallback);
-	})
-	$('#address').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/address/' + no, commonCallback);
-	})
-	$('#phone').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/phone/' + no, commonCallback);
-	})
-	$('#name').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/name/' + no, commonCallback);
-	})
-	$('#mobile').blur(function(){
-		var no = $(this).val();
-		if(!no){
-			return;
-		}
-		remote('/admin/mobile/' + no, commonCallback);
-	})
-	
-	//操作点击事件
-	$('#result td:last').on('click', 'a:first', function(){
-		var id = $(this).attr('data-entity');
-		if(id){
-			$('admintable').empty();
-		}
-	});
-	
-	$('#result td:last').on('click', 'a:last', function(){
-		var id = $(this).attr('data-entity');
-		if(id){
-			$('admintable').empty();
-		}
-	});
-	
-	//客户页面
-	
+	var url = window.location.href;
+	var pageUrl = '/unhandle/';
+	/*<![CDATA[*/
+    var isadmin = /*[[${#authorization.expression('hasRole(''ROLE_ADMIN'')')}]]*/;
+    var isclient = /*[[${#authorization.expression('hasRole(''ROLE_USER'')')}]]*/;
+    var isemp = /*[[${#authorization.expression('hasRole(''ROLE_REPAIR'')')}]]*/;
+    var id = /*[[${#authentication.principal.id}]]*/;
+	/*]]>*/
+	if(isadmin){
+		pageUrl = '/admin' + pageUrl;
+	}else if(isclient){
+		pageUrl = '/client' + pageUrl + '/';
+	}else if(isemp){
+		pageUrl = '/emp' + pageUrl + '/';
+	}
+    var options = {
+	    currentPage: [[${page.currentPage}]],
+	    totalPages: [[${page.totalPage}]],
+		numberOfPages: 5,
+	    pageUrl: function(type, page, current){
+	    	return pageUrl + page;
+	    },
+  		containerClass:'pagination'
+    }
+
+    $('#stat').bootstrapPaginator(options);
 });
 </script>
 </body>
