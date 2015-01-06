@@ -14,8 +14,9 @@ function remote(url, callback){
 
 function commonCallback(data){
 	/*<![CDATA[*/
-	if(data&&data.length != 0){
+	if(data && data!=null && data.length != 0){
 		/*]]>*/
+		console.log(data);
 		$.each(data, function(index,value){
 			$('#admintable tbody').append('<tr id="' + value.id + '"><td>' + value.no + '</td>');
 			$('#admintable tbody tr').append('<td>' + value.name + '</td>')

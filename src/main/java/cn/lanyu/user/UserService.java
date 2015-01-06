@@ -17,7 +17,7 @@ public class UserService {
 	private UserDao userDao;
 	@Autowired
 	private ClientDao clientDao;
-	//TODO @Autowired
+	@Autowired
 	private ClientRemoteDao remoteDao;
 	//SPRING_SECURITY_CONTEXT存在session里
 	@Autowired
