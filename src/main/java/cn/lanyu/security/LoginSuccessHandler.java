@@ -11,11 +11,21 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	protected String determineTargetUrl(HttpServletRequest request, HttpServletResponse response) {
         final String targetUrl = super.determineTargetUrl(request, response);
         
-        if(targetUrl.contains("static")) {
+        if(targetUrl.contains("static") || isAjaxRequest(request)) {
         	return "/";
         }
 
         return targetUrl;
     }
+	
+	/**
+	 * 判断请求是否是ajax请求
+	 * @param request
+	 * @return
+	 */
+	public static boolean isAjaxRequest(HttpServletRequest request) {
+		String requestedWith = request.getHeader("X-Requested-With");
+		return requestedWith != null ? "XMLHttpRequest".equals(requestedWith) : false;
+	}
 	
 }
