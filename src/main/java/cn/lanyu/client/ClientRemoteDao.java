@@ -6,17 +6,16 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.google.common.collect.Lists;
 
-//TODO @Repository
+@Repository
 public class ClientRemoteDao {
 	@Autowired
-	@Qualifier("sessionFactory")
 	private JdbcTemplate jdbcTemplate;
 	
 	private static final String COMMONSQL = "select "

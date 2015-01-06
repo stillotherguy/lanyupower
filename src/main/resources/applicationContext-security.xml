@@ -17,7 +17,7 @@
  	<http security="none" pattern="/static/img/**" />
  	<http security="none" pattern="/**.html" />
  	<http auto-config="true" use-expressions="false">
- 		<form-login login-processing-url="/login/action" login-page="/login" 
+ 		<form-login login-processing-url="/login/action" login-page="/login" authentication-success-handler-ref="successHandler"
  			authentication-failure-url="/login/401" default-target-url="/" always-use-default-target="false" username-parameter="user" password-parameter="pass"/>
  		<intercept-url pattern="/signup" access="ROLE_ADMIN,ROLE_LEADER" />
  		<intercept-url pattern="/emp/**" access="ROLE_REPAIR,ROLE_SERVICE,ROLE_ADMIN" />
@@ -35,10 +35,12 @@
 		<remember-me services-ref="rememberMeServices"/>
  	</http>
  	
+ 	<beans:bean id="successHandler" class="cn.lanyu.security.LoginSuccessHandler" />
+ 	
  	<beans:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
 	    <beans:property name="userDetailsService" ref="userDetailsService"/>
 	    <beans:property name="key" value="hfdahfkjasdhfsdah"/>
-	    <beans:property name="cookieName" value="jfldsajfkslfjlss" />
+	    <beans:property name="cookieName" value="lanyupower" />
 	    <beans:property name="parameter" value="rememberme"/>
 	</beans:bean>
     
