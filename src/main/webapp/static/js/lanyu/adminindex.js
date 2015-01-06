@@ -38,6 +38,8 @@ function commonCallback(data){
 		});
 		//$('#result td:eq(0)').text(data.no);
 		/*<![CDATA[*/
+	}else{
+		$('#admintable tbody').append('<tr><td>无结果</td></tr>');
 	}
 	/*]]>*/
 }
