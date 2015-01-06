@@ -2,6 +2,7 @@ package cn.lanyu.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,15 @@ public class IndexController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private PasswordEncoder encoder;
+	
 	@RequestMapping
 	public String index(Model model) {
 		final GrantedAuthority auth = UserContext.getAuthority();
 		if(auth.getAuthority().equals("ROLE_USER")){
 			final Object password = UserContext.getPassword();
-			if(password == null){
+			if(password == null || encoder.matches("123456", (String) password)){
 				return "common/changepwd";
 			}
 		}
