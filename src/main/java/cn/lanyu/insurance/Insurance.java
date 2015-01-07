@@ -46,6 +46,8 @@ public class Insurance {
 	private Assessment assessment;
 	private String complaint;
 	
+	public Insurance(){}
+	
 	public long getId() {
 		return id;
 	}
@@ -181,7 +183,7 @@ public class Insurance {
 	public void setComplaint(String complaint) {
 		this.complaint = complaint;
 	}
-
+	
 	public static enum Assessment {
 		VERY_SATISFIED("非常满意"),SATISFIED("满意"),ORDINARY("一般"),UNSATISFIED("不满意"),COMPLAINT("投诉");
 		

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.lanyu.user.User;
 import cn.lanyu.user.UserService;
@@ -34,8 +35,9 @@ public class SignupController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public String signupAction(User user) {
+	public String signupAction(User user, RedirectAttributes attr) {
 		userSerivce.signup(user);
+		attr.addFlashAttribute("message", "注册成功");
 		return "redirect:/index";
 	}
 }

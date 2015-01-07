@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.lanyu.auth.Authority;
+import cn.lanyu.client.Client;
 import cn.lanyu.insurance.Insurance.Type;
 import cn.lanyu.user.UserContext;
 import cn.lanyu.user.UserService;
@@ -25,9 +26,10 @@ public class IndexController {
 	public String index(Model model) {
 		final GrantedAuthority auth = UserContext.getAuthority();
 		if(auth.getAuthority().equals("ROLE_USER")){
-			final Object password = UserContext.getPassword();
-			if(password == null || encoder.matches("123456", (String) password)){
-				return "common/changepwd";
+			final long id = UserContext.getUserId();
+			Client client = userService.getById(id);
+			if(client.isFirstlogin()){
+				return "redirect:/pwd/change";
 			}
 		}
 		final String no = UserContext.getUsername();
@@ -39,7 +41,7 @@ public class IndexController {
 				model.addAttribute("type", Type.values());
 				break;
 			case ROLE_REPAIR:
-				return "emp/index";
+				return "redirect:/emp/unhandle";
 			case ROLE_LEADER:
 				return "leader/index";
 			case ROLE_USER:

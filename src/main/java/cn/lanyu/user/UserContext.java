@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import cn.lanyu.client.Client;
+
 public class UserContext {
 	@SuppressWarnings("unchecked")
 	public static GrantedAuthority getAuthority() {
@@ -35,7 +37,11 @@ public class UserContext {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
 			UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken)authentication;
-			return ((User)token.getPrincipal()).getUsername();
+			Object principal = token.getPrincipal();
+			if(principal instanceof User){
+				return ((User)principal).getUsername();
+			}
+			return ((Client)principal).getNo();
 		}
 		return null;
 	}
@@ -44,7 +50,11 @@ public class UserContext {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication != null && authentication instanceof UsernamePasswordAuthenticationToken) {
 			UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken)authentication;
-			return ((User)token.getPrincipal()).getId();
+			Object principal = token.getPrincipal();
+			if(principal instanceof User){
+				return ((User)principal).getId();
+			}
+			return ((Client)principal).getId();
 		}
 		return -1;
 	}

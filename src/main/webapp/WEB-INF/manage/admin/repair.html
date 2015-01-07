@@ -69,8 +69,8 @@
 						<option value="COLD">无法升温</option>
 					</select><br/>
 					片区负责：
-					<select name='user.id'>
-						<option value="${item.id}" th:if="${#lists.notEmpty(emps)}" th:each="item,index :${emps}">[[${item.name}]]</option>
+					<select name="user.id">
+						<option th:if="not ${#lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
 					</select>
 					紧急联系人：<input type="text" name="contact" /><br/>
 					联系人电话：<input type="text" name="phone" /><br/>

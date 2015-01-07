@@ -2,17 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>蓝煜热力客户信息服务管理系统</title>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <meta name="renderer" content="webkit"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link rel="shortcut icon" th:href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="/css/base.css" />
+<!-- <link rel="shortcut icon" th:href="/favicon.ico" /> -->
+<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
-<body>
+<body th:inline="text">
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
 		<div th:include="fragements/left"></div>
@@ -53,11 +53,13 @@
 				<form id="form" method="post" action="/client/feedback">
 					<input type="hidden" name="id" th:value="${insurance.id}" />
 					对本次维修服务评价：
-					<input th:each="item,stat : ${assessments}" type="radio" name="assessment" th:value="${item}"/>
-					<span th:each="item,stat : ${assessments}" th:text="${item.desc}"></span>
+					<div th:each="item,stat : ${assessments}" >
+						<span th:text="${item.desc}"></span>
+						<input  type="radio" name="assessment" th:value="${item}"/>
+					</div>
+					
 					<!-- TODO:选择未处理则显示投诉内容输入框 -->
-					故障照片上传：
-					投诉内容：<div id="comp" stype="display:hidden"><textarea name="empComment"></textarea></div>
+					<div id="comp">投诉内容：<textarea name="empComment"></textarea></div>
 					<input type="submit" name="提交" />
 				</form>
 			</div>
@@ -66,20 +68,21 @@
 	<div class="footer">
 		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
 	</div>
-<script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
 <script>
 $(function(){
+	$('#comp').hide();
 	$('form input[type=radio]').on('click', function(){
 		var assessment = $(this).val();
 		var ischeck = this.checked;
 		if(assessment === "COMPLAINT"){
 			if(ischeck){
 				$('#comp').show();
-			}else{
-				$('#comp').hide();
 			}
+		}else{
+			$('#comp').hide();
 		}
 	});
 });

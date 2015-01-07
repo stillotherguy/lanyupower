@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.lanyu.base.page.Page;
+import cn.lanyu.client.Client;
 import cn.lanyu.insurance.Insurance;
 import cn.lanyu.insurance.Insurance.Assessment;
 import cn.lanyu.insurance.InsuranceDao;
@@ -32,7 +33,7 @@ public class ClientController {
 	
 	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
 	public String feedback(RedirectAttributes attr, Insurance insurance) {
-		insuranceDao.update(insurance);
+		insuranceDao.updateWithSQLFeedback(insurance, insurance.getAssessment() == Assessment.COMPLAINT);
 		attr.addFlashAttribute("message", "回访成功");
 		
 		return "redirect:/index";
@@ -119,6 +120,10 @@ public class ClientController {
 	@RequestMapping(value = "/repair", method = RequestMethod.POST)
 	public String nofeed(Insurance insurance) {
 		insurance.setStartDate(new Date());
+		Client client = new Client();
+		client.setId(UserContext.getUserId());
+		insurance.setClient(client);
+		insuranceDao.insert(insurance);
 		return "redirect:/index";
 	}
 }

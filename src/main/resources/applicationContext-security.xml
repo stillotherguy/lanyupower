@@ -9,12 +9,14 @@
 	<http security="none" pattern="/favicon.ico" />
 	<http security="none" pattern="/login/401" />
  	<http security="none" pattern="/login/403" />
+ 	<http security="none" pattern="/pwd/change" />
  	<http security="none" pattern="/login**" />
  	<http security="none" pattern="/css/**" />
  	<http security="none" pattern="/js/**" />
  	<http security="none" pattern="/static/css/**" />
  	<http security="none" pattern="/static/js/**" />
  	<http security="none" pattern="/static/img/**" />
+ 	<http security="none" pattern="/static/upload/**" />
  	<http security="none" pattern="/**.html" />
  	<http auto-config="true" use-expressions="false">
  		<form-login login-processing-url="/login/action" login-page="/login" authentication-success-handler-ref="successHandler"
@@ -22,6 +24,7 @@
  		<intercept-url pattern="/signup" access="ROLE_ADMIN,ROLE_LEADER" />
  		<intercept-url pattern="/emp/**" access="ROLE_REPAIR,ROLE_SERVICE,ROLE_ADMIN" />
  		<intercept-url pattern="/client/**" access="ROLE_ADMIN,ROLE_USER" />
+ 		<intercept-url pattern="/leader/**" access="ROLE_ADMIN,ROLE_LEADER" />
  		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
  		<intercept-url pattern="/**" access="ROLE_USER,ROLE_REPAIR,ROLE_ADMIN,ROLE_LEADER,ROLE_SERVICE" />
  		<access-denied-handler error-page="/login/403" />

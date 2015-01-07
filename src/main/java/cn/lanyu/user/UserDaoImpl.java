@@ -27,7 +27,12 @@ public class UserDaoImpl extends GenericDao<User> implements UserDao {
 
 	@Override
 	public boolean isExist(String username) {
-		return queryForInt("from User u a where a.username = ?", new Object[] {username}) > 0;
+		return queryForInt("from User u where u.username = ?", new Object[] {username}) > 0;
+	}
+
+	@Override
+	public void changePwd(String username, String password) {
+		updateBySql("update user set password=? where username=?", new Object[]{password, username});
 	}
 
 }

@@ -18,24 +18,26 @@ function commonCallback(data){
 		/*]]>*/
 		console.log(data);
 		$.each(data, function(index,value){
-			$('#admintable tbody').append('<tr id="' + value.id + '"><td>' + value.no + '</td>');
-			$('#admintable tbody tr').append('<td>' + value.name + '</td>')
-			.append('<td>' + value.state + '</td>')
-			.append('<td>' + value.address + '</td>')
-			.append('<td>' + value.chargetype + '</td>')
-			.append('<td>' + value.lastyearcharge + '</td>')
-			.append('<td>' + value.thisyearcharge + '</td>')
-			.append('<td>' + value.usertype + '</td>')
-			.append('<td>' + value.totaluser + '</td>')
-			.append('<td>' + value.revnum + '</td>')
-			.append('<td>' + value.identity + '</td>')
-			.append('<td>' + value.organization + '</td>')
-			.append('<td>' + value.contact + '</td>')
-			.append('<td>' + value.bank + '</td>')
-			.append('<td>' + value.lastmonthkj + '</td>')
-			.append('<td>' + value.thismonthkj + '</td>')
-			.append('<td>' + value.phone + '</td>')
-			.append('<td>' + '<a href="/admin/repair/' + value.id +'" data-entity=' + value.id + '>报修</a>' + '</td></tr>');
+			$('#admintable tbody').html(
+			'<tr id="' + value.id + '">' +
+			'<td>' + value.no + '</td>' + 
+			'<td>' + value.name + '</td>'+
+			'<td>' + value.state + '</td>' +
+			'<td>' + value.address + '</td>' +
+			'<td>' + value.chargetype + '</td>' +
+			'<td>' + value.lastyearcharge + '</td>' +
+			'<td>' + value.thisyearcharge + '</td>' +
+			'<td>' + value.usertype + '</td>' +
+			'<td>' + value.totaluser + '</td>' +
+			'<td>' + value.revnum + '</td>' +
+			'<td>' + value.identity + '</td>' +
+			'<td>' + value.organization + '</td>' +
+			'<td>' + value.contact + '</td>' +
+			'<td>' + value.bank + '</td>' +
+			'<td>' + value.lastmonthkj + '</td>' +
+			'<td>' + value.thismonthkj + '</td>' +
+			'<td>' + value.phone + '</td>'  +
+			'<td>' + '<a href="/admin/repair/' + value.id +'" data-entity=' + value.id + '>报修</a>' + '</td></tr>');
 		});
 		//$('#result td:eq(0)').text(data.no);
 		/*<![CDATA[*/

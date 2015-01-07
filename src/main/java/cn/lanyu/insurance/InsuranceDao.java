@@ -2,9 +2,12 @@ package cn.lanyu.insurance;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import cn.lanyu.base.dao.IGenericDao;
 import cn.lanyu.base.page.Page;
 
+@Transactional
 public interface InsuranceDao extends IGenericDao<Insurance> {
 	int countUnfinished();
 	int countUnfinishedByClientno(String clientno);
@@ -30,4 +33,6 @@ public interface InsuranceDao extends IGenericDao<Insurance> {
 	List<Insurance> pageFinishedWithFeedbackByUserId(long id, Page page);
 	List<Insurance> pageFinishedWithFeedbackByClientno(String clientno, Page page);
 	List<Insurance> pageFinishedWithFeedbackByClientId(long id, Page page);
+	void updateWithSQL(Insurance insurance);
+	void updateWithSQLFeedback(Insurance insurance, boolean b);
 }

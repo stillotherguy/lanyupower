@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import cn.lanyu.auth.Authority;
 import cn.lanyu.insurance.Insurance;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.common.collect.Lists;
@@ -107,6 +108,7 @@ public class Client implements UserDetails{
 	 * 基本热价
 	 */
 	private double price;
+	@JsonBackReference
 	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "client", fetch = FetchType.LAZY)
 	private List<Insurance> insurances;
 	private boolean firstlogin;

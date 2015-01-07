@@ -21,10 +21,15 @@
 				欢迎：<span id="username" sec:authentication="name" ></span><br/>
 				<span>[[${message} == null?'':${message}]]</span>
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
-					客户档案检索：
-					用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-					用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
-					<table id="admintable">
+					客户档案检索：<br/>
+					<input type="text" id="card" class="form-control" placeholder="用户卡号"/>
+					<input type="text" id="phone" class="form-control" placeholder="用户固话"/>
+					<input type="text" id="name" class="form-control" placeholder="用户名字"/>
+					<input type="text" id="mobile" class="form-control" placeholder="用户手机"/>
+					<input type="text" id="address" class="form-control" placeholder="用户地址"/>
+					<!-- 用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
+					用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/> -->
+					<table id="admintable" class="table table-striped">
 						<thead>
 							<tr>
 								<td>结算户代码</td>
@@ -49,13 +54,12 @@
 							</tr>
 						</thead>
 						<tbody>
-						
 						</tbody>
 					</table>
 				</div>
 				
 				<div sec:authorize="hasRole('ROLE_USER')" id="clientcontent">
-					<table id="clienttable">
+					<table id="clienttable" class="table table-striped">
 						<tr>
 							<td>结算户代码</td>
 							<!-- <td>档案号</td> -->
@@ -78,7 +82,6 @@
 						</tr>
 						<tr id="result">
 							<td>[[${client.no}]]</td>
-							<!-- <td></td> -->
 							<td>[[${client.name}]]</td>
 							<td>[[${client.state}]]</td>
 							<td>[[${client.address}]]</td>
@@ -110,44 +113,16 @@
 						</select><br/>
 						片区负责：
 						<select name='user.id'>
-							<option value="${item.id}" th:if="${#lists.notEmpty(emps)}" th:each="item,index :${emps}">[[${item.name}]]</option>
+							<option th:if="${not #lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
 						</select>
-						紧急联系人：<input type="text" id="contact" /><br/>
-						联系人电话：<input type="text" id="phone" /><br/>
+						紧急联系人：<input type="text" id="contact" name="contact"/><br/>
+						联系人电话：<input type="text" id="phone" name="phone"/><br/>
 						备注：
 						<textarea id="comment">
 						</textarea>
 						<input type="submit" name="提交" id="submit"/>
 					</form>
 				</div>
-				
-				<div sec:authorize="hasRole('ROLE_EMP')" id="empcontent">
-					<!-- <table>
-						<tr>
-							<td>序号</td>
-							<td>用户卡号</td>
-							<td>姓名</td>
-							<td>手机号码</td>
-							<td>固定电话</td>
-							<td>地址</td>
-							<td>操作</td>
-						</tr>
-						<tr id="result">
-							<td>1</td>
-							<td>用户卡号</td>
-							<td>姓名</td>
-							<td>手机号码</td>
-							<td>固定电话</td>
-							<td>地址</td>
-							<td><a href="">详细信息</a><a href="">报修</a></td>
-						</tr>
-					</table> -->
-				</div>
-				
-				<!-- <div sec:authorize="hasRole('ROLE_LEADER')">
-				用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-				用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/>
-				</div> -->
 			</div>
 		</div>
 	</div>
@@ -159,6 +134,5 @@
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/lanyu/adminindex.js}" sec:authorize="hasRole('ROLE_ADMIN')"></script>
 <script type="text/javascript" th:src="@{/static/js/lanyu/clientindex.js}" sec:authorize="hasRole('ROLE_USER')"></script>
-<script type="text/javascript" th:src="@{/static/js/lanyu/empindex.js}" sec:authorize="hasRole('ROLE_USER')"></script>
 </body>
 </html>

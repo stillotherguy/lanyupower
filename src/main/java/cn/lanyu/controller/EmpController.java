@@ -1,24 +1,42 @@
 package cn.lanyu.controller;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.lanyu.base.page.Page;
+import cn.lanyu.file.FileService;
 import cn.lanyu.insurance.Insurance;
 import cn.lanyu.insurance.InsuranceDao;
 import cn.lanyu.user.UserContext;
+import cn.lanyu.util.BeanUtils;
+
+import com.google.common.collect.Maps;
 
 @Controller
 @RequestMapping("/emp")
 public class EmpController {
 	@Autowired
 	private InsuranceDao insuranceDao;
+	@Autowired
+	private FileService fileService;
+	@Autowired
+	private SessionFactory sessionFactory;
 	
 	@RequestMapping(value = "/feedback/{id}", method = RequestMethod.GET)
 	public String handle(Model model, @PathVariable long id) {
@@ -28,13 +46,17 @@ public class EmpController {
 	}
 	
 	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
-	public String handleAction(Model model, Insurance insurance) {
+	public String handleAction(RedirectAttributes model, Insurance insurance) {
 		insurance.setEndDate(new Date());
-		insuranceDao.update(insurance);
-		model.addAttribute("message", "处理成功");
+		insurance.setFinished(true);
+		insuranceDao.updateWithSQL(insurance);
+		//sessionFactory.getCurrentSession().evict(target);
+		//BeanUtils.copyProperties(insurance, target);
+		//insuranceDao.update(insurance);
+		model.addFlashAttribute("message", "处理成功");
 		return "redirect:/emp/unhandle";
 	}
-	
+
 	@RequestMapping("/unhandle/{id}/{currentPage}")
 	public String pageWithId(Model model, @PathVariable long id, @PathVariable int currentPage) {
 		Page page = new Page(currentPage);
@@ -122,49 +144,34 @@ public class EmpController {
 	 * @param response
 	 * @return
 	 */
-	/*@RequestMapping(value = "/upload/{uploadType}", method = RequestMethod.POST)
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	@ResponseBody
-	public Map upload(@RequestParam(value = "upfile") MultipartFile mf, HttpServletRequest request,
-			@PathVariable String uploadType)
-	{
+	public Map<String, Object> upload(@RequestParam(value = "file") MultipartFile mf, HttpServletRequest request){
 		Assert.notNull(mf, "上传的文件不能为null");
-		UploadType type = Enum.valueOf(UploadType.class, uploadType.toUpperCase());
-		Map<String, String> map = Maps.newHashMap();
-		if (OptionalUtil.isNull(type)) {
-			map.put("state", "提交参数有误");
-			return map;
-		}
+		Map<String, Object> map = Maps.newHashMap();
 		String path = request.getServletContext().getRealPath("/");
 		List<String> result = fileService.upload(mf, path);
 		switch (result.get(0)) {
 		case "type":
-			map.put("state", "文件类型不符");
+			map.put("state", false);
+			map.put("message", "文件类型不符");
 			break;
 		case "size":
-			map.put("state", "文件过大");
+			map.put("state", false);
+			map.put("message", "文件过大");
 			break;
 		case "exception":
-			map.put("state", "内部错误");
+			map.put("state", false);
+			map.put("message", "服务器发生错误");
 			break;
 		case "success":
-			switch (type) {
-			case IMAGEUP:
-				map.put("url", fileServer + "/site/" + result.get(1));
-				map.put("title", result.get(2));
-				map.put("state", "SUCCESS");
-				map.put("original", mf.getOriginalFilename());
-				break;
-			case FILEUP:
-				map.put("url", fileServer + "/site/" + result.get(1));
-				map.put("original", mf.getOriginalFilename());
-				map.put("fileType", result.get(3));
-				map.put("state", "SUCCESS");
-				break;
-			}
+			map.put("state", true);
+			map.put("file", result.get(1));
 			break;
 		default:
-			map.put("state", "未知错误");
+			map.put("state", false);
+			map.put("message", "未知错误");
 		}
 		return map;
-	}*/
+	}
 }

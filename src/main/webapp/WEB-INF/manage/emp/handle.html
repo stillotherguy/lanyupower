@@ -2,17 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>蓝煜热力客户信息服务管理系统</title>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <meta name="renderer" content="webkit"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link rel="shortcut icon" th:href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" href="/css/base.css" />
+<!-- <link rel="shortcut icon" th:href="/favicon.ico" /> -->
+<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/uploadify.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
-<body>
+<body th:inline="text">
 	<div th:include="fragements/header"></div>
 	<div class="container wrapper">
 		<div th:include="fragements/left"></div>
@@ -45,21 +46,24 @@
 				<form id="form" method="post" action="/emp/feedback">
 					<input type="hidden" name="id" th:value="${insurance.id}" />
 					故障原因：<textarea name="reason"></textarea>
-					分发工单时间：[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]
-					故障照片上传：
+					分发工单时间：<span th:if="${insurance.startDate != null}">[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]</span>
 					备注：<textarea name="empComment"></textarea>
+					<input type="hidden" name="images" id="images" />
 					<input type="submit" name="提交" />
 				</form>
+					故障照片上传：<div id="queue"></div>
+					<input id="file_upload" name="file" type="file" multiple="true"/>
 			</div>
 		</div>
 	</div>
 	<div class="footer">
 		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
 	</div>
-<script type="text/javascript" th:src="@{/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
-<script>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.uploadify.min.js}"></script>
+<script th:inline="javascript">
 $(function(){
 	$('#form').validate({
 		rules: {
@@ -83,6 +87,75 @@ $(function(){
 			}
 		}
 	})
+	
+	$('#file_upload').uploadify({
+		fileObjName: 'file',
+		width: 100,
+	    uploader: '/emp/upload',
+	    //flash文件位置，注意路径
+	    'swf' : '/static/css/uploadify.swf',
+	    //script: '/emp/upload',
+	    //后台处理的请求(sevlet)
+	    auto: true,
+	    //选定文件后是否自动上传，默认false
+	    queueID: 'queue',
+	    //与下面的上传文件列表id对应
+	    queueSizeLimit: 8,
+	    //上传文件的数量
+	    scriptData: {
+	        'id': '[[${insurance.id}]]'
+	    },
+	    //向后台传的数据
+	    //fileDesc: '',
+	    //上传文件类型说明
+	    //fileExt: 'jpg,png,gif,jpeg',
+	    //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
+	    method: 'post',
+	    //如果向后台传输数据，必须是get
+	    //  sizeLimit:10000,//文件上传的大小限制，单位是字节
+	    multi: true,
+	    simUploadLimit: 8,
+	    //同时上传文件的数量，设置了这个参数后，
+	    //那么你会因设置multi:true和queueSizeLimit：8而可以多选8个文件，
+	    //但如果一旦你将simUploadLimit也设置了，那么只会上传这个参数指定的文件个数，其它就上传不了
+	    buttonText: '选择图片',
+	    //浏览按钮上的文字
+	    /* onComplete: function(event, queueID, fileObj, serverData, data){ //当上传完成后的回调函数，ajax方式哦~~
+	    }, */
+	    onUploadSuccess: function(file, data, response) {
+            var result = $.parseJSON(data);
+            /*<![CDATA[*/
+            if(result && result != null){
+            /*]]>*/
+            	if(result.state){
+            		var img = $('#images').val();
+            		/*<![CDATA[*/
+            		if(img && result.file){
+            		/*]]>*/
+            			$('#images').val(img + ',' + result.file);
+            		}else{
+            			$('#images').val(result.file);
+            		}
+            		$('.chart-pane').append('<img src="/static/upload/' + result.file + '"  alt="' + result.file + '" />')
+            	}else{
+            		alert(result.message);
+            	}
+            }
+        },
+	    onSelect: function(e, queueId, fileObj){
+	        /*alert("唯一标识:" + queueId + "\r\n" +
+		                  "文件名：" + fileObj.name + "\r\n" +
+		                  "文件大小：" + fileObj.size + "\r\n" +
+		                  "创建时间：" + fileObj.creationDate + "\r\n" +
+		                  "最后修改时间：" + fileObj.modificationDate + "\r\n" +
+		                  "文件类型：" + fileObj.type
+		            );*/
+
+	    },
+	    onError: function(event, queueID, fileObj){
+	    	alert("文件:" + fileObj.name + " 上传失败");
+	    }
+	});
 });
 </script>
 </body>

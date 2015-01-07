@@ -3,10 +3,10 @@ package cn.lanyu.insurance;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import cn.lanyu.base.dao.GenericDao;
 import cn.lanyu.base.page.Page;
+import cn.lanyu.insurance.Insurance.Assessment;
 
 
 @Repository
@@ -136,6 +136,24 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 	@Override
 	public List<Insurance> pageFinishedWithFeedbackByClientId(long id, Page page) {
 		return queryForList("from Insurance i where i.finished=? and i.feedback=? and i.client.id=? order by i.startDate desc", new Object[]{true, true, id}, page);
+	}
+
+	@Override
+	public void updateWithSQL(Insurance insurance) {
+		String reason = insurance.getReason();
+		String empComment = insurance.getEmpComment();
+		String images = insurance.getImages();
+		updateBySql("update insurance set reason=?,images=?,empComment=?,finished=1 where id=?", new Object[]{reason,images,empComment,insurance.getId()});
+	}
+
+	@Override
+	public void updateWithSQLFeedback(Insurance insurance, boolean b) {
+		if(b){
+			updateBySql("update insurance set complaint=?,assessment=?,finished=0 where id=?", new Object[]{insurance.getComplaint(),Assessment.COMPLAINT.ordinal(),insurance.getId()});
+		}else{
+			updateBySql("update insurance set assessment=?,finished=1 where id=?", new Object[]{insurance.getAssessment(),insurance.getId()});
+
+		}
 	}
 
 }

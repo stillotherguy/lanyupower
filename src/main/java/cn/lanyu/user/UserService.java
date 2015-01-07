@@ -13,6 +13,7 @@ import cn.lanyu.client.ClientRemoteDao;
 
 @Service
 public class UserService {
+	private static final CharSequence DEFAULT_PWD = "123456";
 	@Autowired
 	private UserDao userDao;
 	@Autowired
@@ -36,7 +37,8 @@ public class UserService {
 			//从远程取
 			client = remoteDao.getClientByNo(param);
 			if(client != null) {
-				//client.setPassword(encoder.encode(DEFAULT_PWD));
+				client.setPassword(encoder.encode(DEFAULT_PWD));
+				client.setFirstlogin(true);
 				clientDao.insert(client);
 				return client;
 			}
@@ -58,7 +60,8 @@ public class UserService {
 			clients = remoteDao.getClientByAddress(param);
 			if(clients != null && !clients.isEmpty()) {
 				for(Client c:clients){
-					//c.setPassword(encoder.encode(DEFAULT_PWD));
+					c.setPassword(encoder.encode(DEFAULT_PWD));
+					c.setFirstlogin(true);
 					clientDao.insert(c);
 				}
 				return clients;
@@ -75,7 +78,8 @@ public class UserService {
 			clients = remoteDao.getClientByUsername(param);
 			if(clients != null && !clients.isEmpty()) {
 				for(Client c:clients){
-					//c.setPassword(encoder.encode(DEFAULT_PWD));
+					c.setPassword(encoder.encode(DEFAULT_PWD));
+					c.setFirstlogin(true);
 					clientDao.insert(c);
 				}
 				return clients;
@@ -92,7 +96,8 @@ public class UserService {
 			clients = remoteDao.getClientByMobile(param);
 			if(clients != null && !clients.isEmpty()) {
 				for(Client c:clients){
-					//c.setPassword(encoder.encode(DEFAULT_PWD));
+					c.setPassword(encoder.encode(DEFAULT_PWD));
+					c.setFirstlogin(true);
 					clientDao.insert(c);
 				}
 				return clients;

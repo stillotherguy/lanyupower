@@ -21,7 +21,7 @@
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
 				<span>[[${message} == null?'':${message}]]</span>
 				<div>
-					<table id="table">
+					<table id="table" class="table table-striped">
 						<tr>
 							<td>名称</td>
 							<td>报修类型</td>
@@ -69,8 +69,8 @@ $(function(){
 		pageUrl = '/emp' + pageUrl + '/';
 	}
     var options = {
-	    currentPage: [[${page.currentPage}]],
-	    totalPages: [[${page.totalPage}]],
+	    currentPage: '[[${page.currentPage}]]',
+	    totalPages: '[[${page.totalPage}]]',
 		numberOfPages: 5,
 	    pageUrl: function(type, page, current){
 	    	return pageUrl + page;

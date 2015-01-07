@@ -2,7 +2,7 @@ $(function(){
 	$('#form').validate({
 		rules: {
 			"name": {
-				required:true,
+				required:true/*,
 				remote: {
 	                type: "post",
 	                url: "/insurance/exist",
@@ -12,7 +12,7 @@ $(function(){
 	                    }
 	                },
 	                dataType: "json"
-	            }
+	            }*/
 			},
 			"contact": {
 				required:true
@@ -23,8 +23,8 @@ $(function(){
 		},
 		messages: {
 			"name": {
-				required:"请输入报修单",
-				remote:"名称已存在"
+				required:"请输入报修单"/*,
+				remote:"名称已存在"*/
 			},
 			"contact": {
 				required:"请输入紧急联系人"

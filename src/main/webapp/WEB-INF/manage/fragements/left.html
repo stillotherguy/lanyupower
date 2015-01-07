@@ -5,14 +5,14 @@
 	<li><a href="/admin/finish">已经处理报修([[${allcount[2]}]])</a></li>
 	<li><a href="">客服人员管理</a></li>
 	<li><a href="">维修人员管理</a></li>
-	<li><a href="">满意度统计</a></li>
-	<li><a href="">维修时长统计</a></li>
-	<li><a href="">投诉统计</a></li>
+	<li><a href="/leader/satisfied">满意度统计</a></li>
+	<li><a href="/leader/repair">维修时长统计</a></li>
+	<li><a href="/leader/complaint">投诉统计</a></li>
 </ul>
 <ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_LEADER')">
-	<li><a href="">满意度统计</a></li>
-	<li><a href="">维修时长统计</a></li>
-	<li><a href="">投诉统计</a></li>
+	<li><a href="/leader/satisfied">满意度统计</a></li>
+	<li><a href="/leader/repair">维修时长统计</a></li>
+	<li><a href="/leader/complaint">投诉统计</a></li>
 </ul>
 <ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_USER')">
 	<li><a href="/client/unhandle">未处理报修([[${allcount[0]}]])</a></li>
