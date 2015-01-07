@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import cn.lanyu.client.Client;
 import cn.lanyu.user.User;
 
@@ -24,10 +26,11 @@ public class Insurance {
 	private long id;
 	private String name;
 	private Type itype;
-	@ManyToOne(targetEntity = User.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = User.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID",foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private User user;
-	@ManyToOne(targetEntity = Client.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@JsonBackReference  
+	@ManyToOne(targetEntity = Client.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "CLIENT_ID",foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
 	private Client client;
 	private String contact;
@@ -39,6 +42,9 @@ public class Insurance {
 	private Date endDate;
 	private String reason;
 	private String images;
+	private String empComment;
+	private Assessment assessment;
+	private String complaint;
 	
 	public long getId() {
 		return id;
@@ -150,6 +156,45 @@ public class Insurance {
 
 	public void setImages(String images) {
 		this.images = images;
+	}
+	
+	public String getEmpComment() {
+		return empComment;
+	}
+
+	public void setEmpComment(String empComment) {
+		this.empComment = empComment;
+	}
+
+	public Assessment getAssessment() {
+		return assessment;
+	}
+
+	public void setAssessment(Assessment assessment) {
+		this.assessment = assessment;
+	}
+
+	public String getComplaint() {
+		return complaint;
+	}
+
+	public void setComplaint(String complaint) {
+		this.complaint = complaint;
+	}
+
+	public static enum Assessment {
+		VERY_SATISFIED("非常满意"),SATISFIED("满意"),ORDINARY("一般"),UNSATISFIED("不满意"),COMPLAINT("投诉");
+		
+		private String desc;
+		
+		Assessment(String desc) {
+			this.desc = desc;
+		}
+
+		public String getDesc() {
+			return desc;
+		}
+		
 	}
 
 	public static enum Type {

@@ -47,6 +47,7 @@
 	        <bean class="cn.lanyu.converter.DateString" />
 	        <bean class="cn.lanyu.converter.StringAuthority" />
 	        <bean class="cn.lanyu.converter.StringType" />
+	        <bean class="cn.lanyu.converter.StringAssessment" />
 	      </set>
 	    </property>
 	</bean>

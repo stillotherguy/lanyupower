@@ -19,7 +19,6 @@
 		<div th:include="fragements/left" class="sidebar col-xs-2"></div>
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
-				<span>[[${message} == null?'':${message}]]</span>
 				<div>
 					<table id="table">
 						<tr>
@@ -30,7 +29,7 @@
 							<td>地址</td>
 							<td>电话</td>
 							<td>备注</td>
-							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" >操作</td>
+							<td sec:authorize="hasRole('ROLE_USER')" >操作</td>
 						</tr>
 						<tr th:id="${item.id}" th:each="item,stat : ${insurances}" th:if="not ${#lists.isEmpty(insurances)}">
 							<td>[[${item.name}]]</td>
@@ -40,7 +39,7 @@
 							<td>[[${item.contact}]]</td>
 							<td>[[${item.phone}]]</td>
 							<td>[[${item.comment}]]</td>
-							<td sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_REPAIR')" ><a th:href="@{/emp/feedback/__${item.id}__}">处理保修单</a></td>
+							<td sec:authorize="hasRole('ROLE_USER')" ><a th:href="@{/client/feedback/__${item.id}__}">回访</a></td>
 						</tr>
 					</table>
 				</div>
@@ -56,7 +55,7 @@
 <script type='text/javascript' th:inline="javascript">
 $(function(){
 	var url = window.location.href;
-	var pageUrl = '/unhandle/';
+	var pageUrl = '/nofeed/';
 	/*<![CDATA[*/
     var isadmin = /*[[${#authorization.expression('hasRole(''ROLE_ADMIN'')')}]]*/;
     var isclient = /*[[${#authorization.expression('hasRole(''ROLE_USER'')')}]]*/;

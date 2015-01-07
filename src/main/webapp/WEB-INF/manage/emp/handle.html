@@ -18,7 +18,7 @@
 		<div th:include="fragements/left"></div>
 		<div class="main col-xs-10">
 			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
-				<table>
+					<table>
 						<tr>
 							<td>结算户代码</td>
 							<!-- <td>档案号</td> -->
@@ -28,10 +28,6 @@
 							<td>紧急联系人</td>
 							<td>联系人电话</td>
 							<td>保修类型</td>
-							<td>备注信息</td>
-							<td>故障原因</td>
-							<td>分发工单时间</td>
-							<td>故障处理结束时间</td>
 							<td>备注信息</td>
 						</tr>
 						<tr id="result">
@@ -44,20 +40,14 @@
 							<td>[[${insurance.phone}]]</td>
 							<td>[[${insurance.itype}]]</td>
 							<td>[[${insurance.comment}]]</td>
-							<td>[[${insurance.reason}]]</td>
-							<td>[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]</td>
-							<td>[[${#dates.format(insurance.endDate, 'dd/MMM/yyyy HH:mm')}]]</td>
-							<td>[[${insurance.empComment}]]</td>
 						</tr>
 				</table>
-				<form id="form" method="post" action="/client/feedback">
+				<form id="form" method="post" action="/emp/feedback">
 					<input type="hidden" name="id" th:value="${insurance.id}" />
-					对本次维修服务评价：
-					<input th:each="item,stat : ${assessments}" type="radio" name="assessment" th:value="${item}"/>
-					<span th:each="item,stat : ${assessments}" th:text="${item.desc}"></span>
-					<!-- TODO:选择未处理则显示投诉内容输入框 -->
+					故障原因：<textarea name="reason"></textarea>
+					分发工单时间：[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]
 					故障照片上传：
-					投诉内容：<div id="comp" stype="display:hidden"><textarea name="empComment"></textarea></div>
+					备注：<textarea name="empComment"></textarea>
 					<input type="submit" name="提交" />
 				</form>
 			</div>
@@ -71,17 +61,28 @@
 <script type="text/javascript" th:src="@{/js/jquery.validate.min.js}"></script>
 <script>
 $(function(){
-	$('form input[type=radio]').on('click', function(){
-		var assessment = $(this).val();
-		var ischeck = this.checked;
-		if(assessment === "COMPLAINT"){
-			if(ischeck){
-				$('#comp').show();
-			}else{
-				$('#comp').hide();
+	$('#form').validate({
+		rules: {
+			"reason": {
+				required:true,
+				minlenth:6
+			},
+			"empComment": {
+				required:true,
+				minlenth:6
+			}
+		},
+		messages: {
+			"reason": {
+				required:"请输原因",
+				minlenth:"内容过短"
+			},
+			"empComment": {
+				required:"请输入备注",
+				minlenth:"内容过短"
 			}
 		}
-	});
+	})
 });
 </script>
 </body>

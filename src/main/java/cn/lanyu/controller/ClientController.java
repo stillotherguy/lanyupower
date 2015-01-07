@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.lanyu.base.page.Page;
 import cn.lanyu.insurance.Insurance;
+import cn.lanyu.insurance.Insurance.Assessment;
 import cn.lanyu.insurance.InsuranceDao;
 import cn.lanyu.user.UserContext;
 
@@ -19,6 +21,22 @@ import cn.lanyu.user.UserContext;
 public class ClientController {
 	@Autowired
 	private InsuranceDao insuranceDao;
+	
+	@RequestMapping(value = "/feedback/{id}", method = RequestMethod.GET)
+	public String feedback(Model model, @PathVariable long id) {
+		model.addAttribute("insurance", insuranceDao.get(id))
+			 .addAttribute("assessments", Assessment.values());
+		
+		return "client/feedback";
+	}
+	
+	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
+	public String feedback(RedirectAttributes attr, Insurance insurance) {
+		insuranceDao.update(insurance);
+		attr.addFlashAttribute("message", "回访成功");
+		
+		return "redirect:/index";
+	}
 	
 	@RequestMapping(value = "/unhandle/{id}/{currentPage}", method = RequestMethod.GET)
 	public String pageUnhandleWithId(Model model, @PathVariable long id, @PathVariable int currentPage) {
@@ -52,7 +70,7 @@ public class ClientController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByClientId(id, page));
 		
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping(value = "/finish/{currentPage}", method = RequestMethod.GET)
@@ -60,7 +78,7 @@ public class ClientController {
 		Page page = new Page(currentPage);
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByClientId(UserContext.getUserId(), page));
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping(value = "/finish", method = RequestMethod.GET)
@@ -69,7 +87,7 @@ public class ClientController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByClientId(UserContext.getUserId(), page));
 		
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping(value = "/nofeed/{id}/{currentPage}", method = RequestMethod.GET)
@@ -78,7 +96,7 @@ public class ClientController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedbackByClientId(id, page));
 		
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	@RequestMapping(value = "/nofeed/{currentPage}", method = RequestMethod.GET)
@@ -86,7 +104,7 @@ public class ClientController {
 		Page page = new Page(currentPage);
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedbackByClientId(UserContext.getUserId(), page));
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	@RequestMapping(value = "/nofeed", method = RequestMethod.GET)
@@ -95,7 +113,7 @@ public class ClientController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedbackByClientId(UserContext.getUserId(), page));
 		
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	@RequestMapping(value = "/repair", method = RequestMethod.POST)

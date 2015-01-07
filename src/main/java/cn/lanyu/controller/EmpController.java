@@ -1,32 +1,39 @@
 package cn.lanyu.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import cn.lanyu.base.page.Page;
+import cn.lanyu.insurance.Insurance;
 import cn.lanyu.insurance.InsuranceDao;
 import cn.lanyu.user.UserContext;
-
-import com.google.common.collect.Maps;
 
 @Controller
 @RequestMapping("/emp")
 public class EmpController {
 	@Autowired
 	private InsuranceDao insuranceDao;
+	
+	@RequestMapping(value = "/feedback/{id}", method = RequestMethod.GET)
+	public String handle(Model model, @PathVariable long id) {
+		model.addAttribute("insurance", insuranceDao.get(id));
+		
+		return "emp/handle";
+	}
+	
+	@RequestMapping(value = "/feedback", method = RequestMethod.POST)
+	public String handleAction(Model model, Insurance insurance) {
+		insurance.setEndDate(new Date());
+		insuranceDao.update(insurance);
+		model.addAttribute("message", "处理成功");
+		return "redirect:/emp/unhandle";
+	}
 	
 	@RequestMapping("/unhandle/{id}/{currentPage}")
 	public String pageWithId(Model model, @PathVariable long id, @PathVariable int currentPage) {
@@ -61,7 +68,7 @@ public class EmpController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByUserId(id, page));
 		
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping("/finish/{currentPage}")
@@ -69,7 +76,7 @@ public class EmpController {
 		Page page = new Page(currentPage);
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByUserId(UserContext.getUserId(), page));
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping("/finish")
@@ -78,7 +85,7 @@ public class EmpController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByUserId(UserContext.getUserId(), page));
 		
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping("/nofeed/{id}/{currentPage}")
@@ -87,7 +94,7 @@ public class EmpController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedbackByUserId(id, page));
 		
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	@RequestMapping("/nofeed/{currentPage}")
@@ -95,7 +102,7 @@ public class EmpController {
 		Page page = new Page(currentPage);
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedbackByUserId(UserContext.getUserId(), page));
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	@RequestMapping("/nofeed")
@@ -104,7 +111,7 @@ public class EmpController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedbackByUserId(UserContext.getUserId(), page));
 		
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	/**
