@@ -16,6 +16,9 @@
 	<!-- <div th:include="fragements/header"></div> -->
 	<div id="content">
 		<form id="form">
+			<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+		        This will only be displayed if authenticated user has role ROLE_ADMIN.
+		    </div>
 			<span id="msg"></span><div id="sec">秒后跳转</div><br/>
 			用户名：<span th:if="${username} != null" sec:authentication="name"></span><br/>
 			<input th:if="${username} == null" type="text" name="username" />

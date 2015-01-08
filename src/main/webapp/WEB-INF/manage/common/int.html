@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lte IE 6 ]> <html class="ie ie6 lte_ie7 lte_ie8" lang="zh-CN"> <![endif]-->
+<!--[if IE 7 ]> <html class="ie ie7 lte_ie7 lte_ie8" lang="zh-CN"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie ie8 lte_ie8" lang="zh-CN"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie ie9" lang="zh-CN"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta name="robots" content="all" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link href="css/base.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+	<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：客户报修管理系统</h6>
+		</div>
+		<div class="right-scr">
+			<div class="achive-searchbox clearfix">
+				<p class="title">客户档案检索</p>
+				<div class="field mr-38">
+					<div class="input-row">
+						<label>用户卡号：</label>
+						<input type="text"/>
+					</div>
+					<div class="input-row">
+						<label>用户姓名：</label>
+						<input type="text"/>
+					</div>
+				</div>
+				<div class="field mr-38">
+					<div class="input-row">
+						<label>用户地址：</label>
+						<input type="text"/>
+					</div>
+					<div class="input-row">
+						<label>用户手机：</label>
+						<input type="text"/>
+					</div>
+				</div>
+				<div class="field">
+					<div class="input-row">
+						<label>用户电话：</label>
+						<input type="text"/>
+					</div>
+					<div class="input-row search-btn">
+						<a>搜  索</a>
+					</div>
+				</div>
+			</div>
+			<div class="search-result">
+				<table>
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>用户卡号</th>
+							<th>姓名</th>
+							<th>手机号码</th>
+							<th>固定电话</th>
+							<th>地址</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>00001</td>
+							<td>张三</td>
+							<td>13778888888</td>
+							<td>025888888</td>
+							<td>南京市建邺区河西大街<a class="ds-ib ml-15">详细信息</a><a class="ds-ib ml-15">报修</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<p>公司地址：江苏省南京市建邺区云龙山路80号天泽星网C区7楼<span class="ml-15">未经许可不得转载</span></p>
+		<p>版权所有COPYRIGHT 2014-2017，江苏紫安智能系统工程有限公司. All Reserved.<span class="ml-15">苏ICP备11075351</span></p>	
+	</div>
+</body>
+</html>

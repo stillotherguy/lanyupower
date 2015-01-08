@@ -91,9 +91,9 @@ $(function(){
 	$('#file_upload').uploadify({
 		fileObjName: 'file',
 		width: 100,
-	    uploader: '/emp/upload',
+	    uploader: '/emp/upload;jsessionid=' + '[[${#httpSession.id}]]',
 	    //flash文件位置，注意路径
-	    'swf' : '/static/css/uploadify.swf',
+	    'swf' : '/static/css/uploadify.swf' + ';jsessionid=' + '[[${#httpSession.id}]]',
 	    //script: '/emp/upload',
 	    //后台处理的请求(sevlet)
 	    auto: true,

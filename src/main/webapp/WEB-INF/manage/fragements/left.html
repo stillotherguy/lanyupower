@@ -1,4 +1,4 @@
-<div class="sidemenu-title">用户报修受理</div>
+<!-- <div class="sidemenu-title">用户报修受理</div>
 <ul class="nav nav-pills nav-stacked sidemenu" sec:authorize="hasRole('ROLE_ADMIN')">
 	<li><a href="/admin/unhandle">未处理报修([[${allcount[0]}]])</a></li>
 	<li><a href="/admin/nofeed">已经处理未回访([[${allcount[1]}]])</a></li>
@@ -23,4 +23,26 @@
 	<li><a href="/emp/unhandle">未处理报修([[${allcount[0]}]])</a></li>
 	<li><a href="/emp/nofeed">已经处理未回访([[${allcount[1]}]])</a></li>
 	<li><a href="/emp/finish">已经处理报修([[${allcount[2]}]])</a></li>
-</ul>
+</ul> -->
+
+<div class="left">
+	<div class="brandcrumb">
+		<h3>客户报修管理系统</h3>
+		<div class="left-scr">
+			<ul class="left-nav">
+				<li><a>用户报修受理</a></li>
+				<li><a>未处理报修</a>
+					<ul>
+						<li><a>&gt; 未报修受理 (2)</a></li>
+						<li><a>&gt; 已经处理未回访 (2)</a></li>
+					</ul>
+				</li>
+				<li><a>已经处理报修</a>
+					<ul>
+						<li><a>&gt; 已经处理报修 (2)</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

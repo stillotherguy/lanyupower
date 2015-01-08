@@ -94,7 +94,7 @@ public class AdminController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByClientId(UserContext.getUserId(), page));
 		
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping("/finish/{currentPage}")
@@ -103,7 +103,7 @@ public class AdminController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedback(page));
 		
-		return "common/unhandle";
+		return "common/finish";
 	}
 	
 	@RequestMapping("/nofeed")
@@ -112,7 +112,7 @@ public class AdminController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedback(page));
 		
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 	
 	@RequestMapping("/nofeed/{currentPage}")
@@ -121,6 +121,6 @@ public class AdminController {
 		model.addAttribute("page", page)
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedback(page));
 		
-		return "common/unhandle";
+		return "common/nofeed";
 	}
 }
