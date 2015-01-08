@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<title>投诉统计</title>
-
+		<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 		<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
 		<style type="text/css">
 #container {
@@ -81,12 +81,21 @@ $(function () {
 
 		</script>
 	</head>
-	<body>
+	<body th:inline="text">
 
 <script src="/static/js/highcharts.js"></script>
 <script src="/static/js/highcharts-3d.js"></script>
 <script src="/static/js/modules/exporting.js"></script>
-
-<div id="container" style="height: 400px"></div>
-	</body>
+<div class="head" th:include="fragements/header"></div>
+<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;投诉统计</h6>
+		</div>
+		<div class="right-scr">
+			<div id="container" style="height: 400px"></div>
+		</div>
+	</div>
+<div class="footer" th:include="fragements/footer"></div>
+</body>
 </html>

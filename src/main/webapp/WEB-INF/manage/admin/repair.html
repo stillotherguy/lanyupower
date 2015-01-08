@@ -7,15 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<!-- <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" /> -->
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
-	<!-- <div th:include="fragements/header"></div> -->
-		<div class="main col-xs-10">
-			<div id="clientcontent">
-				<table id="clienttable">
+<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;提交报修单</h6>
+		</div>
+		<div class="right-scr">
+			<div class="search-result">
+				<table id="clienttable" class="table table-striped">
 					<tr>
 						<td>结算户代码</td>
 						<!-- <td>档案号</td> -->
@@ -57,9 +62,65 @@
 						<td>[[${client.phone}]]</td>
 					</tr>
 				</table>
+				</div>
+				<div class="achive-searchbox clearfix">
 				<form id="form" action="/admin/repair" method="post">
-					报修单名：
-					<input type="text" id="name" name="name"/>
+					<div class="achive-searchbox clearfix">
+						<p class="title">提交报修单</p>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>保修单名：</label>
+								<input type="text" id="name" name="name"/>
+								<input type="hidden" id="clientid" name="client.id" th:value="${client.id}"/>
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>报修类型：</label>
+								<select name="itype">
+									<option value="OTHER">其他</option>
+									<option value="LEAK">漏水</option>
+									<option value="HEATMETER">热表故障</option>
+									<option value="COLD">无法升温</option>
+								</select>
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>片区负责：</label>
+								<select name="user.id">
+									<option th:if="not ${#lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
+								</select>
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>紧急联系人：</label>
+								<input type="text" name="contact" />
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>联系人电话：</label>
+								<input type="text" name="phone" />
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>备注：</label>
+								<textarea name="comment"></textarea>
+							</div>
+						</div>
+						<div class="field">
+							<div class="input-row search-btn">
+								<input type="submit" name="提交" id="submit"/>
+							</div>
+						</div>
+					</div>
+				
+				
+				
+					<!-- 报修单名：<input type="text" id="name" name="name"/><br/>
 					<input type="hidden" id="clientid" name="client.id" th:value="${client.id}"/>
 					报修类型：
 					<select name="itype">
@@ -71,19 +132,18 @@
 					片区负责：
 					<select name="user.id">
 						<option th:if="not ${#lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
-					</select>
+					</select><br/>
 					紧急联系人：<input type="text" name="contact" /><br/>
 					联系人电话：<input type="text" name="phone" /><br/>
 					备注：
 					<textarea name="comment">
-					</textarea>
-					<input type="submit" name="提交" id="submit"/>
+					</textarea><br/>
+					<input type="submit" name="提交" id="submit"/> -->
 				</form>
 			</div>
+		</div>
 	</div>
-	<div class="footer">
-		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
-	</div>
+	<div class="footer" th:include="fragements/left"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>

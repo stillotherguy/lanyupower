@@ -118,12 +118,14 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value = "/repair", method = RequestMethod.POST)
-	public String nofeed(Insurance insurance) {
+	public String nofeed(Insurance insurance, Model model) {
 		insurance.setStartDate(new Date());
 		Client client = new Client();
 		client.setId(UserContext.getUserId());
 		insurance.setClient(client);
 		insuranceDao.insert(insurance);
+		model.addAttribute("message", "提交报修单成功");
+		
 		return "redirect:/index";
 	}
 }

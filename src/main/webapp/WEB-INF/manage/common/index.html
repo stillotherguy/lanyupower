@@ -8,28 +8,55 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<!-- <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" /> -->
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
-	<div th:include="fragements/header"></div>
-	<div class="container wrapper">
-		<div th:include="fragements/left" class="sidebar col-xs-2"></div>
-		<div class="main col-xs-10">
-			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
-				欢迎：<span id="username" sec:authentication="name" ></span><br/>
+	<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：首页</h6>
+		</div>
+		<div class="right-scr">
+			<div class="achive-searchbox clearfix" sec:authorize="hasRole('ROLE_ADMIN')">
+				<p class="title">客户档案检索</p>
+				<div class="field mr-38">
+					<div class="input-row">
+						<label>用户卡号：</label>
+						<input type="text" id="card" />
+					</div>
+					<div class="input-row">
+						<label>用户姓名：</label>
+						<input type="text" id="name" />
+					</div>
+				</div>
+				<div class="field mr-38">
+					<div class="input-row">
+						<label>用户地址：</label>
+						<input type="text" id="address" />
+					</div>
+					<div class="input-row">
+						<label>用户手机：</label>
+						<input type="text" id="mobile" />
+					</div>
+				</div>
+				<div class="field">
+					<div class="input-row">
+						<label>用户电话：</label>
+						<input type="text" id="phone" />
+					</div>
+					<!-- <div class="input-row search-btn">
+						<a>搜  索</a>
+					</div> -->
+				</div>
+			</div>
+			<div class="search-result">
+			欢迎：<span id="username" sec:authentication="name" ></span>！<span sec:authorize="hasRole('ROLE_ADMIN')">作为管理员，您可以<a th:href="@{/signup}">注册</a></span>
 				<span>[[${message} == null?'':${message}]]</span>
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
-					客户档案检索：<br/>
-					<input type="text" id="card" class="form-control" placeholder="用户卡号"/>
-					<input type="text" id="phone" class="form-control" placeholder="用户固话"/>
-					<input type="text" id="name" class="form-control" placeholder="用户名字"/>
-					<input type="text" id="mobile" class="form-control" placeholder="用户手机"/>
-					<input type="text" id="address" class="form-control" placeholder="用户地址"/>
-					<!-- 用户卡号：<input type="text" id="card"/>用户地址：<input type="text" id="address"/>用户电话：<input type="text" id="phone"/><br/>
-					用户姓名：<input type="text" id="name"/>用户手机：<input type="text" id="mobile"/> -->
-					<table id="admintable" class="table table-striped">
+					<table id="admintable">
 						<thead>
 							<tr>
 								<td>结算户代码</td>
@@ -41,7 +68,7 @@
 								<td>上年度缴费</td>
 								<td>本年度缴费</td>
 								<td>结算户类型</td>
-								<td>用户数</td>
+								<!-- <td>用户数</td>
 								<td>关联数量</td>
 								<td>身份证号</td>
 								<td>单位</td>
@@ -49,7 +76,7 @@
 								<td>签约银行</td>
 								<td>上月热表数(KJ)</td>
 								<td>本月热表数(KJ)</td>
-								<td>电话</td>
+								<td>电话</td> -->
 								<td>操作</td>
 							</tr>
 						</thead>
@@ -102,8 +129,8 @@
 					</table>
 					<form id="form" action="/client/repair"  method="post">
 						报修单名：
-						<input type="text" id="name" name="name"/>
-						<input type="hidden" id="clientid" name="clientid" th:value="${client.id}"/>
+						<input type="text" id="name" name="name"/><br/>
+						<input type="hidden" id="clientid" name="clientid" th:value="${client.id}"/><br/>
 						报修类型：
 						<select name="itype">
 							<option value="OTHER">其他</option>
@@ -114,21 +141,41 @@
 						片区负责：
 						<select name='user.id'>
 							<option th:if="${not #lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
-						</select>
+						</select><br/>
 						紧急联系人：<input type="text" id="contact" name="contact"/><br/>
 						联系人电话：<input type="text" id="phone" name="phone"/><br/>
 						备注：
 						<textarea id="comment">
-						</textarea>
+						</textarea><br/>
 						<input type="submit" name="提交" id="submit"/>
 					</form>
 				</div>
+				<!-- <table>
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>用户卡号</th>
+							<th>姓名</th>
+							<th>手机号码</th>
+							<th>固定电话</th>
+							<th>地址</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>00001</td>
+							<td>张三</td>
+							<td>13778888888</td>
+							<td>025888888</td>
+							<td>南京市建邺区河西大街<a class="ds-ib ml-15">详细信息</a><a class="ds-ib ml-15">报修</a></td>
+						</tr>
+					</tbody>
+				</table> -->
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
-	</div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>

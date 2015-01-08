@@ -18,6 +18,9 @@ function commonCallback(data){
 		/*]]>*/
 		console.log(data);
 		$.each(data, function(index,value){
+			if(index == 1 && value == null){
+				$('#admintable tbody').append('<tr><td>无结果</td></tr>');
+			}
 			$('#admintable tbody').html(
 			'<tr id="' + value.id + '">' +
 			'<td>' + value.no + '</td>' + 
@@ -28,7 +31,7 @@ function commonCallback(data){
 			'<td>' + value.lastyearcharge + '</td>' +
 			'<td>' + value.thisyearcharge + '</td>' +
 			'<td>' + value.usertype + '</td>' +
-			'<td>' + value.totaluser + '</td>' +
+			/*'<td>' + value.totaluser + '</td>' +
 			'<td>' + value.revnum + '</td>' +
 			'<td>' + value.identity + '</td>' +
 			'<td>' + value.organization + '</td>' +
@@ -36,7 +39,7 @@ function commonCallback(data){
 			'<td>' + value.bank + '</td>' +
 			'<td>' + value.lastmonthkj + '</td>' +
 			'<td>' + value.thismonthkj + '</td>' +
-			'<td>' + value.phone + '</td>'  +
+			'<td>' + value.phone + '</td>'  +*/
 			'<td>' + '<a href="/admin/repair/' + value.id +'" data-entity=' + value.id + '>报修</a>' + '</td></tr>');
 		});
 		//$('#result td:eq(0)').text(data.no);

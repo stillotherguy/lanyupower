@@ -25,13 +25,13 @@ public class IndexController {
 	@RequestMapping
 	public String index(Model model) {
 		final GrantedAuthority auth = UserContext.getAuthority();
-		if(auth.getAuthority().equals("ROLE_USER")){
+		/*if(auth.getAuthority().equals("ROLE_USER")){
 			final long id = UserContext.getUserId();
 			Client client = userService.getById(id);
 			if(client.isFirstlogin()){
 				return "redirect:/pwd/change";
 			}
-		}
+		}*/
 		final String no = UserContext.getUsername();
 		if(auth != null) {
 			final Authority authority = Authority.valueOf(auth.getAuthority());

@@ -8,20 +8,20 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
-	<div th:include="fragements/header"></div>
-	<div class="container wrapper">
-		<!-- 左侧菜单 -->
-		<div th:include="fragements/left" class="sidebar col-xs-2"></div>
-		<div class="main col-xs-10">
-			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
+	<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;未受理报修</h6>
+		</div>
+		<div class="right-scr">
 				<span>[[${message} == null?'':${message}]]</span>
-				<div>
-					<table id="table" class="table table-striped">
+				<div class="search-result">
+					<table id="table">
 						<tr>
 							<td>名称</td>
 							<td>报修类型</td>
@@ -44,7 +44,6 @@
 						</tr>
 					</table>
 				</div>
-			</div>
 		</div>
 	</div>
 	<div class="footer">

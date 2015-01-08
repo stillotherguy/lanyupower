@@ -8,19 +8,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <link rel="shortcut icon" href="/favicon.ico" />
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
+<!-- <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" /> -->
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
-	<div th:include="fragements/header"></div>
-	<div class="container wrapper">
-		<!-- 左侧菜单 -->
-		<div th:include="fragements/left" class="sidebar col-xs-2"></div>
-		<div class="main col-xs-10">
-			<div class="chart-pane"><!-- <sitemesh:write property='body'/> sec:authentication="name"-->
-				<div>
-					<table id="table" class="table table-striped">
+	<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;已经处理未回访</h6>
+		</div>
+		<div class="right-scr">
+			<div class="searchresult">
+				<table id="table">
+					<thead>
 						<tr>
 							<td>名称</td>
 							<td>报修类型</td>
@@ -31,6 +33,8 @@
 							<td>备注</td>
 							<td sec:authorize="hasRole('ROLE_USER')" >操作</td>
 						</tr>
+					</thead>
+					<tbody>
 						<tr th:id="${item.id}" th:each="item,stat : ${insurances}" th:if="not ${#lists.isEmpty(insurances)}">
 							<td>[[${item.name}]]</td>
 							<td>[[${item.itype}]]</td>
@@ -41,14 +45,12 @@
 							<td>[[${item.comment}]]</td>
 							<td sec:authorize="hasRole('ROLE_USER')" ><a th:href="@{/client/feedback/__${item.id}__}">回访</a></td>
 						</tr>
-					</table>
-				</div>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
-	</div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script th:src="@{/static/js/bootstrap-paginator.min.js}"></script>

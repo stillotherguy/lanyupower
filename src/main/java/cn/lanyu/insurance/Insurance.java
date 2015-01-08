@@ -45,6 +45,8 @@ public class Insurance {
 	private String empComment;
 	private Assessment assessment;
 	private String complaint;
+	//TODO:
+	//private int complaintCount;
 	
 	public Insurance(){}
 	

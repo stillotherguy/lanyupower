@@ -8,16 +8,18 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <!-- <link rel="shortcut icon" th:href="/favicon.ico" /> -->
-<link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" />
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
-	<div th:include="fragements/header"></div>
-	<div class="container wrapper">
-		<div th:include="fragements/left"></div>
-		<div class="main col-xs-10">
-			<div class="chart-pane"><!-- <sitemesh:write property='body'/> -->
+	<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：首页</h6>
+		</div>
+		<div class="right-scr">
+			<div class="search-result">
 				<table>
 						<tr>
 							<td>结算户代码</td>

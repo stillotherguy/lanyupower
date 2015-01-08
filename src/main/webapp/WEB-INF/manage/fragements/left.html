@@ -25,24 +25,51 @@
 	<li><a href="/emp/finish">已经处理报修([[${allcount[2]}]])</a></li>
 </ul> -->
 
-<div class="left">
 	<div class="brandcrumb">
-		<h3>客户报修管理系统</h3>
+		<h3>客户报修管理系统<a href="logout">&nbsp;<span style="color:red">登出</span></a></h3>
 		<div class="left-scr">
 			<ul class="left-nav">
 				<li><a>用户报修受理</a></li>
 				<li><a>未处理报修</a>
 					<ul>
-						<li><a>&gt; 未报修受理 (2)</a></li>
-						<li><a>&gt; 已经处理未回访 (2)</a></li>
+						<li>
+							<a href="/admin/unhandle" sec:authorize="hasRole('ROLE_ADMIN')">&gt; 未受理报修 ([[${allcount[0]}]])</a>
+							<a href="/emp/unhandle" sec:authorize="hasRole('ROLE_REPAIR')">&gt; 未受理报修([[${allcount[0]}]])</a>
+							<a href="/client/unhandle" sec:authorize="hasRole('ROLE_USER')">&gt; 未受理报修 ([[${allcount[0]}]])</a>
+						</li>
+						<li>
+							<a href="/admin/nofeed" sec:authorize="hasRole('ROLE_ADMIN')">&gt; 已经处理未回访 ([[${allcount[1]}]])</a>
+							<a href="/emp/nofeed" sec:authorize="hasRole('ROLE_REPAIR')">&gt; 已经处理未回访 ([[${allcount[1]}]])</a>
+							<a href="/client/nofeed" sec:authorize="hasRole('ROLE_USER')">&gt; 已经处理未回访 ([[${allcount[1]}]])</a>
+						</li>
 					</ul>
 				</li>
 				<li><a>已经处理报修</a>
 					<ul>
-						<li><a>&gt; 已经处理报修 (2)</a></li>
+						<li>
+							<a href="/admin/finish" sec:authorize="hasRole('ROLE_ADMIN')">&gt; 已经处理报修 ([[${allcount[2]}]])</a>
+							<a href="/emp/finish" sec:authorize="hasRole('ROLE_REPAIR')">&gt; 已经处理报修 ([[${allcount[2]}]])</a>
+							<a href="/client/finish" sec:authorize="hasRole('ROLE_USER')">&gt; 已经处理报修 ([[${allcount[2]}]])</a>;
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="left-nav" sec:authorize="hasRole('ROLE_ADMIN')">
+				<li><a>人员档案管理</a>
+					<ul>
+						<li><a>客服人员管理</a></li>
+						<li><a>维修人员管理</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="left-nav" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_LEADER')">
+				<li><a>统计报表</a>
+					<ul>
+						<li><a href="/leader/satisfied">满意度统计</a></li>
+						<li><a href="/leader/repair">维修时长统计</a></li>
+						<li><a href="/leader/complaint">投诉统计</a></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 	</div>
-</div>
