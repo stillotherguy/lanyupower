@@ -143,7 +143,7 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 		String reason = insurance.getReason();
 		String empComment = insurance.getEmpComment();
 		String images = insurance.getImages();
-		updateBySql("update insurance set reason=?,images=?,empComment=?,finished=1 where id=?", new Object[]{reason,images,empComment,insurance.getId()});
+		updateBySql("update insurance set reason=?,images=?,empComment=?,endDate=?,finished=1 where id=?", new Object[]{reason, images, empComment, insurance.getEndDate(), insurance.getId()});
 	}
 
 	@Override

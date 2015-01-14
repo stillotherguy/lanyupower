@@ -18,7 +18,7 @@ function commonCallback(data){
 		/*]]>*/
 		console.log(data);
 		$.each(data, function(index,value){
-			if(index == 1 && value == null){
+			if(index == 0 && value == null){
 				$('#admintable tbody').append('<tr><td>无结果</td></tr>');
 			}
 			$('#admintable tbody').html(

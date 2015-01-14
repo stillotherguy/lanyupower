@@ -57,11 +57,11 @@
 					对本次维修服务评价：
 					<div th:each="item,stat : ${assessments}" >
 						<span th:text="${item.desc}"></span>
-						<input  type="radio" name="assessment" th:value="${item}"/>
+						<input  type="radio" name="assessment" th:value="${item.ordinal()}"/>
 					</div>
 					
 					<!-- TODO:选择未处理则显示投诉内容输入框 -->
-					<div id="comp">投诉内容：<textarea name="empComment"></textarea></div>
+					<div id="comp">投诉内容：<textarea name="complaint"></textarea></div>
 					<input type="submit" name="提交" />
 				</form>
 			</div>
@@ -79,7 +79,7 @@ $(function(){
 	$('form input[type=radio]').on('click', function(){
 		var assessment = $(this).val();
 		var ischeck = this.checked;
-		if(assessment === "COMPLAINT"){
+		if(assessment === "4"){
 			if(ischeck){
 				$('#comp').show();
 			}

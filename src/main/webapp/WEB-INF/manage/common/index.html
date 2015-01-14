@@ -133,10 +133,10 @@
 						<input type="hidden" id="clientid" name="clientid" th:value="${client.id}"/><br/>
 						报修类型：
 						<select name="itype">
-							<option value="OTHER">其他</option>
-							<option value="LEAK">漏水</option>
-							<option value="HEATMETER">热表故障</option>
-							<option value="COLD">无法升温</option>
+							<option value="3">其他</option>
+							<option value="0">漏水</option>
+							<option value="1">热表故障</option>
+							<option value="2">无法升温</option>
 						</select><br/>
 						片区负责：
 						<select name='user.id'>
@@ -145,7 +145,7 @@
 						紧急联系人：<input type="text" id="contact" name="contact"/><br/>
 						联系人电话：<input type="text" id="phone" name="phone"/><br/>
 						备注：
-						<textarea id="comment">
+						<textarea id="comment" name="comment">
 						</textarea><br/>
 						<input type="submit" name="提交" id="submit"/>
 					</form>
