@@ -16,13 +16,14 @@
 	<div class="left" th:include="fragements/left"></div>
 	<div class="right">
 		<div class="brandcrumb">
-			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;未受理报修</h6>
+			<a href="/index" class="back-home fr bold">&lt;&lt; 返回首页</a>
+			<h6 class="position">您当前的位置为： <a href="/index"><span style="color:white;font-weight:bold">首页</span></a> &gt; 未受理报修</h6>
 		</div>
 		<div class="right-scr">
 				<span>[[${message} == null?'':${message}]]</span>
 				<div class="search-result">
-					<table id="table">
-						<tr>
+					<table class="table table-bordered" id="table">
+						<tr class="bold">
 							<td>名称</td>
 							<td>报修类型</td>
 							<td>保修用户</td>

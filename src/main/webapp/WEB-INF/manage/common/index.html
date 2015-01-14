@@ -53,21 +53,21 @@
 				</div>
 			</div>
 			<div class="search-result">
-			欢迎：<span id="username" sec:authentication="name" ></span>！<span sec:authorize="hasRole('ROLE_ADMIN')">作为管理员，您可以<a th:href="@{/signup}">注册</a></span>
-				<span>[[${message} == null?'':${message}]]</span>
+			<div class="welcome-info">欢迎：<span id="username" sec:authentication="name" ></span>！<span sec:authorize="hasRole('ROLE_ADMIN')">作为管理员，您可以<a class="res" th:href="@{/signup}">注册</a></span>
+				<span>[[${message} == null?'':${message}]]</span></div>
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
 					<table id="admintable">
 						<thead>
 							<tr>
-								<td>结算户代码</td>
+								<th>结算户代码</th>
 								<!-- <td>档案号</td> -->
-								<td>用户名</td>
-								<td>状态</td>
-								<td>地址</td>
-								<td>计费类型</td>
-								<td>上年度缴费</td>
-								<td>本年度缴费</td>
-								<td>结算户类型</td>
+								<th>用户名</th>
+								<th>状态</th>
+								<th>地址</th>
+								<th>计费类型</th>
+								<th>上年度缴费</th>
+								<th>本年度缴费</th>
+								<th>结算户类型</th>
 								<!-- <td>用户数</td>
 								<td>关联数量</td>
 								<td>身份证号</td>
@@ -77,7 +77,7 @@
 								<td>上月热表数(KJ)</td>
 								<td>本月热表数(KJ)</td>
 								<td>电话</td> -->
-								<td>操作</td>
+								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
