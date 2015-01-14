@@ -63,8 +63,9 @@
 						<td>[[${client.phone}]]</td>
 					</tr>
 				</table>
-				</div>
-				<div class="achive-searchbox clearfix">
+			</div>
+			
+			<div class="achive-searchbox clearfix">
 				<form id="form" action="/admin/repair" method="post">
 					<div class="achive-searchbox repair-form clearfix">
 						<p class="title">提交报修单</p>
@@ -79,10 +80,10 @@
 							<div class="input-row">
 								<label>报修类型：</label>
 								<select name="itype" class="form-control">
-									<option value="3">其他</option>
-									<option value="0">漏水</option>
-									<option value="1">热表故障</option>
-									<option value="2">无法升温</option>
+									<option value="OTHER">其他</option>
+									<option value="LEAK">漏水</option>
+									<option value="HEATMETER">热表故障</option>
+									<option value="COLD">无法升温</option>
 								</select>
 							</div>
 						</div>
@@ -122,7 +123,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="footer" th:include="fragements/left"></div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>

@@ -43,11 +43,14 @@
 							<td>[[${item.user} == null?'':${item.user}]]</td>
 							<td>[[${item.contact}]]</td>
 							<td>[[${item.phone}]]</td>
-							<td>[[${item.comment}]]</td>
+							<td>[[${item.comment} == null?'':${item.comment}]]</td>
 							<td sec:authorize="hasRole('ROLE_USER')" ><a th:href="@{/client/feedback/__${item.id}__}">回访</a></td>
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<!-- TODO: -->
+			<div id="page" class="clearfix mt-20">
 			</div>
 		</div>
 	</div>
@@ -57,32 +60,31 @@
 <script th:src="@{/static/js/bootstrap-paginator.min.js}"></script>
 <script type='text/javascript' th:inline="javascript">
 $(function(){
-	var url = window.location.href;
-	var pageUrl = '/nofeed/';
 	/*<![CDATA[*/
     var isadmin = /*[[${#authorization.expression('hasRole(''ROLE_ADMIN'')')}]]*/;
     var isclient = /*[[${#authorization.expression('hasRole(''ROLE_USER'')')}]]*/;
     var isemp = /*[[${#authorization.expression('hasRole(''ROLE_REPAIR'')')}]]*/;
     var id = /*[[${#authentication.principal.id}]]*/;
 	/*]]>*/
+	var pageUrl;
 	if(isadmin){
-		pageUrl = '/admin' + pageUrl;
+		pageUrl = '/admin/nofeed/';
 	}else if(isclient){
-		pageUrl = '/client' + pageUrl + '/';
+		pageUrl = '/client/nofeed/';
 	}else if(isemp){
-		pageUrl = '/emp' + pageUrl + '/';
+		pageUrl = '/emp/nofeed/';
 	}
     var options = {
-	    currentPage: '[[${page.currentPage}]]',
-	    totalPages: '[[${page.totalPage}]]',
+	    currentPage: [[${page.currentPage}]],
+	    totalPages: [[${page.totalPage}]],
 		numberOfPages: 5,
 	    pageUrl: function(type, page, current){
 	    	return pageUrl + page;
 	    },
-  		containerClass:'pagination'
+  		containerClass:'pagination fr'
     }
 
-    $('#stat').bootstrapPaginator(options);
+    $('#page').bootstrapPaginator(options);
 });
 </script>
 </body>

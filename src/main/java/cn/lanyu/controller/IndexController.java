@@ -8,14 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.lanyu.auth.Authority;
-import cn.lanyu.client.Client;
 import cn.lanyu.insurance.Insurance.Type;
 import cn.lanyu.user.UserContext;
+import cn.lanyu.user.UserDao;
 import cn.lanyu.user.UserService;
 
 @Controller
 @RequestMapping("/index")
 public class IndexController {
+	@Autowired
+	private UserDao userDao;
+	
 	@Autowired
 	private UserService userService;
 	
@@ -37,7 +40,7 @@ public class IndexController {
 			final Authority authority = Authority.valueOf(auth.getAuthority());
 			switch(authority) {
 			case ROLE_ADMIN:
-				model.addAttribute("emps", userService.getAllEmp());
+				model.addAttribute("emps", userDao.getAllEmp());
 				model.addAttribute("type", Type.values());
 				break;
 			case ROLE_REPAIR:
@@ -45,7 +48,7 @@ public class IndexController {
 			case ROLE_LEADER:
 				return "leader/index";
 			case ROLE_USER:
-				model.addAttribute("emps", userService.getAllEmp());
+				model.addAttribute("emps", userDao.getAllEmp());
 				model.addAttribute("client", userService.getByNo(no));
 				model.addAttribute("type", Type.values());
 				break;

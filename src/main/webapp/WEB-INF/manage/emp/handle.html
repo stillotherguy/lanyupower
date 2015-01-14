@@ -9,7 +9,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <!-- <link rel="shortcut icon" th:href="/favicon.ico" /> -->
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
-<link type="text/css" rel="stylesheet" href="/static/css/uploadify.css" />
+	<link type="text/css" rel="stylesheet" href="/static/css/uploadify.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
 <body th:inline="text">
@@ -20,8 +20,8 @@
 			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;处理保修单</h6>
 		</div>
 		<div class="right-scr">
-			<div  class="search-result">
-					<table>
+			<div class="mt-15">
+					<table class="table table-bordered ta-c">
 						<tr>
 							<td>结算户代码</td>
 							<!-- <td>档案号</td> -->
@@ -45,20 +45,43 @@
 							<td>[[${insurance.comment} == null?'':${insurance.comment}]]</td>
 						</tr>
 				</table>
-				<form id="form" method="post" action="/emp/feedback">
-					<input type="hidden" name="id" th:value="${insurance.id}" /><br/>
-					故障原因：<textarea name="reason"></textarea><br/>
-					分发工单时间：<span th:if="${insurance.startDate != null}">[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]</span><br/>
-					备注：<textarea name="empComment"></textarea><br/>
-					<input type="hidden" name="images" id="images" /><br/>
-					<input type="submit" name="提交" />
-				</form>
-					故障照片上传：<div id="queue"></div>
-					<input id="file_upload" name="file" type="file" multiple="true"/>
+				<!-- TODO: -->
+				<div class="achive-searchbox clearfix">
+					<form id="form" method="post" action="/emp/feedback">
+						<input type="hidden" name="id" th:value="${insurance.id}" />
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>故障原因：</label>
+								<textarea name="reason" class="form-control" ></textarea>
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>分发工单时间：</label>
+								<span class="form-control" th:if="${insurance.startDate != null}">[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]</span>
+							</div>
+						</div>
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>备注：</label>
+								<textarea name="empComment" class="form-control"></textarea>
+							</div>
+						</div>
+						<input type="hidden" name="images" id="images" /><br/>
+						<div class="field">	
+							<div class="search-btn">
+								<input type="submit" name="提交" id="submit"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			
+				故障照片上传：<div id="queue"></div>
+				<input id="file_upload" name="file" type="file" multiple="true"/>
 			</div>
 		</div>
 	</div>
-	<div class="footer" th:include="fragements/left"></div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>

@@ -24,7 +24,6 @@ import cn.lanyu.file.FileService;
 import cn.lanyu.insurance.Insurance;
 import cn.lanyu.insurance.InsuranceDao;
 import cn.lanyu.user.UserContext;
-import cn.lanyu.util.BeanUtils;
 
 import com.google.common.collect.Maps;
 

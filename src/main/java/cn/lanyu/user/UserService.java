@@ -105,17 +105,5 @@ public class UserService {
 		}
 		return clients;
 	}
-	
-	public void changePwd(String username, String pwd){
-		clientDao.changePwd(username, pwd);
-	}
-	
-	public List<User> getAllEmp() {
-		return userDao.getAllEmp();
-	}
-
-	public boolean isExist(String username) {
-		return userDao.isExist(username);
-	}
 
 }

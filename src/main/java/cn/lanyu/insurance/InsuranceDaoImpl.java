@@ -149,10 +149,9 @@ public class InsuranceDaoImpl extends GenericDao<Insurance> implements Insurance
 	@Override
 	public void updateWithSQLFeedback(Insurance insurance, boolean b) {
 		if(b){
-			updateBySql("update insurance set complaint=?,assessment=?,finished=0 where id=?", new Object[]{insurance.getComplaint(),Assessment.COMPLAINT.ordinal(),insurance.getId()});
+			updateBySql("update insurance set complaint=?,assessment=?,finished=0,complaintCount=complaintCount+1 where id=?", new Object[]{insurance.getComplaint(),Assessment.COMPLAINT.ordinal(),insurance.getId()});
 		}else{
-			updateBySql("update insurance set assessment=?,finished=1 where id=?", new Object[]{insurance.getAssessment(),insurance.getId()});
-
+			updateBySql("update insurance set assessment=?,finished=1,feedback=1 where id=?", new Object[]{insurance.getAssessment().ordinal(),insurance.getId()});
 		}
 	}
 
