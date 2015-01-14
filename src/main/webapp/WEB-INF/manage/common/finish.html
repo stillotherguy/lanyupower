@@ -17,7 +17,8 @@
 	<div class="left" th:include="fragements/left"></div>
 	<div class="right">
 		<div class="brandcrumb">
-			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;已经处理报修</h6>
+			<a href="/index" class="back-home fr bold">&lt;&lt; 返回首页</a>
+			<h6 class="position">您当前的位置为： <a href="/index"><span style="color:white;font-weight:bold">首页</span></a> &gt; 已经处理报修</h6>
 		</div>
 		<div class="right-scr">
 				<span>[[${message} == null?'':${message}]]</span>
@@ -43,12 +44,12 @@
 						</tr>
 					</table>
 				</div>
-				<div th:if="${#lists.isEmpty(insurances)}">
+				<div class="no-result" th:if="${#lists.isEmpty(insurances)}">
 					无结果<!-- TODO: -->
 				</div>
 		</div>
 	</div>
-	<div class="footer" th:include="fragements/left"></div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script th:src="@{/static/js/bootstrap-paginator.min.js}"></script>
