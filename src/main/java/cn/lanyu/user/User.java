@@ -28,7 +28,6 @@ import org.springframework.util.Assert;
 import cn.lanyu.auth.Authority;
 import cn.lanyu.insurance.Insurance;
 
-import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 
 @Entity
@@ -57,6 +56,10 @@ public class User implements UserDetails, CredentialsContainer {
     }
 
     public User() {
+	}
+    
+    public User(long id) {
+    	this.id = id;
 	}
 
 	public void setPassword(String password) {

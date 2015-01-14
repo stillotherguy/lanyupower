@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import cn.lanyu.auth.Authority;
 import cn.lanyu.base.dao.GenericDao;
+import cn.lanyu.base.page.Page;
 
 
 @Repository
@@ -33,6 +34,16 @@ public class UserDaoImpl extends GenericDao<User> implements UserDao {
 	@Override
 	public void changePwd(String username, String password) {
 		updateBySql("update user set password=? where username=?", new Object[]{password, username});
+	}
+	
+	@Override
+	public List<User> pageQueryAllRepairEmp(Page page) {
+		return queryForList("from User u where u.authority=?", new Object[]{Authority.ROLE_REPAIR}, page);
+	}
+
+	@Override
+	public List<User> pageQueryAllServiceEmp(Page page) {
+		return queryForList("from User u where u.authority=?", new Object[]{Authority.ROLE_SERVICE}, page);
 	}
 
 }

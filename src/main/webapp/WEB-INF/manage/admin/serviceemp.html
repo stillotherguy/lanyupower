@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>蓝煜热力客户信息服务管理系统</title>
+<meta charset="UTF-8"/>
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<!-- <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" /> -->
+<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
+<!-- <sitemesh:write property='head'/> -->
+</head>
+<body th:inline="text">
+<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<h6 class="position">您当前的位置为：<a href="/index"><span style="color:white">首页</span></a>&gt;提交报修单</h6>
+		</div>
+		<div class="right-scr">
+			<div class="search-result">
+				<table id="clienttable" class="table table-striped" th:if="${not #lists.isEmpty(services)}">
+					<tr>
+						<td>名字</td>
+						<td>用户名</td>
+						<td>操作</td>
+					</tr>
+					<tr th:each="item,index : ${services}" th:if="${not #lists.isEmpty(services)}">
+						<td>[[${item.name}]]</td>
+						<td>[[${item.username}]]</td>
+						<td><a href="/signup">添加</a><a th:href="/admin/delete/${item.id}">删除</a></td>
+					</tr>
+				</table>
+				<div th:if="${#lists.isEmpty(repairs)}"><a href="/signup">去添加</a></div>
+				</div>
+				<div class="achive-searchbox clearfix">
+			</div>
+		</div>
+	</div>
+	<div class="footer" th:include="fragements/left"></div>
+<script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
+<script>
+$(function(){
+	$('#form').validate({
+		rules: {
+			"name": {
+				required:true/* ,
+				remote: {
+	                type: "post",
+	                url: "/insurance/exist",
+	                data: {
+	                    name: function() {
+	                        return $("#username").val();
+	                    }
+	                },
+	                dataType: "json"
+	            } */
+			},
+			"contact": {
+				required:true
+			},
+			"phone": {
+				required:true
+			}
+		},
+		messages: {
+			"name": {
+				required:"请输入报修单",
+				remote:"名称已存在"
+			},
+			"contact": {
+				required:"请输入紧急联系人"
+			},
+			"phone": {
+				required:"请输入联系人电话"
+			}
+		}
+	});
+});
+</script>
+</body>
+</html>

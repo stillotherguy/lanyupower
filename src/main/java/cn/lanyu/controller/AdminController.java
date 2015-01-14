@@ -19,7 +19,9 @@ import cn.lanyu.client.Client;
 import cn.lanyu.insurance.Insurance;
 import cn.lanyu.insurance.InsuranceDao;
 import cn.lanyu.insurance.Insurance.Type;
+import cn.lanyu.user.User;
 import cn.lanyu.user.UserContext;
+import cn.lanyu.user.UserDao;
 import cn.lanyu.user.UserService;
 
 @Controller
@@ -29,6 +31,8 @@ public class AdminController {
 	private UserService userService;
 	@Autowired
 	private InsuranceDao insuranceDao;
+	@Autowired
+	private UserDao userDao;
 	
 	@RequestMapping(value = "/{searchType}/{param}", method = RequestMethod.GET)
 	@ResponseBody
@@ -64,9 +68,9 @@ public class AdminController {
 	
 	@RequestMapping(value = "/repair", method = RequestMethod.POST)
 	public String repair(RedirectAttributes attr, Insurance insurance){
-		attr.addFlashAttribute("message", "提交报修单成功");
 		insurance.setStartDate(new Date());
 		insuranceDao.insert(insurance);
+		attr.addFlashAttribute("message", "提交报修单成功");
 		return "redirect:/index";
 	}
 	
@@ -122,5 +126,31 @@ public class AdminController {
 		.addAttribute("insurances", insuranceDao.pageFinishedWithoutFeedback(page));
 		
 		return "common/nofeed";
+	}
+	
+	@RequestMapping("/repairs/{currentPage}")
+	public String repairs(Model model, @PathVariable int currentPage) {
+		Page page = new Page(currentPage);
+		model.addAttribute("page", page)
+		.addAttribute("repairs", userDao.pageQueryAllRepairEmp(page));
+		
+		return "admin/repairemp";
+	}
+	
+	@RequestMapping("/service/{currentPage}")
+	public String services(Model model, @PathVariable int currentPage) {
+		Page page = new Page(currentPage);
+		model.addAttribute("page", page)
+		.addAttribute("services", userDao.pageQueryAllServiceEmp(page));
+		
+		return "admin/serviceemp";
+	}
+	
+	@RequestMapping("/delete/{id}")
+	public String delete(RedirectAttributes attr, @PathVariable long id) {
+		userDao.delete(new User(id));
+		attr.addFlashAttribute("message", "删除员工成功");
+		
+		return "redirect:/index";
 	}
 }
