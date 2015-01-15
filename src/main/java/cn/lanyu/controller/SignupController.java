@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cn.lanyu.user.User;
+import cn.lanyu.user.UserDao;
 import cn.lanyu.user.UserService;
 
 @Controller
@@ -16,6 +17,9 @@ import cn.lanyu.user.UserService;
 public class SignupController {
 	@Autowired
 	private UserService userSerivce;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String signup(Model model) {
@@ -26,7 +30,7 @@ public class SignupController {
 	@RequestMapping(value = "/exist", method = RequestMethod.GET)
 	@ResponseBody
 	public boolean signup(String username) {
-		return !userSerivce.isExist(username);
+		return !userDao.isExist(username);
 	}
 	
 	/**

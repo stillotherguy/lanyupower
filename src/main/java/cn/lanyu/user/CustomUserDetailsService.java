@@ -16,7 +16,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private UserDao userDao;
 	@Autowired
 	private ClientDao clientDao;
-	//TODO @Autowired
+	@Autowired
 	private ClientRemoteDao remoteDao;
 	//SPRING_SECURITY_CONTEXT存在session里
 	@Autowired
@@ -34,8 +34,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		Client client = clientDao.getByCardno(username);
 		if(client == null) {
 			//TODO:从远程取
-			//client = remoteDao.getClientByNo(username);
+			client = remoteDao.getClientByNo(username);
 			if(client != null) {
+				client.setFirstlogin(true);
 				client.setPassword(encoder.encode(DEFAULT_PWD));
 				clientDao.insert(client);
 				return client;

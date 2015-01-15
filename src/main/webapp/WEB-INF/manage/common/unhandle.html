@@ -45,30 +45,30 @@
 						</tr>
 					</table>
 				</div>
+				<!-- TODO: -->
+				<div id="page" class="clearfix mt-20">
+				</div>
 		</div>
 	</div>
-	<div class="footer">
-		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
-	</div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 <script th:src="@{/static/js/bootstrap-paginator.min.js}"></script>
 <script type='text/javascript' th:inline="javascript">
 $(function(){
-	var url = window.location.href;
-	var pageUrl = '/unhandle/';
 	/*<![CDATA[*/
     var isadmin = /*[[${#authorization.expression('hasRole(''ROLE_ADMIN'')')}]]*/;
     var isclient = /*[[${#authorization.expression('hasRole(''ROLE_USER'')')}]]*/;
     var isemp = /*[[${#authorization.expression('hasRole(''ROLE_REPAIR'')')}]]*/;
     var id = /*[[${#authentication.principal.id}]]*/;
 	/*]]>*/
+	var pageUrl;
 	if(isadmin){
-		pageUrl = '/admin' + pageUrl;
+		pageUrl = '/admin/unhandle/';
 	}else if(isclient){
-		pageUrl = '/client' + pageUrl + '/';
+		pageUrl = '/client/unhandle/';
 	}else if(isemp){
-		pageUrl = '/emp' + pageUrl + '/';
+		pageUrl = '/emp/unhandle/';
 	}
     var options = {
 	    currentPage: '[[${page.currentPage}]]',
@@ -80,7 +80,7 @@ $(function(){
   		containerClass:'pagination'
     }
 
-    $('#stat').bootstrapPaginator(options);
+    $('#page').bootstrapPaginator(options);
 });
 </script>
 </body>

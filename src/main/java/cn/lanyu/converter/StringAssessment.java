@@ -22,6 +22,7 @@ public class StringAssessment implements Converter<String,Assessment> {
 		default:
 			return Assessment.VERY_SATISFIED;
 		}
+		//return Assessment.valueOf(source);
 	}
 
 }

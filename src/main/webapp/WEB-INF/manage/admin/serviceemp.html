@@ -30,20 +30,24 @@
 					<tr th:each="item,index : ${services}" th:if="${not #lists.isEmpty(services)}">
 						<td>[[${item.name}]]</td>
 						<td>[[${item.username}]]</td>
-						<td><a href="/signup">添加</a><a th:href="/admin/delete/${item.id}">删除</a></td>
+						<td><a href="/signup">添加</a>&nbsp;<a th:href="@{/admin/delete/__${item.id}__}">删除</a></td>
 					</tr>
 				</table>
 				<div class="goto-add mt-20" th:if="${#lists.isEmpty(repairs)}">您还没有相关人员， <a href="/signup">去添加 >></a></div>
 				</div>
 				<div class="achive-searchbox clearfix">
-			</div>
+				</div>
+				<!-- TODO -->
+				<div id="page" class="clearfix mt-20">
+				</div>
 		</div>
 	</div>
 	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
-<script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap-paginator.min.js}"></script>
+<script th:inline="text">
 $(function(){
 	$('#form').validate({
 		rules: {
@@ -80,6 +84,18 @@ $(function(){
 			}
 		}
 	});
+	
+	 var options = {
+	    currentPage: [[${page.currentPage}]],
+	    totalPages: [[${page.totalPage}]],
+		numberOfPages: 5,
+	    pageUrl: function(type, page, current){
+	    	return '/admin/service/' + page;
+	    },
+  		containerClass:"pagination fr"
+    };
+
+    $('#page').bootstrapPaginator(options);
 });
 </script>
 </body>

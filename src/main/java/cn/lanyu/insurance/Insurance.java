@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class Insurance {
 	@GeneratedValue
 	private long id;
 	private String name;
+	@Enumerated(EnumType.STRING)
 	private Type itype;
 	@ManyToOne(targetEntity = User.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID",foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
@@ -45,8 +48,7 @@ public class Insurance {
 	private String empComment;
 	private Assessment assessment;
 	private String complaint;
-	//TODO:
-	//private int complaintCount;
+	private int complaintCount;
 	
 	public Insurance(){}
 	
@@ -186,6 +188,14 @@ public class Insurance {
 		this.complaint = complaint;
 	}
 	
+	public int getComplaintCount() {
+		return complaintCount;
+	}
+
+	public void setComplaintCount(int complaintCount) {
+		this.complaintCount = complaintCount;
+	}
+
 	public static enum Assessment {
 		VERY_SATISFIED("非常满意"),SATISFIED("满意"),ORDINARY("一般"),UNSATISFIED("不满意"),COMPLAINT("投诉");
 		

@@ -19,9 +19,10 @@
 			<h6 class="position">您当前的位置为：首页</h6>
 		</div>
 		<div class="right-scr">
-			<div class="search-result">
-				<table>
+			<div  class="mt-15">
+				<table class="table table-bordered ta-c">
 						<tr>
+							<td>报修单名</td>
 							<td>结算户代码</td>
 							<!-- <td>档案号</td> -->
 							<td>用户名</td>
@@ -37,6 +38,7 @@
 							<td>备注信息</td>
 						</tr>
 						<tr id="result">
+							<td>[[${insurance.name}]]</td>
 							<td>[[${insurance.client.no}]]</td>
 							<!-- <td></td> -->
 							<td>[[${insurance.client.name}]]</td>
@@ -45,31 +47,44 @@
 							<td>[[${insurance.contact}]]</td>
 							<td>[[${insurance.phone}]]</td>
 							<td>[[${insurance.itype}]]</td>
-							<td>[[${insurance.comment}]]</td>
+							<td>[[${insurance.comment} == null?'':${insurance.comment}]]</td>
 							<td>[[${insurance.reason}]]</td>
 							<td>[[${#dates.format(insurance.startDate, 'dd/MMM/yyyy HH:mm')}]]</td>
 							<td>[[${#dates.format(insurance.endDate, 'dd/MMM/yyyy HH:mm')}]]</td>
 							<td>[[${insurance.empComment}]]</td>
 						</tr>
 				</table>
-				<form id="form" method="post" action="/client/feedback">
-					<input type="hidden" name="id" th:value="${insurance.id}" />
-					对本次维修服务评价：
-					<div th:each="item,stat : ${assessments}" >
-						<span th:text="${item.desc}"></span>
-						<input  type="radio" name="assessment" th:value="${item.ordinal()}"/>
-					</div>
-					
-					<!-- TODO:选择未处理则显示投诉内容输入框 -->
-					<div id="comp">投诉内容：<textarea name="complaint"></textarea></div>
-					<input type="submit" name="提交" />
-				</form>
+			</div>
+			<div class="achive-searchbox clearfix">
+				<div class="achive-searchbox repair-form clearfix">
+					<form id="form" method="post" action="/client/feedback">
+						<input type="hidden" name="id" th:value="${insurance.id}" />
+						<div class="field mr-38">
+							<div class="input-row">
+								<label>对本次维修服务评价：</label>
+								<div th:each="item,stat : ${assessments}">
+									<span th:text="${item.desc}"></span>
+									<input  type="radio" name="assessment" th:value="${item.ordinal()}" class="form-control" />
+								</div>
+							</div>
+						</div>
+						<div class="field mr-38" id="comp">
+							<div class="input-row">
+								<label>投诉内容：</label>
+								<textarea name="complaint" class="form-control" ></textarea>
+							</div>
+						</div>						
+						<div class="field">
+							<div class="search-btn">
+								<input type="submit" name="提交" id="submit"/>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
-	</div>
+	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
@@ -79,7 +94,7 @@ $(function(){
 	$('form input[type=radio]').on('click', function(){
 		var assessment = $(this).val();
 		var ischeck = this.checked;
-		if(assessment === "4"){
+		if(assessment === "COMPLAINT"){
 			if(ischeck){
 				$('#comp').show();
 			}

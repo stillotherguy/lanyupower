@@ -60,7 +60,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/repair/{clientid}", method = RequestMethod.GET)
 	public String repair(Model model, @PathVariable long clientid){
-		model.addAttribute("emps", userService.getAllEmp());
+		model.addAttribute("emps", userDao.getAllEmp());
 		model.addAttribute("client", userService.getById(clientid));
 		model.addAttribute("type", Type.values());
 		return "admin/repair";
@@ -96,7 +96,7 @@ public class AdminController {
 	public String finish(Model model) {
 		Page page = new Page();
 		model.addAttribute("page", page)
-		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedbackByClientId(UserContext.getUserId(), page));
+		.addAttribute("insurances", insuranceDao.pageFinishedWithFeedback(page));
 		
 		return "common/finish";
 	}
