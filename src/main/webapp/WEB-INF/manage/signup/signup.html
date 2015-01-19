@@ -9,49 +9,45 @@
 <link type="text/css" rel="stylesheet" th:href="@{/static/css/bootstrap.min.css}" />
 <link type="text/css" rel="stylesheet" th:href="@{/static/css/base.css}" />
 </head>
-<body class="page-login" th:inline="text">
-	<div class="login-wrap">
-		<div class="login-logo"></div>
-		<div class="login-panel">
-			<div class="login-box">
-				<h3>用户注册</h3>
-				<form class="form-filed" method="post" action="/signup" id="form">
-					<div class="form-item error clearfix">
-					    <label>用户名：</label>
-					    <input id="username" name="username" type="text" placeholder="请输入账号"/>
-					</div>
-					<div class="form-item clearfix">
-					    <label>名字：</label>
-					    <input id="name" name="name" type="text" placeholder="请输入名字"/>
-					</div>
-					<div class="form-item clearfix">
-						<label>密  码：</label>
-					    <input id="password" name="password" type="password" placeholder="请输入密码"/>
-					</div>
-					<div class="form-item clearfix">
-				    	<label>密码确认：</label>
-				        <input name="conform_pwd" type="password" placeholder="请再次输入密码"/> 
-				    </div>
-				    <div class="form-item clearfix">
-						<label>申请的权限</label>
-						<select name="authority">
-						  <option value="ROLE_ADMIN">管理员</option>
-						  <option value="ROLE_LEADER">领导</option>
-						  <option value="ROLE_REPAIR">维修人员</option>
-						  <option value="ROLE_SERVICE">客服人员</option>
-						</select>
-					</div>
-					<div class="login-btns">
-						<button type="submit" class="btn btn-primary">提交</button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="login-footer ta-c">
-			<p>公司地址：江苏省南京市建邺区云龙山路80号天泽星网C区7楼<span class="ml-15">未经许可不得转载</span></p>
-			<p>版权所有COPYRIGHT 2014-2017，江苏紫安智能系统工程有限公司. All Reserved.<span class="ml-15">苏ICP备11075351</span></p>	
-		</div>
-	</div>
+<body class="page-login page-reg" th:inline="text">
+    <div class="login-logo"></div>
+    <div class="reg-box">
+        <h3>用户注册</h3>
+        <form class="ui-form" method="post" action="/signup" id="form">
+            <div class="ui-form-item error clearfix">
+                <label class="ui-label">用户名：</label>
+                <input class="ui-input" id="username" name="username" type="text" placeholder="请输入账号"/>
+            </div>
+            <div class="ui-form-item clearfix">
+                <label class="ui-label">名字：</label>
+                <input class="ui-input" id="name" name="name" type="text" placeholder="请输入名字"/>
+            </div>
+            <div class="ui-form-item clearfix">
+                <label class="ui-label">密  码：</label>
+                <input class="ui-input" id="password" name="password" type="password" placeholder="请输入密码"/>
+            </div>
+            <div class="ui-form-item clearfix">
+                <label class="ui-label">密码确认：</label>
+                <input class="ui-input" name="conform_pwd" type="password" placeholder="请再次输入密码"/>
+            </div>
+            <div class="ui-form-item clearfix">
+                <label class="ui-label">申请的权限</label>
+                <select class="ui-input" name="authority">
+                  <option value="ROLE_ADMIN">管理员</option>
+                  <option value="ROLE_LEADER">领导</option>
+                  <option value="ROLE_REPAIR">维修人员</option>
+                  <option value="ROLE_SERVICE">客服人员</option>
+                </select>
+            </div>
+            <div class="ui-form-item ui-form-btn">
+                <button type="submit">提交</button>
+            </div>
+        </form>
+    </div>
+    <div class="login-footer ta-c">
+        <p>公司地址：江苏省南京市建邺区云龙山路80号天泽星网C区7楼<span class="ml-15">未经许可不得转载</span></p>
+        <p>版权所有COPYRIGHT 2014-2017，江苏紫安智能系统工程有限公司. All Reserved.<span class="ml-15">苏ICP备11075351</span></p>
+    </div>
 	<!-- <form class="form-filed" id="form" th:action="@{/signup}" th:object="${command}" method="post">
 				<h3 class="text-center">用户注册</h3>
 				<hr>

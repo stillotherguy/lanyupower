@@ -129,56 +129,43 @@
 					</table>
 					<!-- TODO: -->
 					<form id="form" action="/client/repair"  method="post">
-						<div class="field mr-38">
-							<div class="input-row">
-								<label>报修单名：</label>
-								<input type="text" id="name" name="name" class="form-control"/>
-							</div>
-						</div>
-						<input type="hidden" id="clientid" name="clientid" th:value="${client.id}"/>
-						<div class="field mr-38">
-							<div class="input-row">
-								<label>报修类型：</label>
-								<select name="itype" class="form-control">
-									<option value="OTHER">其他</option>
-									<option value="LEAK">漏水</option>
-									<option value="HEATMETER">热表故障</option>
-									<option value="COLD">无法升温</option>
-								</select>
-							</div>
-						</div>
-						<div class="field mr-38">
-							<div class="input-row">
-								<label>片区负责：</label>
-								<select name='user.id'>
-									<option th:if="${not #lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
-								</select>
-							</div>
-						</div>
-						<div class="field mr-38">
-							<div class="input-row">
-								<label>紧急联系人：</label>
-								<input type="text" id="contact" name="contact" class="form-control"/>
-							</div>
-						</div>
-						<div class="field mr-38">
-							<div class="input-row">
-								<label>联系人电话：</label>
-								<input type="text" id="phone" name="phone" />
-							</div>
-						</div>
-						<br/>
-						<div class="field mr-38">
-							<div class="input-row">
-								<label>备注：</label>
-								<textarea id="comment" name="comment" class="form-control"></textarea>
-							</div>
-						</div>
-						<div class="field">
-							<div class="search-btn">
-								<input type="submit" name="提交" id="submit"/>
-							</div>
-						</div>
+                        <div class="field field-row">
+                            <div class="input-row">
+                                <label>报修单名：</label>
+                                <input type="text" id="name" name="name" class="form-control"/>
+                            </div>
+                            <input type="hidden" id="clientid" name="clientid" th:value="${client.id}"/>
+                            <div class="input-row">
+                                <label>报修类型：</label>
+                                <select name="itype" class="form-control">
+                                    <option value="OTHER">其他</option>
+                                    <option value="LEAK">漏水</option>
+                                    <option value="HEATMETER">热表故障</option>
+                                    <option value="COLD">无法升温</option>
+                                </select>
+                            </div>
+                            <div class="input-row">
+                                <label>片区负责：</label>
+                                <select name='user.id'>
+                                    <option th:if="${not #lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
+                                </select>
+                            </div>
+                            <div class="input-row">
+                                <label>紧急联系人：</label>
+                                <input type="text" id="contact" name="contact" class="form-control"/>
+                            </div>
+                            <div class="input-row">
+                                <label>联系人电话：</label>
+                                <input type="text" id="phone" name="phone" />
+                            </div>
+                            <div class="input-row">
+                                <label>备注：</label>
+                                <textarea id="comment" name="comment" class="form-control"></textarea>
+                            </div>
+                            <div class="search-btn">
+                                <input type="submit" name="提交" id="submit"/>
+                            </div>
+                        </div>
 					</form>
 				</div>
 			</div>

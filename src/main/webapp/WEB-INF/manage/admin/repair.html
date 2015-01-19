@@ -64,19 +64,17 @@
 					</tr>
 				</table>
 			</div>
-			
+			d
 			<div class="achive-searchbox clearfix">
 				<form id="form" action="/admin/repair" method="post">
 					<div class="achive-searchbox repair-form clearfix">
 						<p class="title">提交报修单</p>
-						<div class="field mr-38">
+						<div class="field field-row">
 							<div class="input-row">
 								<label>保修单名：</label>
 								<input class="form-control" type="text" id="name" name="name"/>
 								<input type="hidden" id="clientid" name="client.id" th:value="${client.id}"/>
 							</div>
-						</div>
-						<div class="field mr-38">
 							<div class="input-row">
 								<label>报修类型：</label>
 								<select name="itype" class="form-control">
@@ -86,38 +84,28 @@
 									<option value="2">无法升温</option>
 								</select>
 							</div>
-						</div>
-						<div class="field mr-38">
 							<div class="input-row">
 								<label>片区负责：</label>
 								<select name="user.id" class="form-control">
 									<option th:if="not ${#lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
 								</select>
 							</div>
-						</div>
-						<div class="field mr-38">
 							<div class="input-row">
 								<label>紧急联系人：</label>
 								<input type="text" name="contact" class="form-control" />
 							</div>
-						</div>
-						<div class="field mr-38">
 							<div class="input-row">
 								<label>联系人电话：</label>
 								<input type="text" name="phone" class="form-control" />
 							</div>
-						</div>
-						<div class="field mr-38">
 							<div class="input-row">
 								<label>备注：</label>
 								<textarea name="comment" class="form-control" ></textarea>
 							</div>
-						</div>
-						<div class="field">
 							<div class="search-btn">
 								<input type="submit" name="提交" id="submit"/>
 							</div>
-						</div>
+                         </div>
 					</div>
 				</form>
 			</div>

@@ -19,9 +19,7 @@
 			<div class="login-box">
 				<h3>用户登录</h3>
 				<form class="form-filed" method="post" action="/login/action">
-					<div class="form-item error clearfix">
-						<label>[[${message} == null?'':${message}]]</label>
-					</div>
+					<div class="form-item error clearfix">[[${message} == null?'':${message}]]</div>
 					<div class="form-item error clearfix">
 						<label>用户名：</label>
 						<input name="user" type="text"/>
