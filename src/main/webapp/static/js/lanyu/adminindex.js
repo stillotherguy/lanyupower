@@ -40,7 +40,7 @@ function commonCallback(data){
 			'<td>' + value.lastmonthkj + '</td>' +
 			'<td>' + value.thismonthkj + '</td>' +
 			'<td>' + value.phone + '</td>'  +*/
-			'<td>' + '<a href="/admin/repair/' + value.id +'" data-entity=' + value.id + '>报修</a>' + '</td></tr>');
+			'<td>' + '<a href="/admin/repair/' + value.id +'" data-entity=' + value.id + '>报修</a>' + '<a href="/admin/details/' + value.id +'" data-entity=' + value.id + '>详细信息</a>' +'</td></tr>');
 		});
 		//$('#result td:eq(0)').text(data.no);
 		/*<![CDATA[*/

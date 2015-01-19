@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>蓝煜热力客户信息服务管理系统</title>
+<meta charset="UTF-8"/>
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<!-- <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css" /> -->
+<link type="text/css" rel="stylesheet" href="/static/css/base.css" />
+<!-- <sitemesh:write property='head'/> -->
+</head>
+<body th:inline="text">
+<div class="head" th:include="fragements/header"></div>
+	<div class="left" th:include="fragements/left"></div>
+	<div class="right">
+		<div class="brandcrumb">
+			<a href="/index" class="back-home fr bold">&lt;&lt; 返回首页</a>
+			<h6 class="position">您当前的位置为： <a href="/index"><span style="color:white;font-weight:bold">首页</span></a> &gt; 客户详情</h6>
+		</div>
+		<div class="right-scr">
+			<div  class="mt-15">
+				<table id="clienttable" class="table table-bordered ta-c">
+					<tr class="bold">
+						<td>结算户代码</td>
+						<!-- <td>档案号</td> -->
+						<td>用户名</td>
+						<td>状态</td>
+						<td>地址</td>
+						<td>计费类型</td>
+						<td>上年度缴费</td>
+						<td>本年度缴费</td>
+						<td>结算户类型</td>
+						<td>用户数</td>
+						<td>关联数量</td>
+						<td>身份证号</td>
+						<td>单位</td>
+						<td>联系人</td>
+						<td>签约银行</td>
+						<td>上月热表数(KJ)</td>
+						<td>本月热表数(KJ)</td>
+						<td>电话</td>
+					</tr>
+					<tr id="result">
+						<td>[[${client.no}]]</td>
+						<!-- <td></td> -->
+						<td>[[${client.name} == null?'空':${client.name}]]</td>
+						<td>[[${client.state} == null?'空':${client.state}]]</td>
+						<td>[[${client.address} == null?'空':${client.address}]]</td>
+						<td>[[${client.chargetype} == null?'空':${client.chargetype}]]</td>
+						<td>[[${client.lastyearcharge} == null?'空':${client.lastyearcharge}]]</td>
+						<td>[[${client.thisyearcharge} == null?'空':${client.thisyearcharge}]]</td>
+						<td>[[${client.usertype} == null?'空':${client.usertype}]]</td>
+						<td>[[${client.totaluser} == null?'空':${client.totaluser}]]</td>
+						<td>[[${client.revnum} == null?'空':${client.revnum}]]</td>
+						<td>[[${client.identity} == null?'空':${client.identity}]]</td>
+						<td>[[${client.organization} == null?'空':${client.organization}]]</td>
+						<td>[[${client.contact} == null?'空':${client.contact}]]</td>
+						<td>[[${client.bank} == null?'空':${client.bank}]]</td>
+						<td>[[${client.lastmonthkj} == null?'空':${client.lastmonthkj}]]</td>
+						<td>[[${client.thismonthkj} == null?'空':${client.thismonthkj}]]</td>
+						<td>[[${client.phone} == null?'空':${client.phone}]]</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="footer" th:include="fragements/footer"></div>
+</body>
+</html>

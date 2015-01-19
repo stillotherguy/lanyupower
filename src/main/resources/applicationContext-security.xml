@@ -9,7 +9,6 @@
 	<http security="none" pattern="/favicon.ico" />
 	<http security="none" pattern="/login/401" />
  	<http security="none" pattern="/login/403" />
- 	<http security="none" pattern="/pwd/change" />
  	<http security="none" pattern="/login**" />
  	<http security="none" pattern="/css/**" />
  	<http security="none" pattern="/js/**" />
@@ -22,6 +21,7 @@
  		<form-login login-processing-url="/login/action" login-page="/login" authentication-success-handler-ref="successHandler"
  			authentication-failure-url="/login/401" default-target-url="/" always-use-default-target="false" username-parameter="user" password-parameter="pass"/>
  		<intercept-url pattern="/signup" access="ROLE_ADMIN,ROLE_LEADER" />
+ 		<intercept-url pattern="/pwd/change" access="ROLE_USER,ROLE_REPAIR,ROLE_ADMIN,ROLE_LEADER,ROLE_SERVICE" />
  		<intercept-url pattern="/emp/**" access="ROLE_REPAIR,ROLE_SERVICE,ROLE_ADMIN" />
  		<intercept-url pattern="/client/**" access="ROLE_ADMIN,ROLE_USER" />
  		<intercept-url pattern="/leader/**" access="ROLE_ADMIN,ROLE_LEADER" />

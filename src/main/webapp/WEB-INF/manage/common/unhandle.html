@@ -26,7 +26,7 @@
 						<tr class="bold">
 							<td>名称</td>
 							<td>报修类型</td>
-							<td>保修用户</td>
+							<td>报修用户</td>
 							<td>服务人员</td>
 							<td>地址</td>
 							<td>电话</td>
@@ -35,7 +35,7 @@
 						</tr>
 						<tr th:id="${item.id}" th:each="item,stat : ${insurances}" th:if="not ${#lists.isEmpty(insurances)}">
 							<td>[[${item.name}]]</td>
-							<td>[[${item.itype}]]</td>
+							<td>[[${item.itype.desc}]]</td>
 							<td>[[${item.client.name}]]</td>
 							<td>[[${item.user} == null?'':${item.user}]]</td>
 							<td>[[${item.contact}]]</td>

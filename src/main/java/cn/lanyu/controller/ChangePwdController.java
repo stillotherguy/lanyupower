@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.lanyu.client.Client;
+import cn.lanyu.client.ClientDao;
 import cn.lanyu.user.User;
 import cn.lanyu.user.UserContext;
 import cn.lanyu.user.UserDao;
@@ -23,6 +24,8 @@ public class ChangePwdController {
 	private UserService userService;
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private ClientDao clientDao;
 	@Autowired
 	private PasswordEncoder encoder;
 	
@@ -38,6 +41,14 @@ public class ChangePwdController {
 		}
 		Client client = userService.getByNo(username);
 		if(client == null){
+			return false;
+		}
+		clientDao.changePwd(username, encoder.encode(pwd));
+		
+		return true;
+		
+		/*Client client = userService.getByNo(username);
+		if(client == null){
 			User user = userDao.getByUsername(username);
 			if(user == null || !encoder.matches(pwd, user.getPassword())){
 				return false;
@@ -50,7 +61,7 @@ public class ChangePwdController {
 			return true;
 		}
 		
-		return false;
+		return false;*/
 	}
 	
 	@RequestMapping(value = "/change", method = RequestMethod.GET)

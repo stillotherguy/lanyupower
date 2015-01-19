@@ -20,6 +20,17 @@
 			<h6 class="position">您当前的位置为：首页</h6>
 		</div>
 		<div class="right-scr">
+			<!-- TODO: -->
+			<div id="myModal" class="modal hide fade">
+			    <!-- 对话框内容 -->
+			    <div id='msg' class="modal-body">
+			        [[${message} == null?'':${message}]]
+			    </div>
+			    <!-- 对话框按钮 -->
+			    <div class="modal-footer">
+			        <a href="/index" class="btn primary">知道了</a>
+			    </div>
+			</div>
 			<div class="achive-searchbox clearfix" sec:authorize="hasRole('ROLE_ADMIN')">
 				<p class="title">客户档案检索</p>
 				<div class="field mr-38">
@@ -54,7 +65,7 @@
 			</div>
 			<div class="search-result">
 			<div class="welcome-info">欢迎：<span id="username" sec:authentication="name" ></span>！<span sec:authorize="hasRole('ROLE_ADMIN')">作为管理员，您可以<a class="res" th:href="@{/signup}">注册</a></span>
-				<span>[[${message} == null?'':${message}]]</span></div>
+				<!-- <span id='msg'>[[${message} == null?'':${message}]]</span></div> -->
 				<div sec:authorize="hasRole('ROLE_ADMIN')">
 					<table id="admintable">
 						<thead>
@@ -170,12 +181,47 @@
 				</div>
 			</div>
 		</div>
+		</div>
 	</div>
 	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/bootstrap.bootbox.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/lanyu/adminindex.js}" sec:authorize="hasRole('ROLE_ADMIN')"></script>
 <script type="text/javascript" th:src="@{/static/js/lanyu/clientindex.js}" sec:authorize="hasRole('ROLE_USER')"></script>
+<script>
+$(function() {
+ 
+    // 最后再设置对话框本身
+    var msg = $('#msg').text().trim();
+    
+    if(msg){
+    	// 点击之后隐藏对话框
+        $("#myModal").bind("show", function() {
+            $("#myModal a.btn").click(function(e) {
+                // 这里放点击后的代码
+                // 我们这里只放一点示例内容
+                console.log("button pressed: "+$(this).html());
+     
+                // 隐藏对话框
+                $("#myModal").modal('hide');
+            });
+        });
+     
+        // 对话框隐藏后就可以删除事件监听了
+        $("#myModal").bind("hide", function() {
+            // 所谓“松绑”
+            $("#myModal a.btn").unbind();
+        });
+    	$("#myModal").modal({
+    	      "backdrop"  : "static",
+    	      "keyboard"  : true,
+    	      "show"      : true    // 这个参数确保对话框立即显示
+    	});
+    }
+    
+});
+</script>
 </body>
 </html>

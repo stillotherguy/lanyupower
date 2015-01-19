@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.lanyu.auth.Authority;
+import cn.lanyu.client.Client;
 import cn.lanyu.insurance.Insurance.Type;
 import cn.lanyu.user.UserContext;
 import cn.lanyu.user.UserDao;
@@ -28,13 +29,13 @@ public class IndexController {
 	@RequestMapping
 	public String index(Model model) {
 		final GrantedAuthority auth = UserContext.getAuthority();
-		/*if(auth.getAuthority().equals("ROLE_USER")){
+		if(auth.getAuthority().equals("ROLE_USER")){
 			final long id = UserContext.getUserId();
 			Client client = userService.getById(id);
 			if(client.isFirstlogin()){
 				return "redirect:/pwd/change";
 			}
-		}*/
+		}
 		final String no = UserContext.getUsername();
 		if(auth != null) {
 			final Authority authority = Authority.valueOf(auth.getAuthority());

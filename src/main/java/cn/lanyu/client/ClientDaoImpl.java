@@ -43,7 +43,7 @@ public class ClientDaoImpl extends GenericDao<Client> implements ClientDao {
 
 	@Override
 	public void changePwd(String username, String pwd) {
-		updateBySql("update client set password=? where no=?", new Object[]{pwd, username});
+		updateBySql("update client set password=?,firstlogin=0 where no=?", new Object[]{pwd, username});
 	}
 
 	@Override

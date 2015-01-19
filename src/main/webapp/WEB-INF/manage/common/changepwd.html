@@ -11,29 +11,41 @@
 <link type="text/css" rel="stylesheet" href="/static/css/base.css" />
 <!-- <sitemesh:write property='head'/> -->
 </head>
-<body th:inline="text">
-	<!-- <div th:include="fragements/header"></div> -->
-	<div id="content">
-		<form id="form">
-			<div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
-		        This will only be displayed if authenticated user has role ROLE_ADMIN.
-		    </div>
-			<span id="msg"></span><div id="sec">秒后跳转</div><br/>
-			用户名：<span th:if="${username} != null" sec:authentication="name"></span><br/>
-			<input th:if="${username} == null" type="text" name="username" />
-			密       码：<input type="password" name="pwd" id="pwd"/><br/>
-			确认密码：<input type="password" name="pwdconfirm" id="pwdconfirm"/>
-			<input type="submit" name="提交" />
-		</form>
-	</div>
-	<div class="footer">
-		<div class="container text-center">Copyright © 2001-2014 Rabbit Network All Rights Reserved.</div>
-	</div>
-<script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
+<body class="page-login page-reg" th:inline="text">
+    <div class="login-logo"></div>
+    <div class="reg-box" id="content">
+        <h3>修改密码</h3>
+        <form class="ui-form" id="form">
+            <!-- <div class="ui-form-item error clearfix">
+                <label class="ui-label">用户名：</label>
+                <input class="ui-input" id="username" name="username" type="text" placeholder="请输入账号"/>
+            </div>
+            <div class="ui-form-item clearfix">
+                <label class="ui-label">名字：</label>
+                <input class="ui-input" id="name" name="name" type="text" placeholder="请输入名字"/>
+            </div> -->
+           <div class="ui-form-item clearfix">
+                <label class="ui-label">密  码：</label>
+                <input class="ui-input" id="password" name="pwd" type="password" placeholder="请输入密码"/>
+            </div>
+            <div class="ui-form-item clearfix">
+                <label class="ui-label">密码确认：</label>
+                <input class="ui-input" name="conform_pwd" type="password" placeholder="请再次输入密码"/>
+            </div>
+            <div class="ui-form-item ui-form-btn">
+                <button type="submit">提交</button>
+            </div>
+        </form>
+    </div>
+    <div class="login-footer ta-c">
+        <p>公司地址：江苏省南京市建邺区云龙山路80号天泽星网C区7楼<span class="ml-15">未经许可不得转载</span></p>
+        <p>版权所有COPYRIGHT 2014-2017，江苏紫安智能系统工程有限公司. All Reserved.<span class="ml-15">苏ICP备11075351</span></p>
+    </div>
+<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 <script>
-function ticker(count){
+/* function ticker(count){
 	window.setTimeout(function(){
 		count--;
 		if(count > 0){
@@ -44,31 +56,29 @@ function ticker(count){
 			window.location.href="/index"
 		}
 	},1000);
-}
+} */
 $(function(){
-	$('#sec').hide();
-	
 	$('#form').validate({
 		rules: {
 			"pwd": {
 				required:true,
-				minlenth:6
+				minlength:6
 			},
-			"pwdconfirm": {
+			"conform_pwd": {
 				required:true,
-				minlenth:6,
-				equalTo:"#pwd" 
+				equalTo:"#password",
+				minlength:6
 			}
 		},
 		messages: {
 			"pwd": {
-				required:"请输入用户名",
-				minlenth:"密码至少6位"
-			},
-			"pwdconfirm": {
 				required:"请输入密码",
-				minlenth:"密码至少6位",
-				equalTo:"两次输入密码不一致" 
+				minlength:"长度不小于6"
+			},
+			"conform_pwd": {
+				required:"请再次输入密码",
+				equalTo:"两次输入密码不一致",
+				minlength:"长度不小于6"
 			}
 		},
 		submitHandler: function(form){
@@ -76,20 +86,25 @@ $(function(){
 				url:"/pwd/change",
 				dataType:'json',
 				type:'post',
+				data:$(form).serialize(),
 				contentType:'application/x-www-form-urlencoded; charset=UTF-8',
 				success:function(data){
-					if(data){
 						if(data){
-							$('#content').html('密码修改成功');
-							ticker(3);
+							$('#content').html('密码修改成功<a href="/index">去首页</a>');
 						}else{
 							$('#msg').text('密码修改失败，请重试');
 						}
-						
-					}
 				}
 			};
-			form.ajaxSubmit(options);
+			$('#form').ajaxSubmit(options);  
+			/* form.submit(function(event) {
+				event.preventDefault();
+		         
+		   
+		        // !!! Important !!!   
+		        // always return false to prevent standard browser submit and page navigation   
+		        return false;   
+		    });    */
 		}
 	});
 });

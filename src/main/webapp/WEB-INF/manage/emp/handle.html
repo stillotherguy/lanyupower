@@ -76,110 +76,78 @@
 					</form>
 				</div>
 			
-				故障照片上传：<div id="queue"></div>
-				<input id="file_upload" name="file" type="file" multiple="true"/>
+				故障照片上传：
+				<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+				<br />
+				
+				<div id="container">
+				    <a id="pickfiles" href="javascript:;">[Select files]</a> 
+				    <a id="uploadfiles" href="javascript:;">[Upload files]</a>
+				</div>
+				
+				<br />
+				<pre id="console"></pre>
 			</div>
 		</div>
 	</div>
 	<div class="footer" th:include="fragements/footer"></div>
 <script type="text/javascript" th:src="@{/static/js/jquery-1.9.1.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/plupload.full.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/js/jquery.validate.min.js}"></script>
-<script type="text/javascript" th:src="@{/static/js/jquery.uploadify.min.js}"></script>
-<script th:inline="javascript">
-$(function(){
-	$('#form').validate({
-		rules: {
-			"reason": {
-				required:true,
-				minlenth:6
-			},
-			"empComment": {
-				required:true,
-				minlenth:6
-			}
-		},
-		messages: {
-			"reason": {
-				required:"请输原因",
-				minlenth:"内容过短"
-			},
-			"empComment": {
-				required:"请输入备注",
-				minlenth:"内容过短"
-			}
-		}
-	})
+<script type="text/javascript">
+var uploader = new plupload.Uploader({
+	runtimes : 'html5,flash,silverlight,html4',
+	browse_button : 'pickfiles', // you can pass in id...
+	container: document.getElementById('container'), // ... or DOM Element itself
+	url : '/emp/upload',
+	flash_swf_url : '/static/css/Moxie.swf',
+	silverlight_xap_url : '/static/css/Moxie.xap',
 	
-	$('#file_upload').uploadify({
-		fileObjName: 'file',
-		width: 100,
-	    uploader: '/emp/upload',
-	    //flash文件位置，注意路径
-	    'swf' : '/static/css/uploadify.swf',
-	    //script: '/emp/upload',
-	    //后台处理的请求(sevlet)
-	    auto: true,
-	    //选定文件后是否自动上传，默认false
-	    queueID: 'queue',
-	    //与下面的上传文件列表id对应
-	    queueSizeLimit: 8,
-	    //上传文件的数量
-	    scriptData: {
-	        'id': '[[${insurance.id}]]'
-	    },
-	    //向后台传的数据
-	    //fileDesc: '',
-	    //上传文件类型说明
-	    //fileExt: 'jpg,png,gif,jpeg',
-	    //控制可上传文件的扩展名，启用本项时需同时声明fileDesc
-	    method: 'post',
-	    //如果向后台传输数据，必须是get
-	    //  sizeLimit:10000,//文件上传的大小限制，单位是字节
-	    multi: true,
-	    simUploadLimit: 8,
-	    //同时上传文件的数量，设置了这个参数后，
-	    //那么你会因设置multi:true和queueSizeLimit：8而可以多选8个文件，
-	    //但如果一旦你将simUploadLimit也设置了，那么只会上传这个参数指定的文件个数，其它就上传不了
-	    buttonText: '选择图片',
-	    //浏览按钮上的文字
-	    /* onComplete: function(event, queueID, fileObj, serverData, data){ //当上传完成后的回调函数，ajax方式哦~~
-	    }, */
-	    onUploadSuccess: function(file, data, response) {
-            var result = $.parseJSON(data);
-            /*<![CDATA[*/
-            if(result && result != null){
-            /*]]>*/
-            	if(result.state){
-            		var img = $('#images').val();
-            		/*<![CDATA[*/
-            		if(img && result.file){
-            		/*]]>*/
-            			$('#images').val(img + ',' + result.file);
-            		}else{
-            			$('#images').val(result.file);
-            		}
-            		$('.right-scr').append('<img src="/static/upload/' + result.file + '"  alt="' + result.file + '" />')
-            	}else{
-            		alert(result.message);
-            	}
-            }
-        },
-	    onSelect: function(e, queueId, fileObj){
-	        /*alert("唯一标识:" + queueId + "\r\n" +
-		                  "文件名：" + fileObj.name + "\r\n" +
-		                  "文件大小：" + fileObj.size + "\r\n" +
-		                  "创建时间：" + fileObj.creationDate + "\r\n" +
-		                  "最后修改时间：" + fileObj.modificationDate + "\r\n" +
-		                  "文件类型：" + fileObj.type
-		            );*/
+	filters : {
+		max_file_size : '10mb',
+		mime_types: [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip"}
+		]
+	},
 
-	    },
-	    onError: function(event, queueID, fileObj){
-	    	alert("文件:" + fileObj.name + " 上传失败");
-	    }
-	});
+	init: {
+		PostInit: function() {
+			document.getElementById('filelist').innerHTML = '';
+
+			document.getElementById('uploadfiles').onclick = function() {
+				uploader.start();
+				return false;
+			};
+		},
+
+		FilesAdded: function(up, files) {
+			console.log('files');
+			plupload.each(files, function(file) {
+				console.log(file);
+				document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+			});
+		},
+
+		UploadProgress: function(up, file) {
+			console.log(file);
+			document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+		},
+		
+		UploadComplete: function(up, file) {
+			console.log(up);
+			console.log(file);
+			document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+		},
+
+		Error: function(up, err) {
+			document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+		}
+	}
 });
+
+uploader.init();
+
 </script>
 </body>
 </html>

@@ -64,7 +64,7 @@
 					</tr>
 				</table>
 			</div>
-			d
+			
 			<div class="achive-searchbox clearfix">
 				<form id="form" action="/admin/repair" method="post">
 					<div class="achive-searchbox repair-form clearfix">
@@ -78,10 +78,10 @@
 							<div class="input-row">
 								<label>报修类型：</label>
 								<select name="itype" class="form-control">
-									<option value="3">其他</option>
-									<option value="0">漏水</option>
-									<option value="1">热表故障</option>
-									<option value="2">无法升温</option>
+									<option value="OTHER">其他</option>
+									<option value="LEAK">漏水</option>
+									<option value="HEATMETER">热表故障</option>
+									<option value="COLD">无法升温</option>
 								</select>
 							</div>
 							<div class="input-row">
@@ -90,14 +90,12 @@
 									<option th:if="not ${#lists.isEmpty(emps)}" th:each="item,index :${emps}" th:value="${item.id}">[[${item.name}]]</option>
 								</select>
 							</div>
-							<div class="input-row">
-								<label>紧急联系人：</label>
-								<input type="text" name="contact" class="form-control" />
-							</div>
-							<div class="input-row">
-								<label>联系人电话：</label>
-								<input type="text" name="phone" class="form-control" />
-							</div>
+							<!-- <div class="input-row">
+								<label>紧急联系人：</label> -->
+								<input type="hidden" name="contact" th:value="${client.name}" class="form-control" />
+							<!-- <div class="input-row">
+								<label>联系人电话：</label> -->
+								<input type="hidden" name="phone" th:value="${client.phone}" class="form-control" />
 							<div class="input-row">
 								<label>备注：</label>
 								<textarea name="comment" class="form-control" ></textarea>

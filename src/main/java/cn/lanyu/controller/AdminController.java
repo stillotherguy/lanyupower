@@ -66,6 +66,12 @@ public class AdminController {
 		return "admin/repair";
 	}
 	
+	@RequestMapping(value = "/details/{clientid}", method = RequestMethod.GET)
+	public String details(Model model, @PathVariable long clientid){
+		model.addAttribute("client", userService.getById(clientid));
+		return "admin/details";
+	}
+	
 	@RequestMapping(value = "/repair", method = RequestMethod.POST)
 	public String repair(RedirectAttributes attr, Insurance insurance){
 		insurance.setStartDate(new Date());

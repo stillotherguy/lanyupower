@@ -35,7 +35,7 @@
 						</tr>
 						<tr th:id="${item.id}" th:each="item,stat : ${insurances}" th:if="not ${#lists.isEmpty(insurances)}">
 							<td>[[${item.name}]]</td>
-							<td>[[${item.itype}]]</td>
+							<td>[[${item.itype.desc}]]</td>
 							<td>[[${item.client.name}]]</td>
 							<td>[[${item.user} == null?'':${item.user}]]</td>
 							<td>[[${item.contact}]]</td>
