@@ -32,6 +32,7 @@
 							<td>地址</td>
 							<td>电话</td>
 							<td>备注</td>
+							<!-- TODO:详情页 -->
 						</tr>
 						<tr th:id="${item.id}" th:each="item,stat : ${insurances}" th:if="not ${#lists.isEmpty(insurances)}">
 							<td>[[${item.name}]]</td>
