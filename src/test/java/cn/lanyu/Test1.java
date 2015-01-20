@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.weaver.teams.monitor;
+package cn.lanyu;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

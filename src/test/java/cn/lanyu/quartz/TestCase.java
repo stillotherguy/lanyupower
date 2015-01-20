@@ -1,4 +1,4 @@
-package com.weaver.teams.monitor.quartz;
+package cn.lanyu.quartz;
 
 import java.util.concurrent.TimeUnit;
 
